@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Focus AI - Resources</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#303038",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#1b1b23",
+                    "tertiary-container": "#b55d00",
+                    "on-tertiary-fixed-variant": "#703700",
+                    "surface-bright": "#fcf8ff",
+                    "primary": "#4648d4",
+                    "secondary": "#565e74",
+                    "outline-variant": "#c7c4d7",
+                    "on-primary": "#ffffff",
+                    "background": "#fcf8ff",
+                    "on-tertiary-fixed": "#301400",
+                    "on-background": "#1b1b23",
+                    "surface-container-highest": "#e4e1ed",
+                    "surface-container-low": "#f5f2fe",
+                    "primary-fixed": "#e1e0ff",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#c0c1ff",
+                    "surface-tint": "#494bd6",
+                    "on-secondary-fixed": "#131b2e",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "outline": "#767586",
+                    "secondary-fixed": "#dae2fd",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e9e6f3",
+                    "on-secondary-container": "#5c647a",
+                    "surface-dim": "#dbd8e4",
+                    "on-primary-container": "#fffbff",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary": "#904900",
+                    "tertiary-fixed": "#ffdcc5",
+                    "secondary-container": "#dae2fd",
+                    "primary-container": "#6063ee",
+                    "on-primary-fixed": "#07006c",
+                    "surface-variant": "#e4e1ed",
+                    "surface-container": "#efecf8",
+                    "inverse-on-surface": "#f2effb",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "on-surface-variant": "#464554",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "surface": "#fcf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb783",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "on-secondary-fixed-variant": "#3f465c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "64px",
+                    "xs": "4px",
+                    "gutter": "24px",
+                    "lg": "40px",
+                    "base": "8px",
+                    "margin-desktop": "48px",
+                    "md": "24px",
+                    "sm": "12px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "display": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', sans-serif;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .resource-card-active:active {
+            transform: scale(0.98);
+            background-color: #f5f2fe;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+<!-- Top Navigation Bar (Mobile focused) -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/80 backdrop-blur-md px-4 h-16 flex items-center justify-between shadow-sm lg:hidden">
+<div class="flex items-center gap-2">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">Focus AI</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95">search</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-full active:scale-95">account_circle</button>
+</div>
+</header>
+<!-- Side Navigation (Web) -->
+<nav class="fixed left-0 top-0 h-screen hidden lg:flex flex-col py-lg px-sm bg-surface border-r border-outline-variant w-64 z-50">
+<div class="px-sm mb-xl">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Focus AI</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Deep Work Mode</p>
+</div>
+<div class="flex-grow space-y-1">
+<a class="flex items-center gap-sm px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all active:translate-x-1" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 rounded-xl text-primary bg-primary-container/10 font-bold transition-all active:translate-x-1" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-label-md font-label-md">Resources</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all active:translate-x-1" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="text-label-md font-label-md">Tasks</span>
+</a>
+<a class="flex items-center gap-sm px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all active:translate-x-1" href="#">
+<span class="material-symbols-outlined">local_fire_department</span>
+<span class="text-label-md font-label-md">Streaks</span>
+</a>
+</div>
+<div class="border-t border-outline-variant pt-4 space-y-1">
+<a class="flex items-center gap-sm px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="min-h-screen pt-20 pb-24 px-4 lg:ml-64 lg:px-xl">
+<div class="max-w-[1280px] mx-auto">
+<!-- Search & Header Section -->
+<div class="mb-6">
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile lg:text-headline-lg lg:font-headline-lg text-on-surface mb-4">Deep Work Resources</h2>
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-xl py-3 pl-12 pr-4 focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all text-body-md font-body-md" placeholder="Search deep work guides, papers..." type="text"/>
+</div>
+</div>
+<!-- Horizontal Skill Filters -->
+<div class="mb-8 -mx-4 px-4 overflow-x-auto hide-scrollbar flex gap-3">
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-primary text-on-primary text-label-md font-label-md shadow-sm">All Levels</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors text-label-md font-label-md">Cognition</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors text-label-md font-label-md">Focus Apps</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors text-label-md font-label-md">Neuroscience</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors text-label-md font-label-md">Productivity</button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-colors text-label-md font-label-md">Rituals</button>
+</div>
+<!-- Featured Resources Grid (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+<div class="bg-primary-container/5 border border-primary-container/20 p-6 rounded-2xl flex flex-col justify-between h-48 relative overflow-hidden">
+<div class="z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">stars</span>
+<span class="text-primary text-label-sm font-label-sm uppercase tracking-wider">Premium Guide</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-2">The Flow State Blueprint</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2">Master the neurochemistry of elite performance and sustained concentration.</p>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-10">
+<span class="material-symbols-outlined text-[120px]">psychology</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl flex items-center justify-between h-48 group cursor-pointer hover:shadow-lg transition-all">
+<div>
+<span class="text-secondary text-label-sm font-label-sm uppercase tracking-wider mb-2 block">Latest Research</span>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-2">Binaural Beats Meta-Analysis</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">A summary of 42 peer-reviewed studies on sound and focus.</p>
+</div>
+<div class="bg-surface-container-high p-4 rounded-xl group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">arrow_forward</span>
+</div>
+</div>
+</div>
+<!-- Vertical Resource List -->
+<div class="space-y-4">
+<h4 class="text-label-md font-label-md text-outline uppercase tracking-widest px-1">Curated Reading</h4>
+<!-- Resource Row 1 -->
+<div class="resource-card-active bg-surface-container-lowest border border-outline-variant p-4 rounded-xl flex items-center gap-4 transition-transform duration-200 cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">article</span>
+</div>
+<div class="flex-grow min-w-0">
+<h4 class="text-body-md font-bold text-on-surface truncate">Deep Work by Cal Newport</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">menu_book</span>
+                                Summary
+                            </span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase">Philosophy</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- Resource Row 2 -->
+<div class="resource-card-active bg-surface-container-lowest border border-outline-variant p-4 rounded-xl flex items-center gap-4 transition-transform duration-200 cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-tertiary">science</span>
+</div>
+<div class="flex-grow min-w-0">
+<h4 class="text-body-md font-bold text-on-surface truncate">The Role of Dopamine in Deep Work</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">video_library</span>
+                                Video Lesson
+                            </span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase">Biology</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- Resource Row 3 -->
+<div class="resource-card-active bg-surface-container-lowest border border-outline-variant p-4 rounded-xl flex items-center gap-4 transition-transform duration-200 cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-secondary">headset</span>
+</div>
+<div class="flex-grow min-w-0">
+<h4 class="text-body-md font-bold text-on-surface truncate">White Noise for Concentration</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">podcasts</span>
+                                Audio
+                            </span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase">Utility</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- Resource Row 4 -->
+<div class="resource-card-active bg-surface-container-lowest border border-outline-variant p-4 rounded-xl flex items-center gap-4 transition-transform duration-200 cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary">auto_fix_high</span>
+</div>
+<div class="flex-grow min-w-0">
+<h4 class="text-body-md font-bold text-on-surface truncate">Digital Minimalism 101</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">checklist</span>
+                                Checklist
+                            </span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase">Habits</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- Resource Row 5 -->
+<div class="resource-card-active bg-surface-container-lowest border border-outline-variant p-4 rounded-xl flex items-center gap-4 transition-transform duration-200 cursor-pointer">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error">trending_up</span>
+</div>
+<div class="flex-grow min-w-0">
+<h4 class="text-body-md font-bold text-on-surface truncate">Compound Productivity Methods</h4>
+<div class="flex items-center gap-2 mt-1">
+<span class="text-label-sm font-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">description</span>
+                                Whitepaper
+                            </span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span class="px-2 py-0.5 rounded-full bg-secondary-container text-on-secondary-container text-[10px] font-bold uppercase">Strategy</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Mobile only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 pb-safe h-16 bg-surface shadow-[0_-4px_20px_rgba(15,23,42,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span class="text-label-sm font-label-sm">Tasks</span>
+</a>
+<button class="flex flex-col items-center justify-center text-primary-container transition-transform active:scale-90">
+<span class="material-symbols-outlined text-[40px]" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</button>
+<a class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container/20 rounded-xl px-3 py-1 transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="text-label-sm font-label-sm">Resources</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform active:scale-90" href="#">
+<span class="material-symbols-outlined">business_center</span>
+<span class="text-label-sm font-label-sm">Jobs</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for filter chips
+        const filterChips = document.querySelectorAll('button.whitespace-nowrap');
+        filterChips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                filterChips.forEach(c => {
+                    c.classList.remove('bg-primary', 'text-on-primary', 'shadow-sm');
+                    c.classList.add('bg-surface-container-high', 'text-on-surface-variant');
+                });
+                chip.classList.add('bg-primary', 'text-on-primary', 'shadow-sm');
+                chip.classList.remove('bg-surface-container-high', 'text-on-surface-variant');
+            });
+        });
+
+        // Search bar interaction
+        const searchInput = document.querySelector('input');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-[1.02]');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-[1.02]');
+        });
+    </script>
+</body></html>

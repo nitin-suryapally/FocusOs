@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tasks | Focus AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-dim": "#dbd8e4",
+                        "outline": "#767586",
+                        "inverse-primary": "#c0c1ff",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "tertiary-container": "#b55d00",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-surface": "#1b1b23",
+                        "surface-tint": "#494bd6",
+                        "tertiary-fixed": "#ffdcc5",
+                        "on-primary-fixed": "#07006c",
+                        "primary-container": "#6063ee",
+                        "inverse-surface": "#303038",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-background": "#1b1b23",
+                        "secondary-fixed": "#dae2fd",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "surface": "#fcf8ff",
+                        "on-secondary-container": "#5c647a",
+                        "surface-bright": "#fcf8ff",
+                        "secondary": "#565e74",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface-variant": "#e4e1ed",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#703700",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#fffbff",
+                        "primary": "#4648d4",
+                        "tertiary-fixed-dim": "#ffb783",
+                        "surface-container": "#efecf8",
+                        "surface-container-high": "#e9e6f3",
+                        "on-tertiary-fixed": "#301400",
+                        "on-surface-variant": "#464554",
+                        "error-container": "#ffdad6",
+                        "background": "#fcf8ff",
+                        "tertiary": "#904900",
+                        "surface-container-highest": "#e4e1ed",
+                        "on-primary-container": "#fffbff",
+                        "outline-variant": "#c7c4d7",
+                        "surface-container-low": "#f5f2fe",
+                        "secondary-container": "#dae2fd",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#f2effb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "sm": "12px",
+                        "margin-desktop": "48px",
+                        "lg": "40px",
+                        "base": "8px",
+                        "xl": "64px",
+                        "gutter": "24px",
+                        "margin-mobile": "16px",
+                        "md": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .active-tab-indicator { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .task-card-check:checked ~ .task-content { opacity: 0.5; text-decoration: line-through; }
+        .glass-blur { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-40 bg-surface/80 glass-blur px-6 py-4 flex justify-between items-center w-full max-w-[1280px] mx-auto shadow-sm">
+<h1 class="font-display text-headline-md text-primary tracking-tight">Focus AI</h1>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant transition-all duration-200 active:opacity-80">notifications</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A clean, professional portrait of a tech worker in a bright, modern studio setting with soft indigo backlighting. The subject is wearing a minimalist dark grey shirt, conveying a sense of focused intelligence and high productivity. The lighting is crisp and modern, matching the quiet intelligence aesthetic of Focus AI." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMvzpA625UoNqbxCwkW-0QVFWGEcuOhOme8HAtpKmiFoET5lFDPCTSWTRawb4RJuzm1Nq_jjDfucNC0ZaKxwXdC2OoTUdUk4ftNv5vI2eA2eXIKJD5ZwGlfC-jyvGPBP_bARrdIAwJGnfppTMzvL3A2v-d0v49fY4p3kQy876Wir84g4kgMjQlLTGekrAgK6FrZliMS43iqBXnJ_2wZyB7hizhiuxP4NidtQvqfyh239J-xYnwJdS7qvQTGydAS1Z7UyXyqCW86F4"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="px-margin-mobile mt-6 max-w-md mx-auto">
+<!-- Title & Stats -->
+<div class="mb-6">
+<h2 class="font-headline-md text-headline-lg-mobile text-on-surface">Daily Focus</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">You have 5 deep work tasks today.</p>
+</div>
+<!-- Segmented Control -->
+<nav class="bg-surface-container-low p-1 rounded-xl flex relative mb-8">
+<div class="absolute top-1 left-1 bottom-1 w-[32%] bg-surface rounded-lg shadow-sm transition-all duration-300 ease-in-out" id="segment-indicator"></div>
+<button class="relative z-10 flex-1 py-2 text-center font-label-md text-label-md text-primary transition-colors duration-200" onclick="switchTab(0, this)">Today</button>
+<button class="relative z-10 flex-1 py-2 text-center font-label-md text-label-md text-on-surface-variant transition-colors duration-200" onclick="switchTab(1, this)">Upcoming</button>
+<button class="relative z-10 flex-1 py-2 text-center font-label-md text-label-md text-on-surface-variant transition-colors duration-200" onclick="switchTab(2, this)">Completed</button>
+</nav>
+<!-- Task List Stack -->
+<section class="space-y-4" id="task-list">
+<!-- Task Card 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex items-start gap-4 hover:shadow-[0px_10px_30px_rgba(15,23,42,0.08)] transition-all duration-200 group">
+<div class="mt-1 flex items-center justify-center">
+<input class="w-6 h-6 rounded-md border-2 border-outline-variant text-primary focus:ring-primary focus:ring-offset-0 task-card-check transition-all cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1 task-content transition-all duration-300">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-body-md font-semibold text-on-surface">Review ML Architecture</h3>
+<span class="bg-error-container text-on-error-container px-2 py-0.5 rounded-full font-label-sm text-[10px] uppercase tracking-wider">High</span>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+<span class="font-body-sm text-body-sm">Deep Learning</span>
+</div>
+<div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">9:00 AM</span>
+</div>
+</div>
+</div>
+<!-- Task Card 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex items-start gap-4 hover:shadow-[0px_10px_30px_rgba(15,23,42,0.08)] transition-all duration-200 group">
+<div class="mt-1 flex items-center justify-center">
+<input class="w-6 h-6 rounded-md border-2 border-outline-variant text-primary focus:ring-primary focus:ring-offset-0 task-card-check transition-all cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1 task-content transition-all duration-300">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-body-md font-semibold text-on-surface">Client Strategy Sync</h3>
+<span class="bg-secondary-container text-on-secondary-container px-2 py-0.5 rounded-full font-label-sm text-[10px] uppercase tracking-wider">Medium</span>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">groups</span>
+<span class="font-body-sm text-body-sm">Communication</span>
+</div>
+<div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">11:30 AM</span>
+</div>
+</div>
+</div>
+<!-- Task Card 3 (Learning Task) -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex items-start gap-4 hover:shadow-[0px_10px_30px_rgba(15,23,42,0.08)] transition-all duration-200 group">
+<div class="mt-1 flex items-center justify-center">
+<input class="w-6 h-6 rounded-md border-2 border-outline-variant text-primary focus:ring-primary focus:ring-offset-0 task-card-check transition-all cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1 task-content transition-all duration-300">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-body-md font-semibold text-on-surface">Advanced Neural Networks</h3>
+<span class="bg-primary-container text-on-primary-container px-2 py-0.5 rounded-full font-label-sm text-[10px] uppercase tracking-wider">Learning</span>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<div class="flex items-center gap-1 text-on-primary font-medium bg-primary/10 px-2 rounded-md py-0.5">
+<span class="material-symbols-outlined text-[18px]">school</span>
+<span class="font-body-sm text-body-sm">Skill Acquisition</span>
+</div>
+<div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">2:00 PM</span>
+</div>
+</div>
+</div>
+<!-- Task Card 4 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0px_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex items-start gap-4 hover:shadow-[0px_10px_30px_rgba(15,23,42,0.08)] transition-all duration-200 group">
+<div class="mt-1 flex items-center justify-center">
+<input class="w-6 h-6 rounded-md border-2 border-outline-variant text-primary focus:ring-primary focus:ring-offset-0 task-card-check transition-all cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1 task-content transition-all duration-300">
+<div class="flex justify-between items-start">
+<h3 class="font-headline-md text-body-md font-semibold text-on-surface">Draft Research Paper</h3>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-0.5 rounded-full font-label-sm text-[10px] uppercase tracking-wider">Low</span>
+</div>
+<div class="flex items-center gap-3 mt-2">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">edit_note</span>
+<span class="font-body-sm text-body-sm">Deep Work</span>
+</div>
+<div class="w-1 h-1 rounded-full bg-outline-variant"></div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">4:30 PM</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-lg flex items-center justify-center transition-all duration-200 active:scale-90 hover:bg-on-primary-fixed-variant z-50">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-6 bg-surface shadow-[0_-4px_20px_rgba(15,23,42,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span class="font-label-sm text-[10px] mt-1">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-label-sm text-[10px] mt-1">Growth</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">business_center</span>
+<span class="font-label-sm text-[10px] mt-1">Jobs</span>
+</a>
+</nav>
+<script>
+        function switchTab(index, element) {
+            const indicator = document.getElementById('segment-indicator');
+            const buttons = element.parentElement.querySelectorAll('button');
+            
+            // Move indicator
+            indicator.style.left = (index * 33.33) + 1 + '%';
+            
+            // Update button styles
+            buttons.forEach((btn, idx) => {
+                if (idx === index) {
+                    btn.classList.remove('text-on-surface-variant');
+                    btn.classList.add('text-primary');
+                } else {
+                    btn.classList.add('text-on-surface-variant');
+                    btn.classList.remove('text-primary');
+                }
+            });
+
+            // Handle content filtering simulation
+            const taskList = document.getElementById('task-list');
+            taskList.style.opacity = '0';
+            setTimeout(() => {
+                taskList.style.opacity = '1';
+                // In a real app, logic to filter tasks would go here
+            }, 200);
+        }
+
+        // Add some micro-interactions to check boxes
+        document.querySelectorAll('.task-card-check').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const card = this.closest('.bg-surface-container-lowest');
+                if (this.checked) {
+                    card.classList.add('opacity-70');
+                    card.style.transform = 'scale(0.98)';
+                } else {
+                    card.classList.remove('opacity-70');
+                    card.style.transform = 'scale(1)';
+                }
+            });
+        });
+    </script>
+</body></html>

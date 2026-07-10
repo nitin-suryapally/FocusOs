@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Focus AI Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "inverse-surface": "#303038",
+                "on-tertiary": "#ffffff",
+                "on-surface": "#1b1b23",
+                "tertiary-container": "#b55d00",
+                "on-tertiary-fixed-variant": "#703700",
+                "surface-bright": "#fcf8ff",
+                "primary": "#4648d4",
+                "secondary": "#565e74",
+                "outline-variant": "#c7c4d7",
+                "on-primary": "#ffffff",
+                "background": "#fcf8ff",
+                "on-tertiary-fixed": "#301400",
+                "on-background": "#1b1b23",
+                "surface-container-highest": "#e4e1ed",
+                "surface-container-low": "#f5f2fe",
+                "primary-fixed": "#e1e0ff",
+                "on-error-container": "#93000a",
+                "inverse-primary": "#c0c1ff",
+                "surface-tint": "#494bd6",
+                "on-secondary-fixed": "#131b2e",
+                "secondary-fixed-dim": "#bec6e0",
+                "outline": "#767586",
+                "secondary-fixed": "#dae2fd",
+                "error": "#ba1a1a",
+                "surface-container-high": "#e9e6f3",
+                "on-secondary-container": "#5c647a",
+                "surface-dim": "#dbd8e4",
+                "on-primary-container": "#fffbff",
+                "on-tertiary-container": "#fffbff",
+                "tertiary": "#904900",
+                "tertiary-fixed": "#ffdcc5",
+                "secondary-container": "#dae2fd",
+                "primary-container": "#6063ee",
+                "on-primary-fixed": "#07006c",
+                "surface-variant": "#e4e1ed",
+                "surface-container": "#efecf8",
+                "inverse-on-surface": "#f2effb",
+                "on-primary-fixed-variant": "#2f2ebe",
+                "on-surface-variant": "#464554",
+                "on-error": "#ffffff",
+                "error-container": "#ffdad6",
+                "on-secondary": "#ffffff",
+                "surface": "#fcf8ff",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-fixed-dim": "#ffb783",
+                "primary-fixed-dim": "#c0c1ff",
+                "on-secondary-fixed-variant": "#3f465c"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "xl": "64px",
+                "xs": "4px",
+                "gutter": "24px",
+                "lg": "40px",
+                "base": "8px",
+                "margin-desktop": "48px",
+                "md": "24px",
+                "sm": "12px",
+                "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                "headline-md": ["Inter"],
+                "display": ["Inter"],
+                "headline-lg": ["Inter"],
+                "body-md": ["Inter"],
+                "body-sm": ["Inter"],
+                "body-lg": ["Inter"],
+                "label-md": ["Inter"],
+                "label-sm": ["Inter"],
+                "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .card-shadow {
+            shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/10">
+<img class="w-full h-full object-cover" data-alt="Close-up professional portrait of a tech-focused individual with neutral expression, soft studio lighting, minimalist clean background, high resolution photography, modern business aesthetic with cool blue and white tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2CSC58kp2JuxyKjal7U75QIkUgWXHnpnZkhXBHQH4DKldyNm56NlxLxfB0hH22XG7nXNon0oDZBrA4Slb6G-p1GRGND4bzrXfZ7v5PH1-0BDzaMFRHjd7hvE3udU7wlWQVG5Y-xpTp2-4bGlfkhTNKuPvZwsy-7nT-cVBkpulPa0HgFdBCXeawGVpl8R8CXRjY8MoCRV4WsksAqufuv7z3kID1Cx-n2mEI_WX934gRjMQiiYBIBg2U8SaWyQXyxvYvdqMi-yJCh8"/>
+</div>
+<span class="text-headline-md font-headline-md font-bold text-on-surface">Focus AI</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-high active:scale-95 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high active:scale-95 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+</div>
+</nav>
+<!-- Content Canvas -->
+<main class="mt-20 px-4 flex flex-col gap-6 max-w-lg mx-auto">
+<!-- Streak Card (Priority) -->
+<section class="bg-primary-container text-on-primary-container p-6 rounded-xl shadow-lg relative overflow-hidden group active:scale-[0.98] transition-transform">
+<div class="absolute -right-4 -top-4 opacity-10 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div class="flex flex-col gap-1 relative z-10">
+<span class="text-label-md font-label-md opacity-90">Current Focus Streak</span>
+<div class="flex items-end gap-2">
+<h2 class="text-[56px] font-bold leading-none tracking-tight">12</h2>
+<span class="text-headline-md mb-2">Days</span>
+</div>
+<div class="mt-4 flex items-center gap-2 bg-white/10 w-fit px-3 py-1 rounded-full backdrop-blur-sm">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="text-label-sm font-label-sm">Best: 18 Days</span>
+</div>
+</div>
+</section>
+<!-- Today's Tasks Preview -->
+<section class="flex flex-col gap-3">
+<div class="flex justify-between items-center px-1">
+<h3 class="text-headline-md font-headline-md">Today's Tasks</h3>
+<span class="text-primary text-label-md font-label-md">View All</span>
+</div>
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0_4px_20px_rgba(15,23,42,0.05)] divide-y divide-surface-container-high">
+<div class="p-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">radio_button_unchecked</span>
+<div class="flex-1">
+<p class="text-body-md font-medium">Research Neural Network Models</p>
+<p class="text-body-sm text-on-surface-variant">Due at 2:00 PM</p>
+</div>
+</div>
+<div class="p-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 0;">radio_button_unchecked</span>
+<div class="flex-1">
+<p class="text-body-md font-medium">Update Project Documentation</p>
+<p class="text-body-sm text-on-surface-variant">Deep Work Session</p>
+</div>
+</div>
+<div class="p-4 flex items-center gap-4 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex-1">
+<p class="text-body-md font-medium text-on-surface-variant line-through">Team Sync: UI Review</p>
+<p class="text-body-sm text-outline">Completed</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Grid of Metrics -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Learning Progress -->
+<section class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/30 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col items-center text-center gap-3">
+<div class="relative w-20 h-20">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container-high" cx="40" cy="40" fill="transparent" r="34" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="40" cy="40" fill="transparent" r="34" stroke="currentColor" stroke-dasharray="213.6" stroke-dashoffset="64" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="text-label-md font-bold">70%</span>
+</div>
+</div>
+<div>
+<h4 class="text-label-md font-label-md">Learning</h4>
+<p class="text-body-sm text-on-surface-variant">Course Progress</p>
+</div>
+</section>
+<!-- Latest Job Status -->
+<section class="bg-surface-container-lowest p-5 rounded-xl border border-outline-variant/30 shadow-[0_4px_20px_rgba(15,23,42,0.05)] flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">work</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-container/10 text-tertiary text-[10px] font-bold uppercase tracking-wider">Active</span>
+</div>
+<div class="mt-4">
+<h4 class="text-label-md font-label-md">Job Tracker</h4>
+<p class="text-body-sm font-medium text-on-surface truncate">Senior UI Engineer</p>
+<p class="text-[11px] text-on-surface-variant">Interview Phase</p>
+</div>
+</section>
+</div>
+<!-- Project Idea Card -->
+<section class="bg-secondary-container text-on-secondary-container p-6 rounded-xl relative overflow-hidden group">
+<div class="absolute right-0 bottom-0 opacity-20">
+<span class="material-symbols-outlined text-[100px]">lightbulb</span>
+</div>
+<div class="flex flex-col gap-2 relative z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+<span class="text-label-sm font-bold uppercase tracking-widest">AI Suggestion</span>
+</div>
+<h3 class="text-headline-md font-headline-md leading-tight">Build a focused pomodoro CLI tool</h3>
+<p class="text-body-sm opacity-80 max-w-[80%]">Based on your recent terminal activity and focus sessions.</p>
+<button class="mt-4 w-fit px-4 py-2 bg-on-secondary-container text-secondary-container rounded-lg text-label-md font-bold active:scale-95 transition-transform">
+                    Explore Idea
+                </button>
+</div>
+</section>
+</main>
+<!-- FAB: Quick Add -->
+<button class="fixed right-6 bottom-24 w-16 h-16 bg-primary text-on-primary rounded-full shadow-2xl flex items-center justify-center active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 pb-safe h-16 bg-surface shadow-[0_-4px_20px_rgba(15,23,42,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container/20 rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1 rounded-xl" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span class="text-label-sm font-label-sm">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1 rounded-xl" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="text-label-sm font-label-sm">Add</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1 rounded-xl" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-label-sm font-label-sm">Goals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-3 py-1 rounded-xl" href="#">
+<span class="material-symbols-outlined">business_center</span>
+<span class="text-label-sm font-label-sm">Jobs</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for task completion toggle
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if (icon.innerText === 'radio_button_unchecked') {
+                icon.parentElement.addEventListener('click', function() {
+                    const isChecked = icon.innerText === 'check_circle';
+                    icon.innerText = isChecked ? 'radio_button_unchecked' : 'check_circle';
+                    icon.style.fontVariationSettings = isChecked ? "'FILL' 0" : "'FILL' 1";
+                    
+                    const text = this.querySelector('p');
+                    if (!isChecked) {
+                        text.classList.add('line-through', 'text-on-surface-variant');
+                        icon.classList.remove('text-primary');
+                        icon.classList.add('text-outline');
+                    } else {
+                        text.classList.remove('line-through', 'text-on-surface-variant');
+                        icon.classList.add('text-primary');
+                        icon.classList.remove('text-outline');
+                    }
+                });
+            }
+        });
+    </script>
+</body></html>

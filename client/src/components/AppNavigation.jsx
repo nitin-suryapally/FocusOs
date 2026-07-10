@@ -1,0 +1,31 @@
+import { NavLink } from "react-router-dom";
+
+const navigationItems = [
+  { to: "/app", label: "Overview", description: "Daily focus and recent activity", end: true },
+  { to: "/app/resources", label: "Resources", description: "Save and revisit learning material" },
+  { to: "/app/tasks", label: "Tasks", description: "Plan execution and learning work" },
+  { to: "/app/streaks", label: "Streaks", description: "Track consistency and momentum" },
+  { to: "/app/projects", label: "Projects", description: "Move ideas into active delivery" },
+  { to: "/app/applications", label: "Applications", description: "Manage your job pipeline" }
+];
+
+const navItemClassName = ({ isActive }) =>
+  [
+    "group rounded-2xl border px-4 py-3 transition",
+    isActive
+      ? "border-primary/20 bg-primary text-on-primary shadow-card"
+      : "border-outline-variant/60 bg-white/70 text-on-surface hover:border-primary/30 hover:bg-white"
+  ].join(" ");
+
+export const AppNavigation = () => {
+  return (
+    <nav className="space-y-3">
+      {navigationItems.map((item) => (
+        <NavLink key={item.to} to={item.to} end={item.end} className={navItemClassName}>
+          <div className="text-label-md">{item.label}</div>
+          <p className="mt-1 text-body-sm text-inherit/80">{item.description}</p>
+        </NavLink>
+      ))}
+    </nav>
+  );
+};

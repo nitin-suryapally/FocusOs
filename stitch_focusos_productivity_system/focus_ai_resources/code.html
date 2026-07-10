@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Resources | Focus AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#303038",
+                      "on-tertiary": "#ffffff",
+                      "on-surface": "#1b1b23",
+                      "tertiary-container": "#b55d00",
+                      "on-tertiary-fixed-variant": "#703700",
+                      "surface-bright": "#fcf8ff",
+                      "primary": "#4648d4",
+                      "secondary": "#565e74",
+                      "outline-variant": "#c7c4d7",
+                      "on-primary": "#ffffff",
+                      "background": "#fcf8ff",
+                      "on-tertiary-fixed": "#301400",
+                      "on-background": "#1b1b23",
+                      "surface-container-highest": "#e4e1ed",
+                      "surface-container-low": "#f5f2fe",
+                      "primary-fixed": "#e1e0ff",
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#c0c1ff",
+                      "surface-tint": "#494bd6",
+                      "on-secondary-fixed": "#131b2e",
+                      "secondary-fixed-dim": "#bec6e0",
+                      "outline": "#767586",
+                      "secondary-fixed": "#dae2fd",
+                      "error": "#ba1a1a",
+                      "surface-container-high": "#e9e6f3",
+                      "on-secondary-container": "#5c647a",
+                      "surface-dim": "#dbd8e4",
+                      "on-primary-container": "#fffbff",
+                      "on-tertiary-container": "#fffbff",
+                      "tertiary": "#904900",
+                      "tertiary-fixed": "#ffdcc5",
+                      "secondary-container": "#dae2fd",
+                      "primary-container": "#6063ee",
+                      "on-primary-fixed": "#07006c",
+                      "surface-variant": "#e4e1ed",
+                      "surface-container": "#efecf8",
+                      "inverse-on-surface": "#f2effb",
+                      "on-primary-fixed-variant": "#2f2ebe",
+                      "on-surface-variant": "#464554",
+                      "on-error": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "surface": "#fcf8ff",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed-dim": "#ffb783",
+                      "primary-fixed-dim": "#c0c1ff",
+                      "on-secondary-fixed-variant": "#3f465c"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "xl": "64px",
+                      "xs": "4px",
+                      "gutter": "24px",
+                      "lg": "40px",
+                      "base": "8px",
+                      "margin-desktop": "48px",
+                      "md": "24px",
+                      "sm": "12px",
+                      "margin-mobile": "16px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "display": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg-mobile": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface custom-scrollbar">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-screen hidden lg:flex flex-col py-lg px-sm bg-surface border-r border-outline-variant w-64 z-40">
+<div class="px-sm mb-xl">
+<h1 class="text-headline-md font-headline-md font-bold text-primary">Focus AI</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Deep Work Mode</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-sm py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-sm py-3 rounded-xl text-primary bg-primary-container/10 font-bold transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+<span class="text-label-md font-label-md">Resources</span>
+</a>
+<a class="flex items-center gap-3 px-sm py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="text-label-md font-label-md">Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-sm py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">local_fire_department</span>
+<span class="text-label-md font-label-md">Streaks</span>
+</a>
+<a class="flex items-center gap-3 px-sm py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">folder</span>
+<span class="text-label-md font-label-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 px-sm py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-label-md font-label-md">Job Tracker</span>
+</a>
+</nav>
+<div class="mt-auto space-y-1">
+<a class="flex items-center gap-3 px-sm py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-sm py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="lg:ml-64 min-h-screen">
+<!-- Top Bar -->
+<header class="sticky top-0 z-30 flex items-center justify-between px-gutter h-16 bg-surface/80 backdrop-blur-md">
+<div class="flex items-center gap-md flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white border border-outline-variant rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all text-body-md font-body-md" placeholder="Search resources, paths, tags..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="flex items-center gap-2 px-md py-2.5 bg-primary text-white rounded-xl hover:shadow-lg active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span class="text-label-md font-label-md">Add Resource</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Content Area -->
+<div class="px-gutter py-md max-w-[1280px] mx-auto">
+<!-- Filters Bar -->
+<div class="flex items-center gap-sm mb-lg overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-md py-2 bg-primary text-white rounded-full text-label-md font-label-md shrink-0">All Resources</button>
+<button class="px-md py-2 bg-white border border-outline-variant text-on-surface-variant rounded-full text-label-md font-label-md hover:border-primary hover:text-primary transition-all shrink-0">React</button>
+<button class="px-md py-2 bg-white border border-outline-variant text-on-surface-variant rounded-full text-label-md font-label-md hover:border-primary hover:text-primary transition-all shrink-0">System Design</button>
+<button class="px-md py-2 bg-white border border-outline-variant text-on-surface-variant rounded-full text-label-md font-label-md hover:border-primary hover:text-primary transition-all shrink-0">Career</button>
+<button class="px-md py-2 bg-white border border-outline-variant text-on-surface-variant rounded-full text-label-md font-label-md hover:border-primary hover:text-primary transition-all shrink-0">UI Design</button>
+<button class="px-md py-2 bg-white border border-outline-variant text-on-surface-variant rounded-full text-label-md font-label-md hover:border-primary hover:text-primary transition-all shrink-0">TypeScript</button>
+<div class="h-6 w-[1px] bg-outline-variant mx-2 shrink-0"></div>
+<button class="flex items-center gap-1 px-md py-2 text-primary text-label-md font-label-md shrink-0">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                    More Filters
+                </button>
+</div>
+<!-- Learning Path Highlight (Asymmetric Layout) -->
+<section class="mb-xl">
+<div class="flex items-center justify-between mb-md">
+<h2 class="text-headline-md font-headline-md text-on-surface">Active Learning Paths</h2>
+<a class="text-primary text-label-md font-label-md hover:underline" href="#">View all paths</a>
+</div>
+<div class="relative overflow-hidden rounded-3xl bg-primary-container p-lg min-h-[320px] flex flex-col justify-end group">
+<!-- Background Decoration -->
+<div class="absolute -top-24 -right-24 w-96 h-96 bg-white/10 rounded-full blur-3xl group-hover:scale-110 transition-transform duration-700"></div>
+<div class="absolute top-12 left-1/2 w-64 h-64 bg-primary/20 rounded-full blur-2xl"></div>
+<div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-lg items-end">
+<div>
+<span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-label-sm font-label-sm mb-sm">75% Complete</span>
+<h3 class="text-display font-display text-white mb-xs">Frontend Architect Path</h3>
+<p class="text-body-lg font-body-lg text-white/80 max-w-md">Master the complexities of modern frontend infrastructure, design systems, and performance optimization.</p>
+</div>
+<div class="flex gap-sm overflow-x-auto pb-4 scrollbar-hide md:justify-end">
+<!-- Mini Path Cards -->
+<div class="w-48 shrink-0 glass-card p-sm rounded-2xl border border-white/20 shadow-xl active:scale-95 transition-all cursor-pointer">
+<div class="w-full h-24 rounded-lg bg-surface-container-highest mb-xs overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist workspace with a laptop showing complex architectural diagrams of a web application. The lighting is soft and professional, with cool blue tones and a focused atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtOJ9-IwLtENSDtQ4-TqdXGQa2Oukq17Y0XjKkYrmovci742YANcVfL7o_cc6v96YoeCuAm8QjetlZdhfiuEp5BrTXkjywPT5fHt-XR0LJAGnLl9OathOpqCNoNI4aAHEn88vrae365WTs_oqr--WCM9Tij-gof5CsGNWEcCS9jXHHTb2ZlmqRNbS24XqF9NqwM2QDhnyipDTFWQe7is81daYckt_6KpmYMYzDGi8DEmF6F89BDMPNgEJe8fB93XRn1U4xvJjpi8s"/>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface line-clamp-2">Micro-frontends with Module Federation</p>
+</div>
+<div class="w-48 shrink-0 glass-card p-sm rounded-2xl border border-white/20 shadow-xl active:scale-95 transition-all cursor-pointer">
+<div class="w-full h-24 rounded-lg bg-surface-container-highest mb-xs overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Conceptual 3D representation of a design system with floating translucent UI components like buttons, toggles, and cards. Vibrant indigo and slate color palette with soft studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDv6BIAOUCthafQWINTPVreQ9vTQRYRojLXlsXFSMKuLvS0pI7fvdQxbNvSdhpobGlibcIrLuOfVNM6sWoKqh0RDUaERGb-T9aLoEyLhqbyPlqxo4iH3Uv10qNSsIPBvM74B2txN8jlmslJl_ZmGD2BPVUKu082jK6prQAXQ70iYR-zN7gxFoZ-ps6NYyA0EM_n-39qXUsOC7-jWhEQlR_Ky3JJnL0EnML6LvOi8sFiQA6fymF5uElFwtPe1-Tmpp4nuLwaPqCOZs0"/>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface line-clamp-2">Advanced Design System Scaling</p>
+</div>
+<div class="w-48 shrink-0 glass-card p-sm rounded-2xl border border-white/20 shadow-xl active:scale-95 transition-all cursor-pointer">
+<div class="w-full h-24 rounded-lg bg-surface-container-highest mb-xs overflow-hidden opacity-50 grayscale">
+<img class="w-full h-full object-cover" data-alt="A macro shot of digital code flowing across a dark background, representing complex logic and performance optimization. Neon highlights in soft indigo, high-end professional feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1BsuU5iyLqU8erB21hhJ11y1Br1Ng7kCMUBv12tc1hPYHwdCVRqfzRP-jocZFmmFK2kffKVe5p0afYa5hZaDFJShNGvdIWbwFE_4di1aoHNG1czWhon6Gf-DEIqNRtzWevS69ZTuIusrfwsTVIfkKZUhP2fXu75_97-4gcpPWO-qX_FzyK36TRnvwtrdxSC5PbDSL3JzvAgiYIh9Su4l0dDGcphlTh9CV6iPRgKb9j_N2FchxS1nW8Gf4chjLffoD18fWAaEg2kE"/>
+</div>
+<p class="text-label-sm font-label-sm text-on-surface/60 line-clamp-2">Next.js 14 Server Components</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Resources Grid -->
+<section>
+<div class="flex items-center justify-between mb-md">
+<h2 class="text-headline-md font-headline-md text-on-surface">Recent Resources</h2>
+<div class="flex items-center gap-xs">
+<button class="p-2 rounded-lg bg-surface-container-high text-on-surface">
+<span class="material-symbols-outlined text-[20px]">grid_view</span>
+</button>
+<button class="p-2 rounded-lg text-outline">
+<span class="material-symbols-outlined text-[20px]">view_list</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-md">
+<!-- Card 1 -->
+<div class="group bg-white rounded-2xl border border-outline-variant overflow-hidden hover:shadow-[0px_10px_30px_rgba(15,23,42,0.08)] transition-all flex flex-col">
+<div class="relative h-48 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Visual representation of CSS Flexbox properties with clean geometric shapes and alignment lines. The aesthetic is modern and educational, using a professional palette of slate and indigo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5rEwNsFYzyew2es8vzcfkHUngxBZ2xEl_DFSqOOoh7r4Xdj_r4lMZWajEgjsfXkB5kEJLs29Hr6URKj8SGq2BNqggXnPI6wCRTKRqyQWMUoJ4yul4VePCtmFQJZ2zHNgaaQkMLnRADitcn0tdTSLnExrvTZo2DFm3UidHsctqGehbbf-DK3AFl0QCl7lumCBUp7w1Apkq33t_zWYFo0mMvcO4F8hvjoNZefsi-FXkjfM-PNICjLK1iaWf2C62V4ImD7XRSlhhAtQ"/>
+<div class="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-md rounded-lg flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[16px]" style="font-variation-settings: 'FILL' 1;">play_circle</span>
+<span class="text-label-sm font-label-sm text-on-surface">YouTube</span>
+</div>
+<button class="absolute top-3 right-3 p-2 bg-white/90 backdrop-blur-md rounded-full shadow-sm text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</button>
+</div>
+<div class="p-md flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface-variant rounded text-[10px] font-bold uppercase tracking-wider">UI Design</span>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed-variant rounded text-[10px] font-bold uppercase tracking-wider">In Progress</span>
+</div>
+<h3 class="text-body-lg font-bold text-on-surface mb-2 group-hover:text-primary transition-colors">Complete Guide to Flexbox</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-lg">Everything you need to know about CSS Flexbox layout, from basic alignment to complex responsive patterns.</p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">person</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Kevin Powell</span>
+</div>
+<button class="text-primary hover:underline text-label-md font-label-md">Continue</button>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group bg-white rounded-2xl border border-outline-variant overflow-hidden hover:shadow-[0px_10px_30px_rgba(15,23,42,0.08)] transition-all flex flex-col">
+<div class="relative h-48 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A stylized technical diagram of a distributed database system architecture. High-end minimalist design with glowing nodes and interconnecting paths. Lighting is clean and focused, atmosphere of high-level engineering." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoSdaoI7Ti_9qfKxpoNm8UMkDX0dfiQWWuwossrwkHHg26XKPft0CsxNl5RTjBO2anMUssQ6lCqxiTNaMhwYRiKteGtHMONoehwmH6hepIexOa8ysE3qPAeZ7erOj9ObmKjiKbvdBQridSzz6bJvi5CoXFFSv0xz6tNL5_0oxgkFVC8_4XjTYgZO0AncnVxLwlXyTXXZpXwkPKL93p-g-PYI4pOeilWuIjWNHs_i2Xr4YzyUSFnmOHZwMALawq8EynL0MbkEYzrq0"/>
+<div class="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-md rounded-lg flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[16px]">article</span>
+<span class="text-label-sm font-label-sm text-on-surface">Technical Blog</span>
+</div>
+</div>
+<div class="p-md flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface-variant rounded text-[10px] font-bold uppercase tracking-wider">System Design</span>
+<span class="px-2 py-0.5 bg-surface-container-low text-outline rounded text-[10px] font-bold uppercase tracking-wider">Unread</span>
+</div>
+<h3 class="text-body-lg font-bold text-on-surface mb-2 group-hover:text-primary transition-colors">Distributed Systems for Dummies</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-lg">A deep dive into consistency models, partition tolerance, and how to scale applications to millions of users.</p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">school</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">System Design Alex</span>
+</div>
+<button class="text-primary hover:underline text-label-md font-label-md">Start Reading</button>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group bg-white rounded-2xl border border-outline-variant overflow-hidden hover:shadow-[0px_10px_30px_rgba(15,23,42,0.08)] transition-all flex flex-col">
+<div class="relative h-48 overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A portrait of a confident professional in a modern, brightly lit architectural office space. The style is high-key and airy, emphasizing success and career progression in the tech industry. Soft shadows and warm natural light." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBiLLL1JvWsugREG4rWb57f8FKBZyOYiCH7Qen-RVNx0jZJ6lIu3RpD26fEEtxsIu6WNAjHAz_KfqGBJ72sqm6Qv4rMlq2MEBhsCaHAegfJsqfMXn2_vr01F8AqMDca0ZtfY6HRvltckFmXc4E0sRe_lOI3CZAlP4sq-xH_EIC3NwoLMPW5HrPZIBTQodZYyQRsi5MfkRZvhD6q1vxj1bW_KPUznjulAMzQQO4a-nq5yzTlmZ0acGCTv7oJoVds0d1Meuan6pMDza0"/>
+<div class="absolute top-3 left-3 px-2.5 py-1 bg-white/90 backdrop-blur-md rounded-lg flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-primary text-[16px]">headphones</span>
+<span class="text-label-sm font-label-sm text-on-surface">Podcast</span>
+</div>
+</div>
+<div class="p-md flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface-variant rounded text-[10px] font-bold uppercase tracking-wider">Career</span>
+<span class="px-2 py-0.5 bg-primary-container/20 text-primary rounded text-[10px] font-bold uppercase tracking-wider">Completed</span>
+</div>
+<h3 class="text-body-lg font-bold text-on-surface mb-2 group-hover:text-primary transition-colors">Negotiating Your First Senior Role</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant line-clamp-2 mb-lg">Actionable advice on salary negotiations, equity packages, and defining your value as a senior engineer.</p>
+<div class="mt-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-[16px]">mic</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Soft Skills Audio</span>
+</div>
+<button class="text-outline text-label-md font-label-md cursor-default">Review Notes</button>
+</div>
+</div>
+</div>
+<!-- Card 4 (Bento Style Variation) -->
+<div class="xl:col-span-2 group relative rounded-2xl border border-outline-variant overflow-hidden flex flex-col md:flex-row hover:shadow-[0px_10px_30px_rgba(15,23,42,0.08)] transition-all bg-white">
+<div class="md:w-1/2 relative h-64 md:h-auto overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Abstract visualization of React components as interlocking glass layers with glowing edges. The background is a clean white studio setting with soft indigo lighting. Sophisticated and high-tech feel for web developers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB68TliIsUAIJhLcocOP0wSsulMtRkA7bP28hiZ6-K8XEaeYT5N6vhlIDcYRYC_Q58oTyUO10-LmuTw8NvklT6UWIzVsX1ELaDrN6SQwOmDjJYHcMXNCROO4NNXExqIlxQ36o3Tnmy6XlGyh3I-jSEkpAd3kt5gDUgmF85oEtMjtm8WiYwHl1C8uKZ4SeYkbylNik9rc6dbFx7W820KMZdJ_EAwIXWrBDO9rGOmoYsni_Y2r-Tdb4RGbf5BgctzzyS0Yh-bRPBaUBY"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent md:hidden"></div>
+</div>
+<div class="md:w-1/2 p-lg flex flex-col">
+<div class="flex items-center gap-2 mb-4">
+<span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-label-sm font-label-sm">React Mastery</span>
+<span class="text-body-sm font-body-sm text-outline">4.5 hours content</span>
+</div>
+<h3 class="text-headline-md font-headline-md text-on-surface mb-4">Advanced State Management with XState</h3>
+<p class="text-body-md font-body-md text-on-surface-variant mb-xl">Forget messy useEffect calls. Learn how to model your application logic using finite state machines for predictable UI.</p>
+<div class="mt-auto flex items-center gap-md">
+<button class="px-md py-2 bg-primary text-white rounded-xl text-label-md font-label-md hover:shadow-lg transition-all">Start Course</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md">
+<span class="material-symbols-outlined text-[20px]">bookmark</span>
+                                    Save
+                                </button>
+</div>
+</div>
+</div>
+<!-- Card 5 -->
+<div class="group bg-surface-container-low rounded-2xl border-2 border-dashed border-outline-variant p-md flex flex-col items-center justify-center text-center hover:border-primary/50 transition-all cursor-pointer">
+<div class="w-16 h-16 rounded-full bg-white flex items-center justify-center text-outline mb-md shadow-sm">
+<span class="material-symbols-outlined text-[32px]">add_circle</span>
+</div>
+<h3 class="text-body-lg font-bold text-on-surface mb-1">Add New Resource</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Paste a URL or upload a PDF to your library</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Floating AI Assistant Button -->
+<button class="fixed bottom-gutter right-gutter w-14 h-14 bg-primary text-white rounded-full shadow-xl flex items-center justify-center z-50 hover:scale-110 active:scale-95 transition-all group">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<div class="absolute bottom-full right-0 mb-4 scale-0 group-hover:scale-100 transition-all origin-bottom-right">
+<div class="bg-inverse-surface text-white px-4 py-2 rounded-xl text-label-md whitespace-nowrap shadow-2xl">
+                Ask Focus AI about your resources
+            </div>
+</div>
+</button>
+<script>
+        // Subtle micro-interactions
+        document.querySelectorAll('.active\\:scale-95').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.95)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('scale-[1.02]');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('scale-[1.02]');
+        });
+    </script>
+</body></html>

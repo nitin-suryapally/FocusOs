@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Focus AI - Project Ideas</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#e1e0ff",
+                    "surface-dim": "#dbd8e4",
+                    "outline": "#767586",
+                    "inverse-primary": "#c0c1ff",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "tertiary-container": "#b55d00",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-surface": "#1b1b23",
+                    "surface-tint": "#494bd6",
+                    "tertiary-fixed": "#ffdcc5",
+                    "on-primary-fixed": "#07006c",
+                    "primary-container": "#6063ee",
+                    "inverse-surface": "#303038",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-background": "#1b1b23",
+                    "secondary-fixed": "#dae2fd",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "surface": "#fcf8ff",
+                    "on-secondary-container": "#5c647a",
+                    "surface-bright": "#fcf8ff",
+                    "secondary": "#565e74",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "surface-variant": "#e4e1ed",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#703700",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#fffbff",
+                    "primary": "#4648d4",
+                    "tertiary-fixed-dim": "#ffb783",
+                    "surface-container": "#efecf8",
+                    "surface-container-high": "#e9e6f3",
+                    "on-tertiary-fixed": "#301400",
+                    "on-surface-variant": "#464554",
+                    "error-container": "#ffdad6",
+                    "background": "#fcf8ff",
+                    "tertiary": "#904900",
+                    "surface-container-highest": "#e4e1ed",
+                    "on-primary-container": "#fffbff",
+                    "outline-variant": "#c7c4d7",
+                    "surface-container-low": "#f5f2fe",
+                    "secondary-container": "#dae2fd",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f2effb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "sm": "12px",
+                    "margin-desktop": "48px",
+                    "lg": "40px",
+                    "base": "8px",
+                    "xl": "64px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "md": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-elevation {
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- Top AppBar (JSON Derived) -->
+<header class="bg-surface sticky top-0 z-40 w-full shadow-sm transition-all duration-200">
+<div class="flex justify-between items-center px-6 py-4 w-full max-w-[1280px] mx-auto">
+<h1 class="font-display text-headline-md text-primary tracking-tight">Focus AI</h1>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-high flex items-center justify-center overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A minimalist professional avatar portrait of a modern office worker in a high-key studio setting. The lighting is soft and neutral, emphasizing a clean and professional look suited for a productivity app. The background is a soft off-white, maintaining the Focus AI brand's calm and intelligent aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCFuhXq1qeSwQZyADPFPQ5Z1qEwN_UtfnGbQMTmnijVOljwuEECKERf7VkU5LkSWq1myUq9B0wjjudB137oQ1zTR3cn-iAqt30yIW16l-x-HmUqIWf8PchVybaWvfCi_dRF_L2qA1SxO9Q76l6Dl96ghTvJugTclqXGOvX1o39lbDoCN195QFN0g0XKIyenut8ISvpnh0ANoE0lrJTMTsYHgdfF4CBECVhwicsi9jqVBe8ku8sloW15zxA90TShz6RPJmYtBXtkxxs"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 px-margin-mobile py-sm pb-32">
+<!-- Header Section -->
+<section class="mb-gutter">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs">Project Ideas</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Intelligent suggestions generated for your deep work sessions.</p>
+</section>
+<!-- Search & Filter (Small Pill) -->
+<div class="flex gap-2 mb-md overflow-x-auto no-scrollbar">
+<button class="px-4 py-2 bg-primary text-on-primary rounded-full font-label-sm flex-shrink-0">All Ideas</button>
+<button class="px-4 py-2 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-sm flex-shrink-0">Research</button>
+<button class="px-4 py-2 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-sm flex-shrink-0">Product</button>
+<button class="px-4 py-2 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full font-label-sm flex-shrink-0">Strategy</button>
+</div>
+<!-- Project Cards List -->
+<div class="space-y-sm">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-surface-container tonal-elevation active:scale-[0.98] transition-transform duration-150">
+<div class="flex justify-between items-start mb-sm">
+<div class="px-3 py-1 bg-tertiary-container/10 text-tertiary rounded-full font-label-sm">High Priority</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Quantum Workflow Engine</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-sm">
+                    Analyze asynchronous communication patterns to automate task prioritization using transformer-based models.
+                </p>
+<div class="flex items-center gap-sm mt-md pt-sm border-t border-surface-container">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-label-sm text-label-sm">4h est.</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+<span class="font-label-sm text-label-sm">AI Generated</span>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-surface-container tonal-elevation active:scale-[0.98] transition-transform duration-150">
+<div class="flex justify-between items-start mb-sm">
+<div class="px-3 py-1 bg-secondary-container text-on-secondary-container rounded-full font-label-sm">Exploring</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Ethical AI Framework</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-sm">
+                    Developing a set of heuristics for transparency in multi-agent LLM deployments for enterprise users.
+                </p>
+<div class="flex items-center gap-sm mt-md pt-sm border-t border-surface-container">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="font-label-sm text-label-sm">12h est.</span>
+</div>
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">checklist</span>
+<span class="font-label-sm text-label-sm">3 Subtasks</span>
+</div>
+</div>
+</div>
+<!-- Card 3 (Featured Image Card) -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden border border-surface-container tonal-elevation active:scale-[0.98] transition-transform duration-150">
+<div class="h-32 bg-surface-container-highest overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" data-alt="A sophisticated, minimalist abstract 3D visualization of neural network pathways glowing in soft indigo and slate tones. The composition is clean, with deep bokeh effects and ample negative space, reflecting a state of calm and high-focus intellectual work. The lighting is diffused and atmospheric, avoiding harsh contrasts to maintain the professional brand identity." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA9XuJU_E0JAPI4Rljj7dRCeLqeF3kaK-3yF0lKwPibWGB3bEgsax1xbXJPLPkRAaaQwqa8u83tYfoswnRj7LoW3DV5YvsmSifzy21Se1vI9brcmuzzck8YSjzOLa02qgaWJ2qZlfJ--njrca8G6JJYk79m-kZJzVkVpDCURZ-SroeR7kfLv1wgRIIasLkxhagreIwe88k6k1bSW1EAY3g-4gfp2Wj3HtgvgZXRMyPNaw5fKySdU8c53U9euqBNAxEVHVbgHBnEONY')"></div>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-sm">
+<div class="px-3 py-1 bg-primary-container text-on-primary-container rounded-full font-label-sm">New Idea</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Neural Node Interface</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                        Prototyping a spatial UI for hierarchical data visualization within the Focus AI dashboard ecosystem.
+                    </p>
+</div>
+</div>
+<!-- Card 4 -->
+<div class="bg-surface-container-lowest rounded-xl p-md border border-surface-container tonal-elevation active:scale-[0.98] transition-transform duration-150">
+<div class="flex justify-between items-start mb-sm">
+<div class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full font-label-sm">Draft</div>
+<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Quarterly Strategy Re-sync</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2 mb-sm">
+                    Recalibrating growth targets based on current user velocity and churn metrics from Q2.
+                </p>
+<div class="flex items-center gap-sm mt-md pt-sm border-t border-surface-container">
+<div class="flex items-center gap-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">history</span>
+<span class="font-label-sm text-label-sm">Updated 2h ago</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (FAB) - Contextual -->
+<button class="fixed bottom-24 right-6 w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-xl flex items-center justify-center transition-transform duration-200 active:scale-90 z-40">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+<!-- Bottom Navigation Bar (JSON Derived) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface shadow-[0_-4px_20px_rgba(15,23,42,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-[10px] mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+<span class="font-label-sm text-[10px] mt-1">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">psychology</span>
+<span class="font-label-sm text-[10px] mt-1">Growth</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:bg-surface-variant transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">business_center</span>
+<span class="font-label-sm text-[10px] mt-1">Jobs</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.tonal-elevation').forEach(card => {
+            card.addEventListener('click', () => {
+                // Future expansion: open detail view
+                console.log('Project card tapped');
+            });
+        });
+
+        // Sticky header shadow transition on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-md');
+                header.classList.remove('shadow-sm');
+            } else {
+                header.classList.add('shadow-sm');
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

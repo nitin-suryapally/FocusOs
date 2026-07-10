@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Focus AI - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#303038",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#1b1b23",
+                    "tertiary-container": "#b55d00",
+                    "on-tertiary-fixed-variant": "#703700",
+                    "surface-bright": "#fcf8ff",
+                    "primary": "#4648d4",
+                    "secondary": "#565e74",
+                    "outline-variant": "#c7c4d7",
+                    "on-primary": "#ffffff",
+                    "background": "#fcf8ff",
+                    "on-tertiary-fixed": "#301400",
+                    "on-background": "#1b1b23",
+                    "surface-container-highest": "#e4e1ed",
+                    "surface-container-low": "#f5f2fe",
+                    "primary-fixed": "#e1e0ff",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#c0c1ff",
+                    "surface-tint": "#494bd6",
+                    "on-secondary-fixed": "#131b2e",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "outline": "#767586",
+                    "secondary-fixed": "#dae2fd",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e9e6f3",
+                    "on-secondary-container": "#5c647a",
+                    "surface-dim": "#dbd8e4",
+                    "on-primary-container": "#fffbff",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary": "#904900",
+                    "tertiary-fixed": "#ffdcc5",
+                    "secondary-container": "#dae2fd",
+                    "primary-container": "#6063ee",
+                    "on-primary-fixed": "#07006c",
+                    "surface-variant": "#e4e1ed",
+                    "surface-container": "#efecf8",
+                    "inverse-on-surface": "#f2effb",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "on-surface-variant": "#464554",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "surface": "#fcf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb783",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "on-secondary-fixed-variant": "#3f465c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "64px",
+                    "xs": "4px",
+                    "gutter": "24px",
+                    "lg": "40px",
+                    "base": "8px",
+                    "margin-desktop": "48px",
+                    "md": "24px",
+                    "sm": "12px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "display": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #F8FAFC;
+            font-family: 'Inter', sans-serif;
+            color: #1b1b23;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .card-shadow {
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+        }
+        .hover-card:hover {
+            box-shadow: 0px 10px 30px rgba(15, 23, 42, 0.08);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        .glass-header {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar (Desktop Anchor) -->
+<aside class="fixed left-0 top-0 h-screen hidden lg:flex flex-col py-lg px-sm w-64 bg-surface border-r border-outline-variant z-50">
+<div class="px-md mb-xl">
+<span class="text-headline-md font-headline-md font-bold text-primary">Focus AI</span>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Deep Work Mode</p>
+</div>
+<nav class="flex-1 space-y-2 px-sm">
+<a class="flex items-center gap-3 px-md py-3 rounded-xl text-primary bg-primary-container/10 font-bold active:translate-x-1 transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-label-md font-label-md">Resources</span>
+</a>
+<a class="flex items-center gap-3 px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="text-label-md font-label-md">Tasks</span>
+</a>
+<a class="flex items-center gap-3 px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">local_fire_department</span>
+<span class="text-label-md font-label-md">Streaks</span>
+</a>
+<a class="flex items-center gap-3 px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">folder</span>
+<span class="text-label-md font-label-md">Projects</span>
+</a>
+<a class="flex items-center gap-3 px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-label-md font-label-md">Job Tracker</span>
+</a>
+</nav>
+<div class="px-sm mt-auto space-y-2 pt-lg border-t border-outline-variant">
+<a class="flex items-center gap-3 px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar (Mobile/Shared Context) -->
+<header class="fixed top-0 left-0 w-full z-40 flex justify-between items-center px-gutter h-16 bg-surface/80 backdrop-blur-md shadow-sm lg:pl-72">
+<div class="flex items-center gap-4">
+<span class="lg:hidden text-headline-md font-headline-md font-bold text-on-surface">Focus AI</span>
+<div class="hidden md:flex bg-surface-container-high rounded-full px-4 py-1.5 items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-48" placeholder="Search tasks..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="hidden md:flex items-center gap-2 bg-primary text-on-primary px-4 py-2 rounded-full text-label-md font-label-md active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                Quick Add
+            </button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="lg:pl-64 pt-24 pb-xl px-gutter max-w-[1440px] mx-auto min-h-screen">
+<!-- Welcome Section -->
+<section class="mb-lg">
+<h1 class="text-headline-lg font-headline-lg text-on-surface">Good morning, Alex.</h1>
+<p class="text-body-lg font-body-lg text-on-surface-variant mt-1">You have 5 tasks today.</p>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-gutter">
+<!-- Today's Tasks (6 cols) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl card-shadow p-md hover-card flex flex-col">
+<div class="flex justify-between items-center mb-md border-b border-surface-container pb-sm">
+<h2 class="text-headline-md font-headline-md text-on-surface">Today's Tasks</h2>
+<span class="text-label-sm font-label-sm text-primary uppercase tracking-wider">Learning &amp; Execution</span>
+</div>
+<div class="space-y-1">
+<div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors group">
+<button class="w-6 h-6 rounded-md border-2 border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[16px] text-white">check</span>
+</button>
+<div class="flex-1">
+<p class="text-body-md font-medium">Review React Server Components Architecture</p>
+<p class="text-label-sm text-on-surface-variant">Learning • 45m</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors group">
+<button class="w-6 h-6 rounded-md border-2 border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[16px] text-white">check</span>
+</button>
+<div class="flex-1">
+<p class="text-body-md font-medium">Implement Auth flow in Portfolio project</p>
+<p class="text-label-sm text-on-surface-variant">Execution • 1h 30m</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors group">
+<button class="w-6 h-6 rounded-md border-2 border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[16px] text-white">check</span>
+</button>
+<div class="flex-1">
+<p class="text-body-md font-medium">System Design session: Load Balancing</p>
+<p class="text-label-sm text-on-surface-variant">Learning • 30m</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors group">
+<button class="w-6 h-6 rounded-md border-2 border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[16px] text-white">check</span>
+</button>
+<div class="flex-1">
+<p class="text-body-md font-medium">Refine UI Design for Focus AI dashboard</p>
+<p class="text-label-sm text-on-surface-variant">Execution • 2h</p>
+</div>
+</div>
+<div class="flex items-center gap-4 p-3 hover:bg-surface-container-low rounded-lg transition-colors group">
+<button class="w-6 h-6 rounded-md border-2 border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[16px] text-white">check</span>
+</button>
+<div class="flex-1">
+<p class="text-body-md font-medium">Update Resume for Vercel application</p>
+<p class="text-label-sm text-on-surface-variant">Job Prep • 20m</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Streak Widget (4 cols) -->
+<div class="lg:col-span-4 bg-primary text-on-primary rounded-xl p-md flex flex-col justify-between hover-card overflow-hidden relative">
+<div class="relative z-10">
+<span class="text-label-md font-label-md opacity-80 uppercase tracking-widest">Active Streak</span>
+<div class="flex items-baseline gap-2 mt-2">
+<span class="text-display font-display">12</span>
+<span class="text-headline-md font-headline-md opacity-90">Days</span>
+</div>
+</div>
+<div class="mt-md relative z-10">
+<p class="text-label-sm font-label-sm mb-3 opacity-80">Weekly Heatmap</p>
+<div class="flex gap-1.5 h-10 items-end">
+<div class="flex-1 bg-on-primary/20 rounded-sm h-4"></div>
+<div class="flex-1 bg-on-primary/40 rounded-sm h-8"></div>
+<div class="flex-1 bg-on-primary/60 rounded-sm h-6"></div>
+<div class="flex-1 bg-on-primary/90 rounded-sm h-10"></div>
+<div class="flex-1 bg-on-primary/20 rounded-sm h-3"></div>
+<div class="flex-1 bg-on-primary/50 rounded-sm h-7"></div>
+<div class="flex-1 bg-on-primary rounded-sm h-10"></div>
+</div>
+</div>
+<!-- Abstract Decorative Element -->
+<div class="absolute -right-10 -bottom-10 w-40 h-40 bg-on-primary/10 rounded-full blur-3xl"></div>
+</div>
+<!-- Learning Progress (4 cols) -->
+<div class="lg:col-span-4 bg-surface-container-lowest rounded-xl card-shadow p-md hover-card">
+<div class="flex items-center gap-3 mb-md">
+<span class="material-symbols-outlined text-tertiary">school</span>
+<h2 class="text-label-md font-bold text-on-surface">Learning Progress</h2>
+</div>
+<div class="bg-surface-container-low p-sm rounded-lg border border-surface-container-high">
+<p class="text-label-sm text-on-surface-variant mb-1">Next in System Design</p>
+<p class="text-body-md font-semibold mb-3">Load Balancing</p>
+<div class="h-2 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[65%] rounded-full transition-all duration-1000"></div>
+</div>
+<p class="text-label-sm text-on-surface-variant mt-2 text-right">65% complete</p>
+</div>
+</div>
+<!-- Project Ideas (8 cols) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded-xl card-shadow p-md hover-card">
+<div class="flex justify-between items-center mb-md">
+<h2 class="text-headline-md font-headline-md text-on-surface">Project Ideas</h2>
+<button class="text-primary text-label-md font-bold hover:underline">View All</button>
+</div>
+<div class="flex gap-gutter overflow-x-auto pb-2 scrollbar-hide">
+<!-- Project Card 1 -->
+<div class="flex-shrink-0 w-72 bg-surface border border-outline-variant rounded-xl p-md">
+<div class="w-full h-32 rounded-lg mb-sm bg-cover bg-center" data-alt="A clean, minimalist UI design mockup of an AI productivity application dashboard featuring dark indigo accents and generous white space on a high-fidelity screen. Soft studio lighting highlights the sleek interface and modern typography. Professional digital product photography style." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCafnGrilmEKhTJD5fuE45EW1SaRV2O9Eb00r9p1DreK64QDCnsGRvQyQSJxTP2UKtHUlA9C_Lxhd01oW6ElCDpFWtxxr87pEC2uUO1_tqFnd6VoT10nSii8BUDnFdQVtko7hzA2qgTKI0o6uD32O8JdS-P0rKbXJPji4vSoTNPzEgSTfU6m91JJV1Cjck0ACGXuXOYK-hcrg7b9662jeR--r54ZJbUm_yWJp6DZCwtIGdMlhY1J4qF4pyzzKBBSR7cCfFThAEuBfo')"></div>
+<h3 class="text-body-md font-bold">Focus AI</h3>
+<p class="text-body-sm text-on-surface-variant line-clamp-2">AI-driven deep work platform with task orchestration.</p>
+<div class="mt-sm flex gap-2">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 rounded-full font-bold">REACT</span>
+<span class="bg-surface-container-highest text-on-surface-variant text-[10px] px-2 py-0.5 rounded-full font-bold">AI</span>
+</div>
+</div>
+<!-- Project Card 2 -->
+<div class="flex-shrink-0 w-72 bg-surface border border-outline-variant rounded-xl p-md">
+<div class="w-full h-32 rounded-lg mb-sm bg-cover bg-center" data-alt="An elegant, modern web portfolio layout for a senior software engineer showcasing a minimalist project gallery with high-contrast typography and smooth shadows. The atmosphere is sophisticated and professional, set in a clean workspace environment with soft daylight. Architectural photography style for digital interfaces." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDiJhKUf7kmoCwtlZmGLLCxu8B_eMACYc-CXdj3gHdp4TgRf5Oj0TIaQ4_RM-6rJk7UevWNi58VqG83QWGZM8SoT3a4tGAcOzAAp-FjhUp120_h8gr81Gl_rs1c2TtrmH_o3guPb1raLQlHf2P9goqnuC4QiFgK46FYAewo5Ibk20eS3eLDtc45QN2cvcEUAhlTa8spwGSvwpLFYsQSUYWnOR5Ri7FZTP-0qJ_3z0B648EGRgMO7VVGFzOZtVNYQWboCFAgMaQzxTk')"></div>
+<h3 class="text-body-md font-bold">Dev Portfolio</h3>
+<p class="text-body-sm text-on-surface-variant line-clamp-2">Minimalist showcase for technical architecture and UI designs.</p>
+<div class="mt-sm flex gap-2">
+<span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 rounded-full font-bold">NEXT.JS</span>
+<span class="bg-surface-container-highest text-on-surface-variant text-[10px] px-2 py-0.5 rounded-full font-bold">UI/UX</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Applications (12 cols) -->
+<div class="lg:col-span-12 bg-surface-container-lowest rounded-xl card-shadow p-md hover-card">
+<div class="flex justify-between items-center mb-md">
+<h2 class="text-headline-md font-headline-md text-on-surface">Recent Applications</h2>
+<span class="bg-surface-container text-on-surface-variant text-label-sm px-3 py-1 rounded-full">3 Active</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="border-b border-surface-container">
+<tr>
+<th class="py-sm text-label-sm font-bold text-on-surface-variant">Company</th>
+<th class="py-sm text-label-sm font-bold text-on-surface-variant">Position</th>
+<th class="py-sm text-label-sm font-bold text-on-surface-variant">Status</th>
+<th class="py-sm text-label-sm font-bold text-on-surface-variant">Updated</th>
+<th class="py-sm"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-on-surface/5 flex items-center justify-center font-bold text-xs">G</div>
+<span class="text-body-md font-medium">Google</span>
+</div>
+</td>
+<td class="py-md text-body-sm">Senior Frontend Engineer</td>
+<td class="py-md">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-sm">Interviewing</span>
+</td>
+<td class="py-md text-body-sm text-on-surface-variant">2 days ago</td>
+<td class="py-md text-right"><span class="material-symbols-outlined text-outline cursor-pointer">more_horiz</span></td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-on-surface text-white flex items-center justify-center font-bold text-xs">V</div>
+<span class="text-body-md font-medium">Vercel</span>
+</div>
+</td>
+<td class="py-md text-body-sm">Lead UI Developer</td>
+<td class="py-md">
+<span class="bg-primary-container/20 text-primary px-3 py-1 rounded-full text-label-sm">Applied</span>
+</td>
+<td class="py-md text-body-sm text-on-surface-variant">5 days ago</td>
+<td class="py-md text-right"><span class="material-symbols-outlined text-outline cursor-pointer">more_horiz</span></td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-md">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-primary flex items-center justify-center font-bold text-xs text-white">S</div>
+<span class="text-body-md font-medium">Stripe</span>
+</div>
+</td>
+<td class="py-md text-body-sm">Product Engineer</td>
+<td class="py-md">
+<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-label-sm">Reviewing</span>
+</td>
+<td class="py-md text-body-sm text-on-surface-variant">1 week ago</td>
+<td class="py-md text-right"><span class="material-symbols-outlined text-outline cursor-pointer">more_horiz</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB for Task/Quick Action -->
+<button class="fixed bottom-gutter right-gutter w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center lg:hidden z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 pb-safe h-16 bg-surface shadow-[0_-4px_20px_rgba(15,23,42,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container/20 rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span class="text-label-sm font-label-sm">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="text-label-sm font-label-sm">Add</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-label-sm font-label-sm">Goals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">business_center</span>
+<span class="text-label-sm font-label-sm">Jobs</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for task completion
+        document.querySelectorAll('button.w-6.h-6').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('bg-primary');
+                this.classList.toggle('border-primary');
+                const check = this.querySelector('span');
+                check.style.color = this.classList.contains('bg-primary') ? 'white' : 'transparent';
+                
+                const taskText = this.nextElementSibling.querySelector('p');
+                taskText.classList.toggle('line-through');
+                taskText.classList.toggle('opacity-50');
+            });
+        });
+    </script>
+</body></html>

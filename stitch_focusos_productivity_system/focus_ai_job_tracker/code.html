@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Focus AI - Job Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "inverse-surface": "#303038",
+                "on-tertiary": "#ffffff",
+                "on-surface": "#1b1b23",
+                "tertiary-container": "#b55d00",
+                "on-tertiary-fixed-variant": "#703700",
+                "surface-bright": "#fcf8ff",
+                "primary": "#4648d4",
+                "secondary": "#565e74",
+                "outline-variant": "#c7c4d7",
+                "on-primary": "#ffffff",
+                "background": "#fcf8ff",
+                "on-tertiary-fixed": "#301400",
+                "on-background": "#1b1b23",
+                "surface-container-highest": "#e4e1ed",
+                "surface-container-low": "#f5f2fe",
+                "primary-fixed": "#e1e0ff",
+                "on-error-container": "#93000a",
+                "inverse-primary": "#c0c1ff",
+                "surface-tint": "#494bd6",
+                "on-secondary-fixed": "#131b2e",
+                "secondary-fixed-dim": "#bec6e0",
+                "outline": "#767586",
+                "secondary-fixed": "#dae2fd",
+                "error": "#ba1a1a",
+                "surface-container-high": "#e9e6f3",
+                "on-secondary-container": "#5c647a",
+                "surface-dim": "#dbd8e4",
+                "on-primary-container": "#fffbff",
+                "on-tertiary-container": "#fffbff",
+                "tertiary": "#904900",
+                "tertiary-fixed": "#ffdcc5",
+                "secondary-container": "#dae2fd",
+                "primary-container": "#6063ee",
+                "on-primary-fixed": "#07006c",
+                "surface-variant": "#e4e1ed",
+                "surface-container": "#efecf8",
+                "inverse-on-surface": "#f2effb",
+                "on-primary-fixed-variant": "#2f2ebe",
+                "on-surface-variant": "#464554",
+                "on-error": "#ffffff",
+                "error-container": "#ffdad6",
+                "on-secondary": "#ffffff",
+                "surface": "#fcf8ff",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-fixed-dim": "#ffb783",
+                "primary-fixed-dim": "#c0c1ff",
+                "on-secondary-fixed-variant": "#3f465c"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            "spacing": {
+                "xl": "64px",
+                "xs": "4px",
+                "gutter": "24px",
+                "lg": "40px",
+                "base": "8px",
+                "margin-desktop": "48px",
+                "md": "24px",
+                "sm": "12px",
+                "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                "headline-md": ["Inter"],
+                "display": ["Inter"],
+                "headline-lg": ["Inter"],
+                "body-md": ["Inter"],
+                "body-sm": ["Inter"],
+                "body-lg": ["Inter"],
+                "label-md": ["Inter"],
+                "label-sm": ["Inter"],
+                "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #fcf8ff; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        /* Custom scrollbar for clean UI */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e4e1ed; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c7c4d7; }
+        
+        /* Glassmorphism subtle effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- TopNavBar (Execution from JSON) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="flex items-center gap-md">
+<span class="text-headline-md font-headline-md font-bold text-on-surface">Focus AI</span>
+<div class="hidden md:flex items-center ml-lg gap-md">
+<nav class="flex gap-md">
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 px-sm py-xs rounded-lg text-label-md font-label-md" href="#">Overview</a>
+<a class="text-primary font-bold border-b-2 border-primary px-sm py-xs text-label-md font-label-md" href="#">Job Tracker</a>
+<a class="text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 px-sm py-xs rounded-lg text-label-md font-label-md" href="#">Analytics</a>
+</nav>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<div class="relative flex items-center bg-surface-container-low px-sm py-1.5 rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-outline text-[20px]">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm px-2 w-48" placeholder="Search applications..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-md py-2 rounded-full text-label-md font-label-md active:scale-95 transition-transform duration-150 shadow-md">
+                Quick Add
+            </button>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- SideNavBar (Execution from JSON) -->
+<aside class="fixed left-0 top-0 h-screen hidden lg:flex flex-col py-lg px-sm w-64 bg-surface border-r border-outline-variant z-40 pt-20">
+<div class="px-md mb-lg">
+<h2 class="text-label-sm font-label-sm uppercase tracking-widest text-outline">Main Menu</h2>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-sm px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-md font-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-sm px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">menu_book</span>
+<span class="text-label-md font-label-md">Resources</span>
+</a>
+<a class="flex items-center gap-sm px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">check_circle</span>
+<span class="text-label-md font-label-md">Tasks</span>
+</a>
+<a class="flex items-center gap-sm px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">local_fire_department</span>
+<span class="text-label-md font-label-md">Streaks</span>
+</a>
+<a class="flex items-center gap-sm px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">folder</span>
+<span class="text-label-md font-label-md">Projects</span>
+</a>
+<a class="flex items-center gap-sm px-md py-3 rounded-xl text-primary bg-primary-container/10 font-bold active:translate-x-1 transition-transform duration-200" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-label-md font-label-md">Job Tracker</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-md space-y-1">
+<a class="flex items-center gap-sm px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-label-md font-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-sm px-md py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low transition-all" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="text-label-md font-label-md">Support</span>
+</a>
+<div class="mt-lg p-md bg-surface-container-low rounded-2xl flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div class="overflow-hidden">
+<p class="text-label-md font-label-md truncate">Alex Rivera</p>
+<p class="text-body-sm text-outline truncate">Deep Work Mode</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-64 pt-24 px-gutter pb-xl min-h-screen">
+<div class="max-w-[1280px] mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-lg gap-md">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Job Tracker</h1>
+<p class="text-body-md text-on-surface-variant mt-1">Manage your professional growth and application pipeline.</p>
+</div>
+<div class="flex items-center gap-sm">
+<div class="flex bg-surface-container-high p-1 rounded-xl">
+<button class="px-md py-2 rounded-lg bg-surface text-primary shadow-sm text-label-md font-label-md transition-all">
+                            List View
+                        </button>
+<button class="px-md py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-colors text-label-md font-label-md">
+                            Board View
+                        </button>
+</div>
+</div>
+</div>
+<!-- Dashboard Stats (Bento Style) -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md mb-xl">
+<div class="bg-surface-container-lowest p-md rounded-2xl border border-outline-variant shadow-[0_4px_20px_rgba(15,23,42,0.05)]">
+<div class="flex items-center justify-between mb-2">
+<span class="text-outline text-label-sm font-label-sm uppercase">Total Applications</span>
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<div class="text-headline-md font-headline-md">24</div>
+<div class="text-body-sm text-tertiary-container mt-1">+3 this week</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-2xl border border-outline-variant shadow-[0_4px_20px_rgba(15,23,42,0.05)]">
+<div class="flex items-center justify-between mb-2">
+<span class="text-outline text-label-sm font-label-sm uppercase">Interviews</span>
+<span class="material-symbols-outlined text-primary">groups</span>
+</div>
+<div class="text-headline-md font-headline-md">8</div>
+<div class="text-body-sm text-on-surface-variant mt-1">3 scheduled</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-2xl border border-outline-variant shadow-[0_4px_20px_rgba(15,23,42,0.05)]">
+<div class="flex items-center justify-between mb-2">
+<span class="text-outline text-label-sm font-label-sm uppercase">Offers</span>
+<span class="material-symbols-outlined text-primary">workspace_premium</span>
+</div>
+<div class="text-headline-md font-headline-md">2</div>
+<div class="text-body-sm text-secondary-container bg-primary/10 inline-block px-2 rounded-full mt-1">Pending</div>
+</div>
+<div class="bg-surface-container-lowest p-md rounded-2xl border border-outline-variant shadow-[0_4px_20px_rgba(15,23,42,0.05)]">
+<div class="flex items-center justify-between mb-2">
+<span class="text-outline text-label-sm font-label-sm uppercase">Success Rate</span>
+<span class="material-symbols-outlined text-primary">trending_up</span>
+</div>
+<div class="text-headline-md font-headline-md">33%</div>
+<div class="w-full bg-surface-container-highest h-1.5 rounded-full mt-2">
+<div class="bg-primary h-full w-[33%] rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Filters -->
+<div class="flex items-center justify-between mb-md">
+<div class="flex items-center gap-sm overflow-x-auto pb-2 md:pb-0">
+<span class="text-label-md font-label-md text-outline mr-2 shrink-0">Filter:</span>
+<button class="bg-primary-container text-on-primary-container px-md py-1.5 rounded-full text-label-sm font-label-sm shrink-0">All Jobs</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-md py-1.5 rounded-full text-label-sm font-label-sm hover:bg-outline-variant transition-colors shrink-0">Interviewing</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-md py-1.5 rounded-full text-label-sm font-label-sm hover:bg-outline-variant transition-colors shrink-0">Applied</button>
+<button class="bg-surface-container-highest text-on-surface-variant px-md py-1.5 rounded-full text-label-sm font-label-sm hover:bg-outline-variant transition-colors shrink-0">Offer</button>
+</div>
+<button class="hidden md:flex items-center gap-xs text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md">
+<span class="material-symbols-outlined text-[20px]">sort</span>
+                    Last Updated
+                </button>
+</div>
+<!-- Job Tracker Table Container -->
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider">Company</th>
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider">Role</th>
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider">Status</th>
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider">Date Applied</th>
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider">Next Action</th>
+<th class="px-md py-4 text-label-sm font-label-sm text-outline uppercase tracking-wider"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1: Vercel -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-md py-5">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-lg bg-black flex items-center justify-center text-white font-bold text-xs">V</div>
+<span class="text-body-md font-medium">Vercel</span>
+</div>
+</td>
+<td class="px-md py-5">
+<span class="text-body-md text-on-surface">Senior Frontend Engineer</span>
+</td>
+<td class="px-md py-5">
+<span class="bg-tertiary-container/10 text-tertiary-container px-3 py-1 rounded-full text-label-sm font-label-sm flex items-center gap-1 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                                        Interviewing
+                                    </span>
+</td>
+<td class="px-md py-5">
+<span class="text-body-sm text-outline">Oct 12, 2023</span>
+</td>
+<td class="px-md py-5">
+<div class="flex items-center gap-xs text-primary font-medium text-body-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                                        Technical Interview (Oct 28)
+                                    </div>
+</td>
+<td class="px-md py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-2 hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Figma -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-md py-5">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-lg bg-[#F24E1E] flex items-center justify-center text-white font-bold text-xs">F</div>
+<span class="text-body-md font-medium">Figma</span>
+</div>
+</td>
+<td class="px-md py-5">
+<span class="text-body-md text-on-surface">Product Designer</span>
+</td>
+<td class="px-md py-5">
+<span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-label-sm font-label-sm flex items-center gap-1 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                        Applied
+                                    </span>
+</td>
+<td class="px-md py-5">
+<span class="text-body-sm text-outline">Oct 18, 2023</span>
+</td>
+<td class="px-md py-5">
+<div class="flex items-center gap-xs text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+                                        Wait for response
+                                    </div>
+</td>
+<td class="px-md py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-2 hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: Linear -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-md py-5">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-lg bg-[#5E6AD2] flex items-center justify-center text-white font-bold text-xs">L</div>
+<span class="text-body-md font-medium">Linear</span>
+</div>
+</td>
+<td class="px-md py-5">
+<span class="text-body-md text-on-surface">Engineering Manager</span>
+</td>
+<td class="px-md py-5">
+<span class="bg-primary/20 text-primary-fixed-variant border border-primary/20 px-3 py-1 rounded-full text-label-sm font-label-sm flex items-center gap-1 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                                        Offer
+                                    </span>
+</td>
+<td class="px-md py-5">
+<span class="text-body-sm text-outline">Sep 24, 2023</span>
+</td>
+<td class="px-md py-5">
+<div class="flex items-center gap-xs text-error font-semibold text-body-sm">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+                                        Decision due (Oct 30)
+                                    </div>
+</td>
+<td class="px-md py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-2 hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: OpenAI -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-md py-5">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded-lg bg-[#10a37f] flex items-center justify-center text-white font-bold text-xs">O</div>
+<span class="text-body-md font-medium">OpenAI</span>
+</div>
+</td>
+<td class="px-md py-5">
+<span class="text-body-md text-on-surface">AI Researcher</span>
+</td>
+<td class="px-md py-5">
+<span class="bg-tertiary-container/10 text-tertiary-container px-3 py-1 rounded-full text-label-sm font-label-sm flex items-center gap-1 w-fit">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary-container"></span>
+                                        Interviewing
+                                    </span>
+</td>
+<td class="px-md py-5">
+<span class="text-body-sm text-outline">Oct 05, 2023</span>
+</td>
+<td class="px-md py-5">
+<div class="flex items-center gap-xs text-primary font-medium text-body-sm">
+<span class="material-symbols-outlined text-[18px]">chat_bubble</span>
+                                        Final Panel Stage
+                                    </div>
+</td>
+<td class="px-md py-5 text-right">
+<button class="opacity-0 group-hover:opacity-100 p-2 hover:bg-surface-container-high rounded-lg transition-all">
+<span class="material-symbols-outlined text-outline">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination / Footer -->
+<div class="px-md py-4 bg-surface-container-low flex items-center justify-between">
+<p class="text-body-sm text-outline">Showing 4 of 24 applications</p>
+<div class="flex gap-2">
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="p-2 border border-outline-variant rounded-lg hover:bg-surface">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Contextual Insight (Quiet Intelligence Card) -->
+<div class="mt-xl grid grid-cols-1 lg:grid-cols-3 gap-md">
+<div class="lg:col-span-2 glass-card p-lg rounded-3xl relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-sm">
+<span class="material-symbols-outlined text-primary" data-weight="fill">auto_awesome</span>
+<h3 class="text-headline-md font-headline-md text-on-surface">Focus Assistant Insight</h3>
+</div>
+<p class="text-body-md text-on-surface-variant max-w-xl">
+                            Based on your recent activity, you're most successful with companies in the <b>Developer Tools</b> sector. You have a 75% interview conversion rate with startups using TypeScript and Next.js.
+                        </p>
+<div class="mt-md flex gap-sm">
+<button class="bg-primary text-on-primary px-md py-2 rounded-xl text-label-md font-label-md">See Similar Jobs</button>
+<button class="text-primary hover:bg-primary/5 px-md py-2 rounded-xl text-label-md font-label-md transition-colors">Dismiss</button>
+</div>
+</div>
+<!-- Subtle AI Background Glow -->
+<div class="absolute -right-16 -top-16 w-64 h-64 bg-primary/5 rounded-full blur-[80px]"></div>
+<div class="absolute -left-16 -bottom-16 w-48 h-48 bg-secondary/5 rounded-full blur-[60px]"></div>
+</div>
+<div class="bg-inverse-surface text-on-primary px-lg py-lg rounded-3xl flex flex-col justify-between">
+<div>
+<h4 class="text-headline-md font-headline-md mb-2">Upcoming Task</h4>
+<p class="text-on-surface-variant text-body-sm">Vercel Technical Interview Prep</p>
+</div>
+<div class="mt-lg">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-primary-fixed">timer</span>
+<span class="text-display leading-none">42</span>
+<span class="text-label-md font-label-md text-outline-variant">minutes left</span>
+</div>
+<button class="w-full bg-white text-on-surface py-3 rounded-2xl font-bold active:scale-95 transition-transform">
+                            Start Focus Session
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Execution from JSON - Hidden on Desktop) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 pb-safe h-16 bg-surface shadow-[0_-4px_20px_rgba(15,23,42,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span class="text-label-sm font-label-sm">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container/20 rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined" data-weight="fill">work</span>
+<span class="text-label-sm font-label-sm">Jobs</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-label-sm font-label-sm">Goals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-all" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Micro-interaction for table rows
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                // In a real app, this would navigate to a detail view
+                console.log('Navigating to job details...');
+            });
+        });
+
+        // Search highlight interaction
+        const searchInput = document.querySelector('input');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20', 'border-primary');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20', 'border-primary');
+        });
+    </script>
+</body></html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Focus AI - Streak Tracking</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Design System Tokens & Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "surface-container-lowest": "#ffffff",
+                    "primary-fixed": "#e1e0ff",
+                    "surface-dim": "#dbd8e4",
+                    "outline": "#767586",
+                    "inverse-primary": "#c0c1ff",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "tertiary-container": "#b55d00",
+                    "on-secondary-fixed": "#131b2e",
+                    "on-surface": "#1b1b23",
+                    "surface-tint": "#494bd6",
+                    "tertiary-fixed": "#ffdcc5",
+                    "on-primary-fixed": "#07006c",
+                    "primary-container": "#6063ee",
+                    "inverse-surface": "#303038",
+                    "on-primary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "on-background": "#1b1b23",
+                    "secondary-fixed": "#dae2fd",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "surface": "#fcf8ff",
+                    "on-secondary-container": "#5c647a",
+                    "surface-bright": "#fcf8ff",
+                    "secondary": "#565e74",
+                    "on-secondary-fixed-variant": "#3f465c",
+                    "surface-variant": "#e4e1ed",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-fixed-variant": "#703700",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#fffbff",
+                    "primary": "#4648d4",
+                    "tertiary-fixed-dim": "#ffb783",
+                    "surface-container": "#efecf8",
+                    "surface-container-high": "#e9e6f3",
+                    "on-tertiary-fixed": "#301400",
+                    "on-surface-variant": "#464554",
+                    "error-container": "#ffdad6",
+                    "background": "#fcf8ff",
+                    "tertiary": "#904900",
+                    "surface-container-highest": "#e4e1ed",
+                    "on-primary-container": "#fffbff",
+                    "outline-variant": "#c7c4d7",
+                    "surface-container-low": "#f5f2fe",
+                    "secondary-container": "#dae2fd",
+                    "on-error": "#ffffff",
+                    "inverse-on-surface": "#f2effb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "4px",
+                    "sm": "12px",
+                    "margin-desktop": "48px",
+                    "lg": "40px",
+                    "base": "8px",
+                    "xl": "64px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "md": "24px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "label-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcf8ff;
+            color: #1b1b23;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .soft-shadow {
+            box-shadow: 0px 4px 20px rgba(15, 23, 42, 0.05);
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background min-h-screen pb-24">
+<!-- Top App Bar (From Shared Components) -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface shadow-sm">
+<div class="flex justify-between items-center px-6 py-4 w-full max-w-[1280px] mx-auto">
+<h1 class="font-display text-headline-md text-primary tracking-tight">Focus AI</h1>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a focused individual in a minimalist, brightly lit home office. The lighting is soft and natural, emphasizing a calm and productive atmosphere. The background is slightly blurred, featuring clean lines and a neutral color palette of whites and soft greys." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSfQylklZt9YmIcRzIVpXKBxVFwBp8cGqxZ_O6Xp8ST1QacRsMO7PBHgjw6IpBYENlXZ8ensdFfx4MCb8MMSU0lV6L1cuVnF_UKH31Rnr51BjV_dptnTU8wcazGTyPBGu6bBn3GVCDuJotk-DL2g_i8QkT5uHl4n4-IWsqk6mV7y_nLJuEXebei0QepzqqzRpw5wsYeclT915Ki5ceOPEEPHJ5fq5B1AFkPidxE4i7BqaJhUHdXIXzj8LwgwU3D19fIIg_OxokFgE"/>
+</div>
+</div>
+</div>
+</header>
+<main class="pt-20 px-4 max-w-md mx-auto space-y-6">
+<!-- Current Streak Hero -->
+<section class="mt-4 bg-surface rounded-xl p-8 flex flex-col items-center text-center soft-shadow relative overflow-hidden">
+<!-- Subtle Atmospheric Background Effect -->
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="absolute top-[-20%] left-[-20%] w-64 h-64 bg-primary rounded-full blur-[80px]"></div>
+<div class="absolute bottom-[-20%] right-[-20%] w-64 h-64 bg-secondary-container rounded-full blur-[80px]"></div>
+</div>
+<div class="relative z-10">
+<span class="font-label-md text-label-md text-on-surface-variant mb-2 block">Current Focus Streak</span>
+<div class="flex items-baseline justify-center gap-1">
+<span class="font-display text-[64px] leading-tight text-primary">12</span>
+<span class="font-headline-md text-headline-md text-primary-container">Days</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2 max-w-[200px]">
+                    You're in the top 5% of deep work performers this week.
+                </p>
+<div class="mt-6 flex gap-2">
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md shadow-sm active:scale-95 transition-transform">
+                        Share Progress
+                    </button>
+</div>
+</div>
+</section>
+<!-- Weekly Consistency View -->
+<section class="space-y-3">
+<div class="flex justify-between items-end">
+<h2 class="font-headline-md text-headline-md text-on-surface">Weekly Flow</h2>
+<span class="font-label-sm text-label-sm text-primary">85% Complete</span>
+</div>
+<div class="bg-surface rounded-xl p-5 soft-shadow flex justify-between">
+<!-- Day Nodes -->
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">M</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">T</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">W</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">T</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<!-- Today Active State -->
+<div class="w-10 h-10 rounded-xl bg-primary border-4 border-primary-container flex items-center justify-center text-on-primary shadow-md">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-bold">F</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-outline-variant">
+<span class="material-symbols-outlined text-[20px]">circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">S</span>
+</div>
+<div class="flex flex-col items-center gap-2">
+<div class="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-outline-variant">
+<span class="material-symbols-outlined text-[20px]">circle</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">S</span>
+</div>
+</div>
+</section>
+<!-- Monthly Calendar View -->
+<section class="space-y-3 pb-8">
+<div class="flex justify-between items-center">
+<h2 class="font-headline-md text-headline-md text-on-surface">Growth History</h2>
+<div class="flex gap-2">
+<button class="p-1 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-1 text-on-surface-variant hover:bg-surface-variant rounded-lg transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<div class="bg-surface rounded-xl p-5 soft-shadow">
+<div class="flex justify-between items-center mb-6">
+<span class="font-label-md text-label-md text-on-surface font-bold">October 2023</span>
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+<span class="font-label-sm text-label-sm">24 Full Sessions</span>
+</div>
+</div>
+<div class="calendar-grid text-center mb-4">
+<div class="font-label-sm text-label-sm text-outline">M</div>
+<div class="font-label-sm text-label-sm text-outline">T</div>
+<div class="font-label-sm text-label-sm text-outline">W</div>
+<div class="font-label-sm text-label-sm text-outline">T</div>
+<div class="font-label-sm text-label-sm text-outline">F</div>
+<div class="font-label-sm text-label-sm text-outline">S</div>
+<div class="font-label-sm text-label-sm text-outline">S</div>
+</div>
+<div class="calendar-grid">
+<!-- Placeholder days with varied streak activity -->
+<!-- Week 1 (Empty Start) -->
+<div class="h-10"></div><div class="h-10"></div><div class="h-10"></div><div class="h-10"></div>
+<div class="w-full aspect-square rounded-lg bg-primary-container/20 flex items-center justify-center font-body-sm text-on-surface-variant">1</div>
+<div class="w-full aspect-square rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-center font-body-sm text-on-surface-variant">2</div>
+<div class="w-full aspect-square rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-center font-body-sm text-on-surface-variant">3</div>
+<!-- Week 2 -->
+<div class="w-full aspect-square rounded-lg bg-primary-container flex items-center justify-center font-body-sm text-on-primary-container">4</div>
+<div class="w-full aspect-square rounded-lg bg-primary-container flex items-center justify-center font-body-sm text-on-primary-container">5</div>
+<div class="w-full aspect-square rounded-lg bg-primary-container flex items-center justify-center font-body-sm text-on-primary-container">6</div>
+<div class="w-full aspect-square rounded-lg bg-primary-container flex items-center justify-center font-body-sm text-on-primary-container">7</div>
+<div class="w-full aspect-square rounded-lg bg-primary-container flex items-center justify-center font-body-sm text-on-primary-container">8</div>
+<div class="w-full aspect-square rounded-lg bg-primary-container/40 flex items-center justify-center font-body-sm text-on-surface-variant">9</div>
+<div class="w-full aspect-square rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-center font-body-sm text-on-surface-variant">10</div>
+<!-- Week 3 -->
+<div class="w-full aspect-square rounded-lg bg-primary-container flex items-center justify-center font-body-sm text-on-primary-container">11</div>
+<div class="w-full aspect-square rounded-lg bg-primary flex items-center justify-center font-body-sm text-on-primary shadow-sm border-2 border-primary-container">12</div>
+<div class="w-full aspect-square rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-center font-body-sm text-on-surface-variant">13</div>
+<div class="w-full aspect-square rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-center font-body-sm text-on-surface-variant">14</div>
+<div class="w-full aspect-square rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-center font-body-sm text-on-surface-variant">15</div>
+<div class="w-full aspect-square rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-center font-body-sm text-on-surface-variant">16</div>
+<div class="w-full aspect-square rounded-lg bg-surface-container-lowest border border-outline-variant flex items-center justify-center font-body-sm text-on-surface-variant">17</div>
+</div>
+<div class="mt-6 pt-4 border-t border-outline-variant flex justify-around">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded bg-primary"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">High Focus</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded bg-primary-container/40"></div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Partial</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Motivator Card -->
+<section class="bg-primary-container text-on-primary-container rounded-xl p-6 relative overflow-hidden">
+<div class="absolute right-[-20px] top-[-20px] opacity-10">
+<span class="material-symbols-outlined text-[120px]">psychology</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2 relative z-10">Consistency is Key</h3>
+<p class="font-body-sm text-body-sm opacity-90 relative z-10">
+                "Small daily improvements over time lead to stunning results." Focus on your next 45-minute block.
+            </p>
+</section>
+</main>
+<!-- Bottom Navigation (From Shared Components) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 py-3 pb-safe bg-surface shadow-[0_-4px_20px_rgba(15,23,42,0.05)] rounded-t-xl">
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span class="font-label-sm text-label-sm mt-1">Tasks</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1 transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-label-sm text-label-sm mt-0.5">Growth</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-transform duration-150 active:scale-95" href="#">
+<span class="material-symbols-outlined">business_center</span>
+<span class="font-label-sm text-label-sm mt-1">Jobs</span>
+</a>
+</nav>
+<script>
+        // Simple interaction for calendar items
+        document.querySelectorAll('.calendar-grid > div').forEach(item => {
+            if(item.textContent.trim() !== "" && !item.classList.contains('font-label-sm')) {
+                item.addEventListener('click', () => {
+                    item.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        item.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            }
+        });
+
+        // Dynamic transition for the hero card on scroll
+        window.addEventListener('scroll', () => {
+            const hero = document.querySelector('section:first-of-type');
+            const scrollVal = window.scrollY;
+            if (scrollVal < 300) {
+                hero.style.transform = `translateY(${scrollVal * 0.1}px)`;
+                hero.style.opacity = 1 - (scrollVal / 600);
+            }
+        });
+    </script>
+</body></html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Focus AI - Job Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-surface": "#303038",
+                    "on-tertiary": "#ffffff",
+                    "on-surface": "#1b1b23",
+                    "tertiary-container": "#b55d00",
+                    "on-tertiary-fixed-variant": "#703700",
+                    "surface-bright": "#fcf8ff",
+                    "primary": "#4648d4",
+                    "secondary": "#565e74",
+                    "outline-variant": "#c7c4d7",
+                    "on-primary": "#ffffff",
+                    "background": "#fcf8ff",
+                    "on-tertiary-fixed": "#301400",
+                    "on-background": "#1b1b23",
+                    "surface-container-highest": "#e4e1ed",
+                    "surface-container-low": "#f5f2fe",
+                    "primary-fixed": "#e1e0ff",
+                    "on-error-container": "#93000a",
+                    "inverse-primary": "#c0c1ff",
+                    "surface-tint": "#494bd6",
+                    "on-secondary-fixed": "#131b2e",
+                    "secondary-fixed-dim": "#bec6e0",
+                    "outline": "#767586",
+                    "secondary-fixed": "#dae2fd",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e9e6f3",
+                    "on-secondary-container": "#5c647a",
+                    "surface-dim": "#dbd8e4",
+                    "on-primary-container": "#fffbff",
+                    "on-tertiary-container": "#fffbff",
+                    "tertiary": "#904900",
+                    "tertiary-fixed": "#ffdcc5",
+                    "secondary-container": "#dae2fd",
+                    "primary-container": "#6063ee",
+                    "on-primary-fixed": "#07006c",
+                    "surface-variant": "#e4e1ed",
+                    "surface-container": "#efecf8",
+                    "inverse-on-surface": "#f2effb",
+                    "on-primary-fixed-variant": "#2f2ebe",
+                    "on-surface-variant": "#464554",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "on-secondary": "#ffffff",
+                    "surface": "#fcf8ff",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb783",
+                    "primary-fixed-dim": "#c0c1ff",
+                    "on-secondary-fixed-variant": "#3f465c"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "64px",
+                    "xs": "4px",
+                    "gutter": "24px",
+                    "lg": "40px",
+                    "base": "8px",
+                    "margin-desktop": "48px",
+                    "md": "24px",
+                    "sm": "12px",
+                    "margin-mobile": "16px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "display": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .status-pill {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .app-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .app-card:active {
+            transform: scale(0.98);
+        }
+        /* Custom scrollbar for mobile feel */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
+        
+        .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- Top Navigation Anchor (As per JSON TopNavBar) -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface/80 backdrop-blur-md shadow-sm">
+<div class="text-headline-md font-headline-md font-bold text-on-surface">Focus AI</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-full">search</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high transition-colors p-2 rounded-full">account_circle</button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-20 px-margin-mobile max-w-lg mx-auto">
+<!-- Welcome/Summary Section -->
+<section class="mb-8">
+<h1 class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface mb-2">Job Tracker</h1>
+<p class="text-body-md font-body-md text-on-surface-variant">You have 12 active applications in "Deep Work" mode.</p>
+<!-- Quick Stats Horizontal Scroll -->
+<div class="flex gap-sm overflow-x-auto py-sm mt-4 no-scrollbar">
+<div class="bg-primary-container text-on-primary-container px-md py-sm rounded-xl flex-shrink-0 min-w-[120px]">
+<div class="text-label-sm font-label-sm opacity-80">Interviewing</div>
+<div class="text-headline-md font-headline-md">4</div>
+</div>
+<div class="bg-surface-container-high text-on-surface px-md py-sm rounded-xl flex-shrink-0 min-w-[120px]">
+<div class="text-label-sm font-label-sm opacity-80">Pending</div>
+<div class="text-headline-md font-headline-md">8</div>
+</div>
+<div class="bg-surface-container-high text-on-surface px-md py-sm rounded-xl flex-shrink-0 min-w-[120px]">
+<div class="text-label-sm font-label-sm opacity-80">Offers</div>
+<div class="text-headline-md font-headline-md">1</div>
+</div>
+</div>
+</section>
+<!-- Application List -->
+<div class="space-y-4">
+<!-- Card 1: Interviewing -->
+<div class="app-card bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex flex-col gap-4" onclick="openDetails('Linear', 'Senior Product Designer')">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="w-8 h-8 object-contain" data-alt="A minimalist tech company logo with a clean geometric letter L, styled in a modern professional aesthetic using deep indigo and soft white, set against a high-key studio background with diffused lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcCMHBo89NygtbzCQfKhs0CUBciWHm8n5OlP3KvN6sAmGjbS548FurV2KKnk8y1VsKv8zJeHtZYTdHYXyknmKrQbGUWa7lD4SmBXZWVKgAzNzl7IB3pTPrzO-FnWPkFxSg8S_YqjFGRIMRgzdFEtfT6crnPBS34W6I6mqZZ0SQiITczNbb_3vZ4Q5zfnIE_6MBsG4_KNyAdhh2UoHSIczvNc0JhkcqxlShLsF3l0n2ENulB8csmnf0d30mklw_o47W9ZEuW98Hf-s"/>
+</div>
+<div>
+<h3 class="text-body-md font-semibold text-on-surface">Linear</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Senior Product Designer</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-outline">Oct 24</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="px-4 py-1.5 rounded-full bg-primary-container/20 text-primary text-label-sm font-bold status-pill">Interviewing</span>
+<button class="material-symbols-outlined text-outline">more_vert</button>
+</div>
+</div>
+<!-- Card 2: Submitted -->
+<div class="app-card bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex flex-col gap-4" onclick="openDetails('Stripe', 'Frontend Engineer')">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="w-8 h-8 object-contain" data-alt="A sophisticated corporate logo for a financial tech firm, featuring a bold minimalist S shape in vibrant indigo. The image is rendered in a high-fidelity light-mode style with soft shadows and clean lines, embodying a professional and trustworthy brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD01bsYry5Fpbblz0qm5cyeeMK02X6UmuaAu3jN2FcCo2LKt6bOakgZsWLMrIqWbl-lR4jGc5s7JV7LyqzaQQV21Bvid5htNPZo2EcirEG44hTmjNhI2LOfPDeT7bacJpNJBeiv6tn_ODMbVqqfgPWVm6AnSrjdFK8ggo50H922GjnzhQJsRJNdgJ4oi_mqCNXURf1QVnX2JAGZ0kknyDV27Q3W12XXIFWMcJ9H5EMGxqzBviS6aHQLNPEnF1vzKRcoFFkkbZlhbGI"/>
+</div>
+<div>
+<h3 class="text-body-md font-semibold text-on-surface">Stripe</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Frontend Engineer</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-outline">Oct 22</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="px-4 py-1.5 rounded-full bg-surface-container-high text-on-surface-variant text-label-sm font-bold status-pill">Submitted</span>
+<button class="material-symbols-outlined text-outline">more_vert</button>
+</div>
+</div>
+<!-- Card 3: Offer -->
+<div class="app-card bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex flex-col gap-4" onclick="openDetails('Anthropic', 'AI Interface Lead')">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center overflow-hidden">
+<img class="w-8 h-8 object-contain" data-alt="A modern AI research company logo consisting of abstract flowing shapes that suggest neural networks, rendered in soft grays and deep blues. The aesthetic is clean and minimal, set in a bright, modern studio with natural light and a calm atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAepYOE82hMnDYVejNb_06T7-R1BW9_WuNCUH4T_KeSDCkj7sV7qZrqQXCAIA1nhiBqp1iIncojWVkeayzi1llklNq2Pb1ZBGR0WNHWO9KbNJH_UlXK11a-b5nXDEm4NZTmhI46arnMr-wTtdeN9URm5zik0YX-BzzndPx1-t3lRJaQc6TeUC3XleVR926bTCUVjXF-8TGNJEGPQK02uOM2p8cv7uzN9IGtEgYLUwKOAHbEeyw4GeM2HwzYHh_WWpaTlBqPmqcvDvA"/>
+</div>
+<div>
+<h3 class="text-body-md font-semibold text-on-surface">Anthropic</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">AI Interface Lead</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-outline">Oct 20</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="px-4 py-1.5 rounded-full bg-tertiary-container/10 text-tertiary text-label-sm font-bold status-pill border border-tertiary-container/30">Offer Received</span>
+<button class="material-symbols-outlined text-outline">more_vert</button>
+</div>
+</div>
+<!-- Card 4: Rejected -->
+<div class="app-card bg-surface-container-lowest p-md rounded-xl shadow-[0_4px_20px_rgba(15,23,42,0.05)] border border-outline-variant/30 flex flex-col gap-4 opacity-70" onclick="openDetails('Airbnb', 'Staff UX Designer')">
+<div class="flex justify-between items-start">
+<div class="flex items-center gap-sm">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center overflow-hidden grayscale">
+<img class="w-8 h-8 object-contain" data-alt="A famous travel tech brand logo featuring a stylized heart and home icon, presented in a minimalist professional style with soft lighting and a light-mode color palette. The overall vibe is welcoming and modern, with high-quality textures and precise execution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRx8J-wcJqsN8jcA8fAJFT_vlmFGkAf5d7sZ4Gd-QjTFShm1T5wKmqWWecau5wx2TyvxrQbfJonC64G3Az--ZOejxTUOl-w4Z8gMpJdhQvM2TknRxmmHMkYr3-EJwfKcFGErUB9StAdoYQkR-CEOBHLoYH6R17kRhoUL3ozSKHrj0Tq7sk33AYSztaM_QK360Pg_7uX5DrAchrvxCJnUL1HdJA2_t_U_MRVgRdpaDY_HElpqsYMJi0jNl0p6StbhWevMkjGPHHJGI"/>
+</div>
+<div>
+<h3 class="text-body-md font-semibold text-on-surface">Airbnb</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Staff UX Designer</p>
+</div>
+</div>
+<span class="text-label-sm font-label-sm text-outline">Oct 18</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="px-4 py-1.5 rounded-full bg-error-container/20 text-error text-label-sm font-bold status-pill">Closed</span>
+<button class="material-symbols-outlined text-outline">more_vert</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell (As per JSON BottomNavBar) -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex lg:hidden justify-around items-center px-4 pb-safe h-16 bg-surface shadow-[0_-4px_20px_rgba(15,23,42,0.05)] rounded-t-xl safe-area-bottom">
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">task_alt</span>
+<span class="text-label-sm font-label-sm">Tasks</span>
+</a>
+<button class="flex flex-col items-center justify-center text-primary active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+</button>
+<a class="flex flex-col items-center justify-center text-on-surface-variant" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+<span class="text-label-sm font-label-sm">Goals</span>
+</a>
+<a class="flex flex-col items-center justify-center text-primary font-bold bg-primary-container/20 rounded-xl px-3 py-1" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">business_center</span>
+<span class="text-label-sm font-label-sm">Jobs</span>
+</a>
+</nav>
+<!-- Detail Drawer (Simulated) -->
+<div class="fixed inset-0 z-[100] hidden" id="detailDrawer">
+<!-- Backdrop -->
+<div class="absolute inset-0 bg-on-background/40 backdrop-blur-sm transition-opacity" onclick="closeDetails()"></div>
+<!-- Sheet -->
+<div class="absolute bottom-0 left-0 w-full bg-surface rounded-t-3xl p-lg transform transition-transform translate-y-full duration-300 ease-out safe-area-bottom max-h-[707px] overflow-y-auto" id="drawerContent">
+<div class="w-12 h-1.5 bg-outline-variant rounded-full mx-auto mb-8"></div>
+<header class="mb-6">
+<div class="flex justify-between items-start">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface" id="detailCompany">Linear</h2>
+<p class="text-body-lg text-on-surface-variant" id="detailRole">Senior Product Designer</p>
+</div>
+<button class="material-symbols-outlined bg-surface-container-high p-2 rounded-full" onclick="closeDetails()">close</button>
+</div>
+</header>
+<div class="space-y-6">
+<section>
+<h4 class="text-label-md font-bold text-outline uppercase tracking-wider mb-2">Application Timeline</h4>
+<div class="space-y-4">
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-3 h-3 rounded-full bg-primary"></div>
+<div class="w-0.5 h-10 bg-outline-variant"></div>
+</div>
+<div>
+<p class="text-body-sm font-semibold">Technical Interview scheduled</p>
+<p class="text-label-sm text-outline">Tomorrow at 2:00 PM</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-3 h-3 rounded-full bg-outline-variant"></div>
+</div>
+<div>
+<p class="text-body-sm font-semibold text-on-surface-variant">Phone Screen completed</p>
+<p class="text-label-sm text-outline">Oct 24, 2023</p>
+</div>
+</div>
+</div>
+</section>
+<section>
+<h4 class="text-label-md font-bold text-outline uppercase tracking-wider mb-2">Focus Notes</h4>
+<div class="bg-surface-container p-md rounded-xl border border-outline-variant/30">
+<p class="text-body-sm text-on-surface-variant">AI-Suggested: Emphasize "Systems Thinking" during the technical round. They're looking for a designer who understands engineering constraints.</p>
+</div>
+</section>
+<div class="flex gap-4 pt-4">
+<button class="flex-1 bg-primary text-on-primary font-bold py-3 rounded-xl shadow-lg active:scale-95 transition-transform">Update Status</button>
+<button class="flex-1 bg-surface-container-high text-on-surface font-bold py-3 rounded-xl active:scale-95 transition-transform">Add Task</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+        function openDetails(company, role) {
+            const drawer = document.getElementById('detailDrawer');
+            const content = document.getElementById('drawerContent');
+            const companyEl = document.getElementById('detailCompany');
+            const roleEl = document.getElementById('detailRole');
+
+            companyEl.innerText = company;
+            roleEl.innerText = role;
+
+            drawer.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('translate-y-full');
+            }, 10);
+        }
+
+        function closeDetails() {
+            const drawer = document.getElementById('detailDrawer');
+            const content = document.getElementById('drawerContent');
+            
+            content.classList.add('translate-y-full');
+            setTimeout(() => {
+                drawer.classList.add('hidden');
+            }, 300);
+        }
+
+        // Handle micro-interactions
+        document.querySelectorAll('.app-card').forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.classList.add('scale-95');
+            });
+            card.addEventListener('touchend', () => {
+                card.classList.remove('scale-95');
+            });
+        });
+    </script>
+</body></html>
