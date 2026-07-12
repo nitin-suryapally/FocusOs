@@ -11,19 +11,19 @@ const navigationItems = [
 
 const navItemClassName = ({ isActive }) =>
   [
-    "group rounded-2xl border px-4 py-3 transition",
+    "group block w-full rounded-2xl border px-4 py-3 transition",
     isActive
       ? "border-primary/20 bg-primary text-on-primary shadow-card"
       : "border-outline-variant/60 bg-white/70 text-on-surface hover:border-primary/30 hover:bg-white"
   ].join(" ");
 
-export const AppNavigation = () => {
+export const AppNavigation = ({ onNavigate }) => {
   return (
     <nav className="space-y-3">
       {navigationItems.map((item) => (
-        <NavLink key={item.to} to={item.to} end={item.end} className={navItemClassName}>
+        <NavLink key={item.to} to={item.to} end={item.end} className={navItemClassName} onClick={onNavigate}>
           <div className="text-label-md">{item.label}</div>
-          <p className="mt-1 text-body-sm text-inherit/80">{item.description}</p>
+          <p className="mt-1 text-body-sm text-current opacity-75">{item.description}</p>
         </NavLink>
       ))}
     </nav>

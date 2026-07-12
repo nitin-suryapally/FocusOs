@@ -1,178 +1,77 @@
 # FocusOS Resume Context
 
-## Project Root
+## Current Snapshot
 
 - Root: `D:\dev\projects\focusOs`
-- Instruction source: `AGENT.md`
-- Frontend visual reference: `stitch_focusos_productivity_system/`
-- Design-system reference: `stitch_focusos_productivity_system/focus_ai_design_system/DESIGN.md`
+- Stack: React + JavaScript + Tailwind + Zustand; Node + Express + MongoDB/Mongoose + JWT
+- Workflow source: `AGENT.md`
+- Optional startup prompt: `prompts/bootstrap.md`
+- `prompts/contextGaurd.md` currently has no meaningful content
 
-## Stack Constraints From AGENT.md
+## Implemented
 
-- Frontend: React, JavaScript, Tailwind CSS, Zustand
-- Backend: Node.js, Express, MongoDB/Mongoose, JWT auth
-- Delivery style: feature-by-feature, end-to-end, always with tests
-
-## Current Implementation Status
-
-### Backend
-
-Backend auth scaffold exists in `server/`.
-
-Implemented:
+Backend auth:
 - `GET /health`
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `POST /api/auth/logout`
-- `GET /api/auth/me` with bearer-token protection
-- Mongoose `User` model
-- JWT token issuing and auth middleware
-- Password hashing with `bcryptjs`
-- Validation utilities and centralized error handling
-- Express app middleware includes `helmet()`, `express.json()`, and `morgan("dev")`
-- Service-layer and route-level tests
+- `GET /api/auth/me`
+- JWT middleware, Mongoose `User`, bcrypt password hashing, validation helpers, error handlers
 
-Key files:
-- `server/src/app.js`
-- `server/src/server.js`
-- `server/src/routes/authRoutes.js`
-- `server/src/controllers/authController.js`
-- `server/src/services/authService.js`
-- `server/src/models/User.js`
-- `server/src/middleware/authMiddleware.js`
-- `server/src/middleware/errorHandler.js`
-- `server/tests/auth.routes.test.js`
-- `server/tests/auth.service.test.js`
+Frontend auth and shell:
+- Login/register pages and shared auth card
+- Zustand auth store with persisted token/session bootstrap
+- Protected/public route guards
+- Shared `/app` layout with module placeholder routes
+- Sidebar navigation plus mobile hamburger drawer
 
-Environment template:
-- `server/.env.example`
+## Current Dirty Worktree Notes
 
-### Frontend
+Keep these changes unless the user explicitly asks to revert them:
+- `AGENT.md`: compact workflow guide with prompt-reading rule
+- `RESUME_CONTEXT.md`: compact current handoff
+- `client/src/features/auth/api/authApi.js`: auth API cleanup from register auth-state debugging
+- `client/src/tests/auth/authApi.test.js`: regression test for registration response handling
+- `client/src/components/AppNavigation.jsx`: full-width nav items plus optional `onNavigate`
+- `client/src/layouts/AppLayout.jsx`: mobile navigation drawer
+- `client/src/tests/app/AppLayout.test.jsx`: mobile drawer open/close coverage
+- `server/src/app.js`: middleware/CORS ordering change was already dirty before this cleanup pass
 
-Frontend auth scaffold exists in `client/`.
+## Latest Verification
 
-Implemented:
-- Vite + React + Tailwind + Zustand + React Router setup
-- Routes:
-  - `/` redirects to `/login`
-  - `/login`
-  - `/register`
-  - `/app` protected shared app shell with module placeholder routes
-- Branded auth layout derived from Stitch/design-system direction
-- Shared auth card used for register/login flows
-- Centralized Zustand auth store in `client/src/store/useAuthStore.js` with feature re-export in `client/src/features/auth/store/useAuthStore.js`
-- Auth API now supports `VITE_API_BASE_URL`, `GET /api/auth/me`, and `POST /api/auth/logout`
-- Session bootstrap for persisted tokens through `/api/auth/me`
-- Shared app layout, sidebar navigation, protected/public route guards, and overview shell scaffold
-- Frontend tests for auth card, auth store, and route guards
-
-Key files:
-- `client/src/app/router.jsx`
-- `client/src/app/routeGuards.jsx`
-- `client/src/layouts/AppLayout.jsx`
-- `client/src/layouts/AuthLayout.jsx`
-- `client/src/components/AppNavigation.jsx`
-- `client/src/features/auth/components/AuthCard.jsx`
-- `client/src/features/auth/pages/LoginPage.jsx`
-- `client/src/features/auth/pages/RegisterPage.jsx`
-- `client/src/store/useAuthStore.js`
-- `client/src/features/auth/store/useAuthStore.js`
-- `client/src/features/auth/api/authApi.js`
-- `client/src/pages/AppOverviewPage.jsx`
-- `client/src/pages/AppSectionPlaceholderPage.jsx`
-- `client/src/styles/index.css`
-- `client/src/tests/auth/AuthCard.test.jsx`
-- `client/src/tests/auth/useAuthStore.test.js`
-- `client/src/tests/app/RouteGuards.test.jsx`
-
-Environment template:
-- `client/.env.example`
-
-## Verification Already Completed
+Client:
+- `cd client; npm.cmd test` passed: `12/12`
+- `cd client; npm.cmd run build` passed
 
 Backend:
-- `cd server`
-- `npm.cmd install`
-- `npm.cmd test`
-- Result: `12/12` tests passed
+- Earlier auth tests passed: `12/12`
+- Backend tests were not rerun after the current dirty `server/src/app.js` middleware/CORS change
 
-Frontend:`r`n- `cd client` `r`n- `npm.cmd install` `r`n- `npm.cmd test` `r`n- Result: `10/10` tests passed `r`n- `npm.cmd run build` `r`n- Result: build succeeded
+## Known Gaps
 
-## Pending Follow-Up
+- Manually verify `/app` navigation at mobile and desktop widths in the browser.
+- Manually verify register/login/session restore against the running backend.
+- Resources, Tasks, Streaks, Project Ideas, Job Applications, and Dashboard are still placeholder modules.
+- Decide whether the `server/src/app.js` CORS change is intentional, then run backend install/tests.
 
-Backend middleware packages were added to `server/package.json`:
-- `helmet`
-- `morgan`
+## Next Restart Point
 
-After this change, run:
-- `cd server`
-- `npm.cmd install`
-
-Tests were not rerun after adding the middleware wiring.
-
-## Known Gap
-
-The app shell is currently a protected scaffold. Resources, tasks, streaks, projects, and applications still need their actual feature implementations and UI states inside the new shared layout.
-
-## Recommended Restart Point
-
-Resume from frontend-backend integration and first authenticated module work, not from scaffolding.
-
-Immediate next task:
-1. Run `cd client && npm.cmd test` and `npm.cmd run build` after the new shell/auth-store changes.
-2. Run `cd server && npm.cmd install` to install `helmet` and `morgan`.
-3. Verify register/login/session-restore flow against the running backend.
-4. Start the first real feature module inside the shared shell, preferably Resources or Tasks.
-
-## Practical Notes
-
-- PowerShell execution policy may block `npm`; use `npm.cmd`
-- The Windows sandbox helper intermittently failed with `codex-windows-sandbox-setup.exe` missing, so escalation may be required for some shell commands
-- The repo may not be initialized as a clean git working tree; avoid assuming git-based workflows without checking first
+1. Read `AGENT.md`, this file, and `prompts/bootstrap.md`.
+2. Verify the dirty worktree with `git status --short` before editing.
+3. Browser-check auth and mobile navigation if continuing shell/auth work.
+4. Otherwise start the next feature slice: Resource model, validation, and auth-protected CRUD backend with tests
 
 ## Useful Commands
 
 ```powershell
-cd D:\dev\projects\focusOs\server
-npm.cmd install
-npm.cmd test
-
 cd D:\dev\projects\focusOs\client
 npm.cmd test
 npm.cmd run build
+
+cd D:\dev\projects\focusOs\server
+npm.cmd install
+npm.cmd test
 ```
 
-## Low-Token Resume Prompt Template
-
-Use this when resuming work with minimal context overhead:
-
-```text
-Read `AGENT.md` and `RESUME_CONTEXT.md`. Continue from the next recommended step.
-
-Constraints:
-- Be concise.
-- Minimize token usage.
-- Do not restate context already captured in `RESUME_CONTEXT.md`.
-- Update `RESUME_CONTEXT.md` after each meaningful change.
-- Run relevant tests after code changes and record the result in `RESUME_CONTEXT.md`.
-
-Current goal:
-- [replace with the immediate task]
-
-Deliverables:
-1. Implement the change.
-2. Verify it.
-3. Update `RESUME_CONTEXT.md` with what changed, test status, and the next restart point.
-```
-
-## Low-Token Prompting Notes
-
-To keep token usage efficient:
-- Batch related tasks into one request instead of sending many short follow-ups.
-- Reference exact files when you know them.
-- Put the current goal and constraints in the first message.
-- Ask for `RESUME_CONTEXT.md` updates as part of the standing workflow.
-- Resume from the restart point instead of re-explaining completed work.
-
-run codex resume 019f47ed-0e48-7670-bd43-9a2553a1a351
-
+## last resume session 
+019f55d1-8d51-7bc0-b8ce-b3ea7fc3838b

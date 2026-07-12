@@ -1,395 +1,157 @@
 # Focus AI Agent Guide
 
-## Objective
-
-Build `Focus AI` as a production-minded full-stack web application with a clean, maintainable architecture, strong automated test coverage, and an efficient low-context development workflow for Codex CLI sessions.
-
-The product includes:
-
-1. Resource management by skill/topic
-2. Task management for normal tasks and learning tasks
-3. Streak tracking based on consecutive days where all daily tasks are completed
-4. Project ideas and progress tracking
-5. Job application tracking
-6. Secure user authentication
-
-## Required Stack
-
-### Frontend
-
-- React.js
-- JavaScript
-- Tailwind CSS
-- Zustand for client state management
-
-### Backend
-
-- Node.js
-- Express
-- MongoDB with Mongoose
-- JWT-based authentication
-
-## Core Development Rules
-
-1. Always build feature-by-feature, end-to-end.
-2. Always write tests for every feature developed.
-3. Never leave a feature half-implemented across frontend, backend, and tests if it can be completed in the same work cycle.
-4. Prefer simple, readable architecture over premature abstraction.
-5. Keep components small and focused.
-6. Keep business logic out of UI components whenever possible.
-7. Validate all API inputs on the server.
-8. Protect all authenticated routes with JWT middleware.
-9. Use consistent naming across frontend state, API routes, controllers, models, and tests.
-10. When adding a feature, also add loading, error, and empty states.
-11. Keep token and context usage lean by default.
-12. Update `RESUME_CONTEXT.md` after each meaningful change so future sessions do not need repeated project recap.
-
-## Product Modules
-
-### 1. Authentication
-
-Support:
-
-- User registration
-- User login
-- User logout
-- Persistent authenticated session on refresh
-- JWT access token flow
-
-Requirements:
-
-- Hash passwords securely
-- Never store plain-text passwords
-- Return minimal safe auth payloads
-- Protect all user-specific data by authenticated user id
-
-### 2. Resources
-
-Each resource should support fields such as:
-
-- title
-- topic or skill
-- type (`article`, `video`, `documentation`, `course`, etc.)
-- url
-- notes
-- status (`saved`, `in_progress`, `completed`)
-- optional tags
-
-Requirements:
-
-- List resources
-- Create resource
-- Edit resource
-- Delete resource
-- Filter/search by skill, type, status, tag
-
-### 3. Tasks
-
-Each task should support:
-
-- title
-- description
-- type (`general`, `learning`)
-- priority
-- due date
-- completion status
-- optional linked resource
-- optional linked skill/topic
-
-Requirements:
-
-- List tasks
-- Create task
-- Edit task
-- Delete task
-- Mark complete/incomplete
-- Group by `Today`, `Upcoming`, `Completed`
-
-### 4. Streaks
-
-Business rule:
-
-- A streak increments when all required tasks for a given day are completed.
-- Define the exact daily-completion rule in code comments and tests before implementing.
-
-Requirements:
-
-- Current streak
-- Best streak
-- Daily completion tracking
-- Recalculation logic with test coverage
-
-### 5. Project Ideas
-
-Each project idea should support:
-
-- title
-- summary
-- current status
-- progress notes
-- possible improvements
-- next steps
-- timestamps
-
-Requirements:
-
-- List ideas
-- Create idea
-- Edit idea
-- Delete idea
-- View idea detail/history notes
-
-### 6. Job Application Tracker
-
-Each application should support:
-
-- company
-- role
-- application link
-- mode of application
-- status
-- location
-- date applied
-- follow-up date
-- salary info
-- notes
-
-Requirements:
-
-- List applications
-- Create application
-- Edit application
-- Delete application
-- Filter by status
-- Sort by follow-up date or date applied
-
-## Recommended Project Structure
-
-Use a clear split between `client` and `server`.
-
-```text
-focus-ai/
-  client/
-    src/
-      api/
-      app/
-      components/
-      features/
-      hooks/
-      layouts/
-      lib/
-      pages/
-      store/
-      styles/
-      tests/
-  server/
-    src/
-      config/
-      controllers/
-      db/
-      middleware/
-      models/
-      routes/
-      services/
-      utils/
-      app.js
-      server.js
-    tests/
-```
-
-## Frontend Guidelines
-
-1. Use React function components only.
-2. Use Zustand for app state that must be shared across pages or features.
-3. Keep local UI-only state inside components unless multiple screens need it.
-4. Centralize API calls in a dedicated `api/` layer.
-5. Organize by feature when practical.
-6. Use Tailwind utility classes consistently and extract reusable UI primitives when repetition becomes obvious.
-7. Build responsive layouts for desktop first, then ensure mobile usability is fully supported.
-8. Include these screens at minimum:
-   - Auth
-   - Dashboard
-   - Resources
-   - Tasks
-   - Streaks or streak section
-   - Project Ideas
-   - Job Applications
-
-## Backend Guidelines
-
-1. Use Express routers by domain feature.
-2. Keep controllers thin.
-3. Put reusable business logic in services or utilities.
-4. Use Mongoose schemas with validation.
-5. Add centralized error handling middleware.
-6. Add auth middleware for protected routes.
-7. Keep environment variable usage centralized and documented.
-8. Return predictable JSON response shapes.
-
-## Testing Requirements
-
-Testing is mandatory for every feature.
-
-### Frontend tests
-
-Write tests for:
-
-- Rendering critical screens/components
-- Form behavior
-- User interactions
-- Loading/error/empty states
-- Zustand store behavior when relevant
-
-Preferred tools:
-
-- Vitest or Jest
-- React Testing Library
-
-### Backend tests
-
-Write tests for:
-
-- Auth flows
-- Route handlers
-- Validation behavior
-- Business logic
-- Streak calculations
-- Permission boundaries between users
-
-Preferred tools:
-
-- Jest or Vitest
-- Supertest for API tests
-
-### Test policy
-
-1. Every new API route must have route-level tests.
-2. Every new business rule must have unit tests.
-3. Every non-trivial UI flow must have component/integration tests.
-4. Fixing a bug should include a regression test whenever practical.
-5. Do not mark a feature complete until code and tests both pass.
-
-## Implementation Order
-
-Build in this order unless a later dependency forces adjustment:
-
-1. Project scaffolding
-2. Auth backend and auth frontend
-3. Shared layout, navigation, and app shell
-4. Resources module
-5. Tasks module
-6. Streak logic
-7. Project ideas module
-8. Job applications module
-9. Dashboard aggregation layer
-10. Final polish, accessibility, and test hardening
+## Mission
+
+Build Focus AI as a production-minded full-stack productivity app with secure auth, useful feature modules, clean UI, and automated tests.
+
+## Stack
+
+- Frontend: React, JavaScript, Tailwind CSS, Zustand, React Router
+- Backend: Node.js, Express, MongoDB/Mongoose, JWT auth
+- Tests: Vitest/Jest-style frontend tests, backend route/service tests with Supertest where useful
+
+## Core Rules
+
+1. Work feature-by-feature in small, commit-sized slices.
+2. Reuse existing patterns before adding abstractions.
+3. Keep changes scoped to the current task and avoid unrelated cleanup.
+4. Add or update tests for bug fixes and non-trivial behavior.
+5. Validate server inputs and protect user-specific routes with JWT middleware.
+6. Keep UI components focused; keep business logic out of components when practical.
+7. Include loading, error, empty, and responsive states for user-facing features.
+8. Use `npm.cmd` on Windows.
+9. Update `RESUME_CONTEXT.md` after meaningful changes.
+
+## Startup Workflow
+
+1. Read `AGENT.md` and `RESUME_CONTEXT.md` first.
+2. Read `prompts/bootstrap.md` if it exists.
+3. Read `prompts/contextGaurd.md` if it exists and has meaningful content.
+4. Read only task-relevant prompt files from `prompts/`; do not scan the whole folder by default.
+5. Inspect only files needed for the current task.
+6. Implement, verify with targeted tests first, then broader relevant tests/build when useful.
+7. Record current state and next restart point in `RESUME_CONTEXT.md`.
+
+## Current Product Modules
+
+- Authentication: register, login, logout, `/me`, token persistence, protected routes
+- Resources: saved learning resources by skill/topic with CRUD, filters, tags
+- Tasks: general and learning tasks with due dates, priority, completion, grouping
+- Streaks: current/best streak based on a documented daily completion rule
+- Project ideas: idea tracking, progress notes, next steps
+- Job applications: pipeline tracking, status, follow-up dates, filters
+- Dashboard: cross-module summaries and upcoming work
+
+## Recommended Small-Feature Path
+
+When planning work, prefer these small slices instead of broad module prompts.
+
+### Authentication
+
+1. Backend register/login/logout/me routes with tests
+2. Frontend login/register forms
+3. Auth store and token persistence
+4. Protected/public route guards
+5. Browser auth smoke test and regression fixes
+
+### Resources
+
+1. Resource model, validation, and auth-protected CRUD backend with tests
+2. Resources page shell with loading, error, and empty states
+3. Resource list wired to backend
+4. Create resource form wired to backend
+5. Edit and delete resource actions
+6. Search and filter by status, type, topic, and tags
+
+### Tasks
+
+1. Task model, validation, and auth-protected CRUD backend with tests
+2. Tasks page shell with loading, error, and empty states
+3. Task list grouped by Today, Upcoming, and Completed
+4. Create task form wired to backend
+5. Edit, delete, and complete or incomplete actions
+6. Priority, due date, and linked resource or topic handling
+
+### Streaks
+
+1. Define streak business rule in code comments and unit tests
+2. Daily completion calculation service
+3. Streak persistence or summary backend endpoints with tests
+4. Streak summary UI with current streak and best streak
+5. Recalculation edge-case fixes and regression coverage
+
+### Project Ideas
+
+1. Project idea model, validation, and auth-protected CRUD backend with tests
+2. Project ideas page shell with loading, error, and empty states
+3. Ideas list wired to backend
+4. Create and edit project idea flow
+5. Detail view for progress notes, improvements, and next steps
+6. Delete flow and history or notes polish
+
+### Job Applications
+
+1. Job application model, validation, and auth-protected CRUD backend with tests
+2. Applications page shell with loading, error, and empty states
+3. Applications list wired to backend
+4. Create and edit application flow
+5. Status updates, follow-up date sorting, and filters
+6. Delete flow and table or list polish
+
+### Dashboard
+
+1. Define dashboard data contract across modules
+2. Backend aggregation endpoints with tests
+3. Dashboard overview cards and summary layout
+4. Recent activity and upcoming items sections
+5. Empty-state and partial-data handling
+
+### Final Polish
+
+1. Responsive cleanup across auth and app shell
+2. Accessibility pass on forms, navigation, and states
+3. Cross-module loading, error, and empty-state consistency
+4. Test hardening for regressions and shared workflows
+
+## Small Slice Examples
+
+- `Fix register auth state persistence with regression test`
+- `Add Resources backend CRUD with route tests only`
+- `Build Resources list page with loading/error/empty states`
+- `Add Tasks backend CRUD with tests only`
+- `Add mobile navigation drawer to app shell`
+- `Define streak rule and implement calculation service tests`
 
 ## Definition of Done
 
-A feature is only done when all of the following are true:
+A slice is done when:
 
-1. Backend model, route, controller, and validation exist where needed
-2. Frontend UI for the feature exists
-3. Frontend is connected to real backend APIs
-4. Error/loading/empty states are implemented
-5. Automated tests are added
-6. Relevant tests pass
-7. Basic responsive behavior is handled
-8. Code is readable and consistent with the rest of the project
-9. `RESUME_CONTEXT.md` is updated with what changed, verification status, and the next recommended restart point
+1. The requested behavior is implemented end-to-end for its intended scope.
+2. Relevant tests pass.
+3. Build passes when frontend production behavior is affected.
+4. No unrelated modules are changed.
+5. `RESUME_CONTEXT.md` has current status, verification, dirty-file notes, and the next restart point.
 
-## Codex CLI Token-Optimized Workflow
-
-Use this workflow to keep context small and development efficient.
-
-### General strategy
-
-1. Work on one module at a time.
-2. Keep each session focused on a narrow outcome.
-3. Read only files directly related to the current task.
-4. Avoid reloading large files unless they changed or are directly relevant.
-5. Summarize progress in the repo itself through concise documentation when helpful.
-6. Prefer `RESUME_CONTEXT.md` as the single source of durable session state.
-
-### Recommended task slicing
-
-Use small prompts such as:
-
-- "Scaffold backend auth with tests"
-- "Build login/register UI and connect to auth API"
-- "Add resource CRUD backend with tests"
-- "Add resource list and create form frontend with tests"
-- "Implement streak calculation service with tests"
-
-Avoid broad prompts like:
-
-- "Build the whole app"
-
-### Context management rules
-
-1. Before coding, identify only the files needed for the current feature.
-2. Prefer targeted reads over scanning entire directories repeatedly.
-3. Reuse prior architectural patterns instead of asking for fresh rewrites.
-4. Store durable conventions in this `AGENT.md` so they do not need to be re-explained every session.
-5. If a feature is large, split it into backend, frontend, and tests across separate steps.
-6. Do not restate context that already exists in `RESUME_CONTEXT.md` unless it has changed.
-7. When resuming work, read `AGENT.md` and `RESUME_CONTEXT.md` first, then continue from the next recommended step.
-
-### Session prompt template
-
-Use prompts in this shape:
+## Project Structure
 
 ```text
-Read `AGENT.md` and `RESUME_CONTEXT.md`. Continue from the next recommended step.
-
-Current goal:
-- <small feature>
-
-Constraints:
-- Be concise.
-- Minimize token usage.
-- Only inspect files relevant to this task.
-- Do not restate context already captured in `RESUME_CONTEXT.md`.
-- Add or update tests.
-- Update `RESUME_CONTEXT.md` after each meaningful change.
-
-Deliver:
-1. Implementation
-2. Verification
-3. Updated `RESUME_CONTEXT.md`
+client/
+  src/app
+  src/components
+  src/features
+  src/layouts
+  src/pages
+  src/store
+  src/styles
+  src/tests
+server/
+  src/config
+  src/controllers
+  src/db
+  src/middleware
+  src/models
+  src/routes
+  src/services
+  src/utils
+  tests
 ```
-
-### Efficient review loop
-
-For each feature:
-
-1. Inspect current related files
-2. Implement backend
-3. Implement frontend
-4. Add tests
-5. Run targeted tests first
-6. Run broader related test suite second
-7. Record results in `RESUME_CONTEXT.md`
-
-### Token-saving coding preferences
-
-1. Prefer extending existing patterns over inventing new structures.
-2. Keep helper functions small and colocated unless reuse is proven.
-3. Avoid generating large placeholder content.
-4. Ask for exact next task when switching modules.
-5. Use concise commit-sized units of work.
-6. Batch related tasks into one prompt when possible.
-7. Reference exact files when they are known.
-
-## Quality Bar
-
-The app should feel:
-
-- clean
-- simple
-- responsive
-- maintainable
-- testable
-- production-oriented
-
-When tradeoffs appear, prefer long-term readability and correctness over cleverness.

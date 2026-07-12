@@ -22,7 +22,6 @@ export const registerRequest = async (payload) => {
     headers: JSON_HEADERS,
     body: JSON.stringify(payload)
   });
-
   return parseJson(response);
 };
 
