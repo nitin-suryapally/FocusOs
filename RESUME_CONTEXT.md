@@ -8,70 +8,70 @@
 - Optional startup prompt: `prompts/bootstrap.md`
 - `prompts/contextGaurd.md` currently has no meaningful content
 
-## Implemented
+## What Changed
 
-Backend auth:
-- `GET /health`
-- `POST /api/auth/register`
-- `POST /api/auth/login`
-- `POST /api/auth/logout`
-- `GET /api/auth/me`
-- JWT middleware, Mongoose `User`, bcrypt password hashing, validation helpers, error handlers
+- Backend resources slice remains in place: model, validation, auth-protected CRUD routes, and backend tests.
+- Frontend resources create flow is now more modular: the create dialog UI moved out of `ResourcesPage` into a dedicated `ResourceCreateModal` component.
+- `ResourcesPage` now focuses on resource data loading, create state, and list rendering while the modal component owns the form layout and overlay markup.
+- Existing resources tests continued to pass without behavioral changes after the component extraction.
 
-Frontend auth and shell:
-- Login/register pages and shared auth card
-- Zustand auth store with persisted token/session bootstrap
-- Protected/public route guards
-- Shared `/app` layout with module placeholder routes
-- Sidebar navigation plus mobile hamburger drawer
+## Files Touched
 
-## Current Dirty Worktree Notes
+Keep unrelated existing changes unless the user explicitly asks to revert them:
+- `prompts/resume.md`: existing dirty file not touched in these resource slices
 
-Keep these changes unless the user explicitly asks to revert them:
-- `AGENT.md`: compact workflow guide with prompt-reading rule
-- `RESUME_CONTEXT.md`: compact current handoff
-- `client/src/features/auth/api/authApi.js`: auth API cleanup from register auth-state debugging
-- `client/src/tests/auth/authApi.test.js`: regression test for registration response handling
-- `client/src/components/AppNavigation.jsx`: full-width nav items plus optional `onNavigate`
-- `client/src/layouts/AppLayout.jsx`: mobile navigation drawer
-- `client/src/tests/app/AppLayout.test.jsx`: mobile drawer open/close coverage
-- `server/src/app.js`: middleware/CORS ordering change was already dirty before this cleanup pass
+Backend resources files already dirty from earlier slices:
+- `server/src/app.js`
+- `server/src/utils/validation.js`
+- `server/src/models/Resource.js`
+- `server/src/services/resourceService.js`
+- `server/src/controllers/resourceController.js`
+- `server/src/routes/resourceRoutes.js`
+- `server/tests/resource.service.test.js`
+- `server/tests/resource.routes.test.js`
 
-## Latest Verification
+Frontend resources files changed in the current UI slices:
+- `client/src/app/router.jsx`
+- `client/src/features/resources/api/resourcesApi.js`
+- `client/src/features/resources/pages/ResourcesPage.jsx`
+- `client/src/features/resources/components/ResourceCreateModal.jsx`
+- `client/src/tests/resources/ResourcesPage.test.jsx`
 
-Client:
-- `cd client; npm.cmd test` passed: `12/12`
-- `cd client; npm.cmd run build` passed
+## Verification Status
 
 Backend:
-- Earlier auth tests passed: `12/12`
-- Backend tests were not rerun after the current dirty `server/src/app.js` middleware/CORS change
+- `cd server; npm.cmd test` previously passed: `26/26` across `4/4` test files
+
+Frontend:
+- `cd client; npm.cmd test -- --run src/tests/resources/ResourcesPage.test.jsx` passed: `7/7`
+- `cd client; npm.cmd test` passed: `19/19` across `6/6` test files
+- `cd client; npm.cmd run build` passed
 
 ## Known Gaps
 
-- Manually verify `/app` navigation at mobile and desktop widths in the browser.
-- Manually verify register/login/session restore against the running backend.
-- Resources, Tasks, Streaks, Project Ideas, Job Applications, and Dashboard are still placeholder modules.
-- Decide whether the `server/src/app.js` CORS change is intentional, then run backend install/tests.
+- The Resources page now has a separate create modal component, but edit and delete actions are not implemented yet.
+- Search and filter UI for status, type, topic, and tags is not implemented yet.
+- No browser/manual smoke check has been run for the Resources screen.
+- The create flow updates the local rendered list after a successful POST, but it does not refetch from the server yet.
 
-## Next Restart Point
+## Exact Next Restart Point
 
 1. Read `AGENT.md`, this file, and `prompts/bootstrap.md`.
-2. Verify the dirty worktree with `git status --short` before editing.
-3. Browser-check auth and mobile navigation if continuing shell/auth work.
-4. Otherwise start the next feature slice: Resource model, validation, and auth-protected CRUD backend with tests
+2. Verify dirty worktree with `git status --short` before editing.
+3. Continue the next Resources slice: add edit and delete actions to the resource list using the existing protected backend routes.
+4. Keep search and filter UI separate after edit and delete are stable.
 
 ## Useful Commands
 
 ```powershell
+cd D:\dev\projects\focusOs\server
+npm.cmd test
+
 cd D:\dev\projects\focusOs\client
 npm.cmd test
+npm.cmd test -- --run src/tests/resources/ResourcesPage.test.jsx
 npm.cmd run build
-
-cd D:\dev\projects\focusOs\server
-npm.cmd install
-npm.cmd test
 ```
 
-## last resume session 
+## last resume session
 019f55d1-8d51-7bc0-b8ce-b3ea7fc3838b

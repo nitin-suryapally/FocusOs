@@ -3,6 +3,7 @@ import { AuthLayout } from "../layouts/AuthLayout";
 import { AppLayout } from "../layouts/AppLayout";
 import { LoginPage } from "../features/auth/pages/LoginPage";
 import { RegisterPage } from "../features/auth/pages/RegisterPage";
+import { ResourcesPage } from "../features/resources/pages/ResourcesPage";
 import { AppOverviewPage } from "../pages/AppOverviewPage";
 import { AppSectionPlaceholderPage } from "../pages/AppSectionPlaceholderPage";
 import { ProtectedRoute, PublicOnlyRoute } from "./routeGuards";
@@ -44,13 +45,7 @@ export const router = createBrowserRouter([
           },
           {
             path: "resources",
-            element: (
-              <AppSectionPlaceholderPage
-                eyebrow="Resources"
-                title="Resources module scaffold"
-                description="This route is ready for resource CRUD, filters, and empty/loading states inside the shared shell."
-              />
-            )
+            element: <ResourcesPage />
           },
           {
             path: "tasks",

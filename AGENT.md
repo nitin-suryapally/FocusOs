@@ -18,9 +18,10 @@ Build Focus AI as a production-minded full-stack productivity app with secure au
 4. Add or update tests for bug fixes and non-trivial behavior.
 5. Validate server inputs and protect user-specific routes with JWT middleware.
 6. Keep UI components focused; keep business logic out of components when practical.
-7. Include loading, error, empty, and responsive states for user-facing features.
-8. Use `npm.cmd` on Windows.
-9. Update `RESUME_CONTEXT.md` after meaningful changes.
+7. keep the components modular and reusable split out only the piece that meaningfully reduces page weight.
+8. Include loading, error, empty, and responsive states for user-facing features.
+9. Use `npm.cmd` on Windows.
+10. Update `RESUME_CONTEXT.md` after meaningful changes.
 
 ## Startup Workflow
 
@@ -60,8 +61,9 @@ When planning work, prefer these small slices instead of broad module prompts.
 2. Resources page shell with loading, error, and empty states
 3. Resource list wired to backend
 4. Create resource form wired to backend
-5. Edit and delete resource actions
-6. Search and filter by status, type, topic, and tags
+5. create resource form should be a modal window not a separate page. when it opens a semi transparent overlay should cover the rest of the page.
+6. Edit and delete resource actions
+7. Search and filter by status, type, topic, and tags
 
 ### Tasks
 

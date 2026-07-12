@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import { authRouter } from "./routes/authRoutes.js";
+import { resourceRouter } from "./routes/resourceRoutes.js";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler.js";
 
 export const createApp = () => {
@@ -18,6 +19,7 @@ export const createApp = () => {
   });
 
   app.use("/api/auth", authRouter);
+  app.use("/api/resources", resourceRouter);
   app.use(notFoundHandler);
   app.use(errorHandler);
 
