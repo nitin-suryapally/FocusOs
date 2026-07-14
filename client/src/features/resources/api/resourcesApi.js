@@ -38,3 +38,27 @@ export const createResourceRequest = async (token, payload) => {
 
   return parseJson(response);
 };
+
+export const updateResourceRequest = async (token, resourceId, payload) => {
+  const response = await fetch(buildUrl(`/api/resources/${resourceId}`), {
+    method: "PATCH",
+    headers: {
+      ...JSON_HEADERS,
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(payload)
+  });
+
+  return parseJson(response);
+};
+
+export const deleteResourceRequest = async (token, resourceId) => {
+  const response = await fetch(buildUrl(`/api/resources/${resourceId}`), {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  return parseJson(response);
+};

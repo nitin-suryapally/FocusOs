@@ -3,6 +3,10 @@ import { ApiError } from "./ApiError.js";
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RESOURCE_TYPES = ["article", "video", "course", "book", "tool", "document", "other"];
 const RESOURCE_STATUSES = ["saved", "in_progress", "completed", "archived"];
+const TASK_TYPES = ["general", "learning"];
+const TASK_PRIORITIES = ["low", "medium", "high"];
+
+const isValidDateValue = (value) => !Number.isNaN(new Date(value).getTime());
 
 export const validateRegistrationInput = (payload) => {
   const { name, email, password } = payload;
@@ -90,4 +94,52 @@ export const validateResourceUpdateInput = (payload) => {
   }
 
   assertResourceFields(payload, { requireCoreFields: false });
+};
+
+const assertTaskFields = (payload, { requireTitle }) => {
+  const { title, type, priority, dueDate, completed, topic } = payload;
+
+  if (requireTitle && !title?.trim()) {
+    throw new ApiError(400, "Title is required.");
+  }
+
+  if (title !== undefined && !title?.trim()) {
+    throw new ApiError(400, "Title is required.");
+  }
+
+  if (type !== undefined && !TASK_TYPES.includes(type)) {
+    throw new ApiError(400, "Task type is invalid.");
+  }
+
+  if (priority !== undefined && !TASK_PRIORITIES.includes(priority)) {
+    throw new ApiError(400, "Task priority is invalid.");
+  }
+
+  if (dueDate !== undefined && dueDate !== null && dueDate !== "" && !isValidDateValue(dueDate)) {
+    throw new ApiError(400, "Task due date is invalid.");
+  }
+
+  if (completed !== undefined && typeof completed !== "boolean") {
+    throw new ApiError(400, "Completed must be true or false.");
+  }
+
+  if (topic !== undefined && typeof topic !== "string") {
+    throw new ApiError(400, "Topic must be text.");
+  }
+
+  if (topic !== undefined && topic !== "" && !topic.trim()) {
+    throw new ApiError(400, "Topic must be text.");
+  }
+};
+
+export const validateTaskCreateInput = (payload) => {
+  assertTaskFields(payload, { requireTitle: true });
+};
+
+export const validateTaskUpdateInput = (payload) => {
+  if (!payload || Object.keys(payload).length === 0) {
+    throw new ApiError(400, "At least one task field is required.");
+  }
+
+  assertTaskFields(payload, { requireTitle: false });
 };

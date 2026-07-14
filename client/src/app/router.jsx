@@ -4,6 +4,8 @@ import { AppLayout } from "../layouts/AppLayout";
 import { LoginPage } from "../features/auth/pages/LoginPage";
 import { RegisterPage } from "../features/auth/pages/RegisterPage";
 import { ResourcesPage } from "../features/resources/pages/ResourcesPage";
+import { ResourceSkillPage } from "../features/resources/pages/ResourceSkillPage";
+import { TasksPage } from "../features/tasks/pages/TasksPage";
 import { AppOverviewPage } from "../pages/AppOverviewPage";
 import { AppSectionPlaceholderPage } from "../pages/AppSectionPlaceholderPage";
 import { ProtectedRoute, PublicOnlyRoute } from "./routeGuards";
@@ -48,14 +50,12 @@ export const router = createBrowserRouter([
             element: <ResourcesPage />
           },
           {
+            path: "resources/:skillPageId",
+            element: <ResourceSkillPage />
+          },
+          {
             path: "tasks",
-            element: (
-              <AppSectionPlaceholderPage
-                eyebrow="Tasks"
-                title="Tasks module scaffold"
-                description="This route is ready for today, upcoming, and completed task views within the protected layout."
-              />
-            )
+            element: <TasksPage />
           },
           {
             path: "streaks",

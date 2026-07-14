@@ -1,0 +1,23 @@
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") || "";
+
+const buildUrl = (path) => `${API_BASE_URL}${path}`;
+
+const parseJson = async (response) => {
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data.message || "Unable to load tasks.");
+  }
+
+  return data;
+};
+
+export const fetchTasksRequest = async (token) => {
+  const response = await fetch(buildUrl("/api/tasks"), {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  return parseJson(response);
+};

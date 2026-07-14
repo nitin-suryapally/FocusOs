@@ -1,11 +1,9 @@
 import { FormField } from "../../../components/FormField";
-
-const RESOURCE_TYPE_OPTIONS = ["article", "video", "course", "book", "tool", "document", "other"];
-const RESOURCE_STATUS_OPTIONS = ["saved", "in_progress", "completed", "archived"];
+import { RESOURCE_STATUS_OPTIONS, RESOURCE_TYPE_OPTIONS } from "../resourceOptions";
 
 const formatLabel = (value) => value.replace(/_/g, " ");
 
-export const ResourceCreateModal = ({
+export const ResourceFormModal = ({
   isOpen,
   values,
   fieldErrors,
@@ -13,33 +11,38 @@ export const ResourceCreateModal = ({
   isSubmitting,
   onChange,
   onClose,
-  onSubmit
+  onSubmit,
+  eyebrow = "Add resource",
+  title = "Save something worth returning to",
+  description = "Required fields match the backend validation rules.",
+  submitLabel = "Save resource",
+  overlayTestId = "resource-create-overlay"
 }) => {
   if (!isOpen) {
     return null;
   }
 
   return (
-    <div className="fixed inset-0 z-40 flex items-center justify-center p-4 sm:p-6" data-testid="resource-create-overlay">
+    <div className="fixed inset-0 z-40 flex items-center justify-center p-4 sm:p-6" data-testid={overlayTestId}>
       <button
         type="button"
-        aria-label="Close create resource modal"
+        aria-label="Close resource modal"
         onClick={onClose}
         className="absolute inset-0 bg-slate-950/45 backdrop-blur-sm"
       />
       <section
         role="dialog"
         aria-modal="true"
-        aria-labelledby="create-resource-title"
+        aria-labelledby="resource-form-title"
         className="relative z-10 max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-[28px] border border-white/70 bg-white/95 p-6 shadow-card backdrop-blur-sm sm:p-8"
       >
         <div className="flex items-start justify-between gap-4 border-b border-outline-variant/60 pb-5">
           <div>
-            <p className="text-label-sm uppercase tracking-[0.18em] text-primary">Add resource</p>
-            <h2 id="create-resource-title" className="mt-2 text-2xl font-semibold text-on-surface">
-              Save something worth returning to
+            <p className="text-label-sm uppercase tracking-[0.18em] text-primary">{eyebrow}</p>
+            <h2 id="resource-form-title" className="mt-2 text-2xl font-semibold text-on-surface">
+              {title}
             </h2>
-            <p className="mt-3 text-body-sm text-on-surface-variant">Required fields match the backend validation rules.</p>
+            <p className="mt-3 text-body-sm text-on-surface-variant">{description}</p>
           </div>
           <button
             type="button"
@@ -162,7 +165,7 @@ export const ResourceCreateModal = ({
               disabled={isSubmitting}
               className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-3 text-label-md text-on-primary shadow-card transition hover:shadow-elevated disabled:cursor-not-allowed disabled:opacity-70"
             >
-              {isSubmitting ? "Saving..." : "Save resource"}
+              {isSubmitting ? "Saving..." : submitLabel}
             </button>
           </div>
         </form>
