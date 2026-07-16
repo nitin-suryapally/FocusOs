@@ -1,12 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
+﻿import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FormField } from "../../../components/FormField";
-import { 
-  useAuthRegister, 
-  useAuthLogin, 
-  useAuthIsLoading, 
-  useAuthError, 
-  useAuthClearError 
+import {
+  useAuthRegister,
+  useAuthLogin,
+  useAuthIsLoading,
+  useAuthError,
+  useAuthClearError
 } from "../store/useAuthStore";
 
 const validateForm = (mode, values) => {
@@ -78,7 +78,7 @@ export const AuthCard = ({ mode }) => {
   };
 
   return (
-    <div className="w-full rounded-[28px] border border-white/70 bg-white/85 p-6 shadow-card backdrop-blur-xl sm:p-8">
+    <div className="w-full rounded-[28px] border border-outline-variant/70 bg-surface/88 p-6 shadow-card backdrop-blur-xl sm:p-8">
       <div className="mb-8 space-y-3">
         <span className="inline-flex rounded-full bg-primary/10 px-3 py-1 text-label-sm uppercase tracking-[0.24em] text-primary lg:hidden">
           Focus AI
@@ -133,7 +133,7 @@ export const AuthCard = ({ mode }) => {
             {error}
           </div>
         ) : (
-          <div className="rounded-2xl border border-secondary-container bg-secondary-container/35 px-4 py-3 text-body-sm text-on-surface-variant">
+          <div className="rounded-2xl border border-secondary-container/80 bg-secondary-container/35 px-4 py-3 text-body-sm text-on-secondary-container">
             Secure JWT authentication with protected server routes.
           </div>
         )}

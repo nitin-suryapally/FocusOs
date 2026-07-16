@@ -1,17 +1,11 @@
-import { FormField } from "../../../components/FormField";
+﻿import { FormField, formControlClassName } from "../../../components/FormField";
 import { formatLabel } from "../resourceLibrary";
 import { RESOURCE_STATUS_OPTIONS, RESOURCE_TYPE_OPTIONS } from "../resourceOptions";
 
 const FilterSelect = ({ id, label, value, options, onChange, formatOptionLabel = formatLabel }) => (
   <label className="block space-y-2" htmlFor={id}>
     <span className="text-label-md text-on-surface">{label}</span>
-    <select
-      id={id}
-      name={id}
-      value={value}
-      onChange={onChange}
-      className="w-full rounded-xl border border-outline-variant bg-white px-4 py-3 text-body-md text-on-surface outline-none transition focus:border-primary focus:ring-4 focus:ring-primary/10"
-    >
+    <select id={id} name={id} value={value} onChange={onChange} className={formControlClassName}>
       <option value="all">All</option>
       {options.map((option) => (
         <option key={option} value={option}>
@@ -23,7 +17,7 @@ const FilterSelect = ({ id, label, value, options, onChange, formatOptionLabel =
 );
 
 export const ResourceLibraryFilters = ({ filters, options, resultSummary, hasActiveFilters, onChange, onReset }) => (
-  <section className="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-card backdrop-blur-sm sm:p-8">
+  <section className="rounded-[28px] border border-outline-variant/70 bg-surface/82 p-6 shadow-card backdrop-blur-sm sm:p-8">
     <div className="flex flex-col gap-3 border-b border-outline-variant/60 pb-5 sm:flex-row sm:items-end sm:justify-between">
       <div>
         <p className="text-label-sm uppercase tracking-[0.18em] text-primary">Find skill pages</p>

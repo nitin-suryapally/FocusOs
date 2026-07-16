@@ -21,3 +21,29 @@ export const fetchTasksRequest = async (token) => {
 
   return parseJson(response);
 };
+
+export const createTaskRequest = async (token, payload) => {
+  const response = await fetch(buildUrl("/api/tasks"), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(payload)
+  });
+
+  return parseJson(response);
+};
+
+export const updateTaskRequest = async (token, taskId, payload) => {
+  const response = await fetch(buildUrl(`/api/tasks/${taskId}`), {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(payload)
+  });
+
+  return parseJson(response);
+};

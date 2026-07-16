@@ -1,4 +1,4 @@
-# Focus AI Agent Guide
+﻿# Focus AI Agent Guide
 
 ## Mission
 
@@ -22,6 +22,8 @@ Build Focus AI as a production-minded full-stack productivity app with secure au
 8. Include loading, error, empty, and responsive states for user-facing features.
 9. Use `npm.cmd` on Windows.
 10. Update `RESUME_CONTEXT.md` after meaningful changes.
+11. For frontend pages, keep page files focused on orchestration only: data loading, page-level state, action handlers, and section composition.
+12. Extract JSX into focused components when the block is reusable, visually distinct, or owns isolated UI state; keep logic local when extraction would only create pass-through wrappers.
 
 ## Startup Workflow
 
@@ -32,6 +34,14 @@ Build Focus AI as a production-minded full-stack productivity app with secure au
 5. Inspect only files needed for the current task.
 6. Implement, verify with targeted tests first, then broader relevant tests/build when useful.
 7. Record current state and next restart point in `RESUME_CONTEXT.md`.
+
+## Frontend Slice Rules
+
+1. Start from shared tokens and primitives before introducing page-level color or control styles.
+2. Keep page containers thin and move repeatable section UI into feature-local components.
+3. Extract section cards, summaries, and action-specific controls into focused feature components.
+4. Prefer shared form and shell primitives before inventing new wrappers or one-off styles.
+5. Update `RESUME_CONTEXT.md` with the new recommended restart state after each meaningful frontend slice.
 
 ## Current Product Modules
 

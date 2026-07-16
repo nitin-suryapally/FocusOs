@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+﻿import { NavLink } from "react-router-dom";
 
 const navigationItems = [
   { to: "/app", label: "Overview", description: "Daily focus and recent activity", end: true },
@@ -13,8 +13,8 @@ const navItemClassName = ({ isActive }) =>
   [
     "group block w-full rounded-2xl border px-4 py-3 transition",
     isActive
-      ? "border-primary/20 bg-primary text-on-primary shadow-card"
-      : "border-outline-variant/60 bg-white/70 text-on-surface hover:border-primary/30 hover:bg-white"
+      ? "border-primary/30 bg-primary-container text-on-primary-container shadow-card"
+      : "border-outline-variant/80 bg-surface-container-low text-on-surface hover:border-primary/30 hover:bg-surface-container"
   ].join(" ");
 
 export const AppNavigation = ({ onNavigate }) => {

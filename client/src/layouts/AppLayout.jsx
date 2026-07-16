@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+﻿import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import { useAuthLogout, useAuthUser } from "../store/useAuthStore";
 import { AppNavigation } from "../components/AppNavigation";
@@ -10,11 +10,11 @@ export const AppLayout = () => {
   const closeMobileNav = () => setIsMobileNavOpen(false);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background text-on-background">
       <div className="mx-auto grid min-h-screen max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:px-8">
         <div
           className={[
-            "fixed inset-0 z-30 bg-on-surface/35 backdrop-blur-sm transition-opacity lg:hidden",
+            "fixed inset-0 z-30 bg-background/70 backdrop-blur-sm transition-opacity lg:hidden",
             isMobileNavOpen ? "opacity-100" : "pointer-events-none opacity-0"
           ].join(" ")}
           aria-hidden="true"
@@ -24,7 +24,7 @@ export const AppLayout = () => {
         <aside
           id="workspace-navigation"
           className={[
-            "fixed inset-y-0 left-0 z-40 flex w-[min(88vw,320px)] min-w-0 flex-col overflow-y-auto rounded-r-[30px] border border-white/60 bg-white/95 p-5 shadow-elevated backdrop-blur-xl transition-transform duration-200 lg:sticky lg:top-6 lg:z-auto lg:h-[calc(100vh-3rem)] lg:w-auto lg:translate-x-0 lg:rounded-[30px] lg:bg-white/75 lg:shadow-card",
+            "fixed inset-y-0 left-0 z-40 flex w-[min(88vw,320px)] min-w-0 flex-col overflow-y-auto rounded-r-[30px] border border-outline-variant/80 bg-surface/95 p-5 shadow-elevated backdrop-blur-xl transition-transform duration-200 lg:sticky lg:top-6 lg:z-auto lg:h-[calc(100vh-3rem)] lg:w-auto lg:translate-x-0 lg:rounded-[30px] lg:bg-surface/90 lg:shadow-card",
             isMobileNavOpen ? "translate-x-0" : "-translate-x-full"
           ].join(" ")}
           aria-label="Workspace navigation"
@@ -43,14 +43,14 @@ export const AppLayout = () => {
             <button
               type="button"
               onClick={closeMobileNav}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-outline-variant bg-white text-xl leading-none text-on-surface lg:hidden"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-outline-variant bg-surface-container-low text-xl leading-none text-on-surface lg:hidden"
               aria-label="Close navigation menu"
             >
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
 
-          <div className="mt-5 rounded-2xl border border-outline-variant/60 bg-surface-container-low px-4 py-3">
+          <div className="mt-5 rounded-2xl border border-outline-variant/70 bg-surface-container-low px-4 py-3">
             <p className="text-body-sm text-on-surface-variant">Signed in as</p>
             <p className="mt-1 text-label-md text-on-surface">{user?.name || user?.email || "Unknown user"}</p>
           </div>
@@ -62,7 +62,7 @@ export const AppLayout = () => {
           <button
             type="button"
             onClick={() => logout()}
-            className="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-outline-variant bg-white px-4 py-3 text-label-md text-on-surface transition hover:border-primary/30 hover:bg-surface-container-low"
+            className="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-outline-variant bg-surface-container-low px-4 py-3 text-label-md text-on-surface transition hover:border-primary/30 hover:bg-surface-container"
           >
             Sign out
           </button>
@@ -72,7 +72,7 @@ export const AppLayout = () => {
           <button
             type="button"
             onClick={() => setIsMobileNavOpen(true)}
-            className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-outline-variant bg-white text-on-surface shadow-card lg:hidden"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-outline-variant bg-surface-container-low text-on-surface shadow-card lg:hidden"
             aria-label="Open navigation menu"
             aria-expanded={isMobileNavOpen}
             aria-controls="workspace-navigation"
@@ -84,12 +84,12 @@ export const AppLayout = () => {
             </span>
           </button>
 
-          <header className="rounded-[28px] border border-white/60 bg-[linear-gradient(135deg,rgba(70,72,212,0.97),rgba(96,99,238,0.82))] p-6 text-on-primary shadow-elevated sm:p-8">
-            <p className="text-label-sm uppercase tracking-[0.22em] text-white/80">App shell</p>
+          <header className="rounded-[28px] border border-primary/20 bg-[linear-gradient(135deg,rgba(37,52,109,0.96),rgba(104,124,255,0.88))] p-6 text-on-primary-container shadow-elevated sm:p-8">
+            <p className="text-label-sm uppercase tracking-[0.22em] text-on-primary-container/75">App shell</p>
             <h1 className="mt-3 text-3xl font-semibold tracking-[-0.03em] sm:text-4xl">
               Structure the day without losing the bigger system.
             </h1>
-            <p className="mt-4 max-w-3xl text-body-lg text-white/85">
+            <p className="mt-4 max-w-3xl text-body-lg text-on-primary-container/85">
               Navigation, protected routing, and the shared authenticated layout are now in place for the next modules.
             </p>
           </header>

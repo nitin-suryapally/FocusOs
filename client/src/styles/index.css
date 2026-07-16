@@ -1,10 +1,10 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  color: #1b1b23;
-  background-color: #fcf8ff;
+  color: #f3f6ff;
+  background-color: #070a12;
   font-family: "Inter", sans-serif;
 }
 
@@ -16,9 +16,10 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(96, 99, 238, 0.08), transparent 28%),
-    linear-gradient(180deg, #fcf8ff 0%, #f5f2fe 100%);
-  color: #1b1b23;
+    radial-gradient(circle at top left, rgba(142, 162, 255, 0.22), transparent 24%),
+    radial-gradient(circle at bottom right, rgba(255, 178, 122, 0.12), transparent 26%),
+    linear-gradient(180deg, #070a12 0%, #0b1020 48%, #070a12 100%);
+  color: #f3f6ff;
 }
 
 a {
@@ -29,4 +30,8 @@ a {
 button,
 input {
   font: inherit;
+}
+
+#root {
+  min-height: 100vh;
 }

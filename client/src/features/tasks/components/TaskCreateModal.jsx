@@ -1,9 +1,11 @@
-﻿import { FormField, formControlClassName, formTextAreaClassName } from "../../../components/FormField";
-import { RESOURCE_STATUS_OPTIONS, RESOURCE_TYPE_OPTIONS } from "../resourceOptions";
+﻿import { FormField, formControlClassName } from "../../../components/FormField";
 
-const formatLabel = (value) => value.replace(/_/g, " ");
+const TASK_TYPE_OPTIONS = ["general", "learning"];
+const TASK_PRIORITY_OPTIONS = ["low", "medium", "high"];
 
-export const ResourceFormModal = ({
+const formatLabel = (value) => value.charAt(0).toUpperCase() + value.slice(1);
+
+export const TaskCreateModal = ({
   isOpen,
   values,
   fieldErrors,
@@ -12,11 +14,8 @@ export const ResourceFormModal = ({
   onChange,
   onClose,
   onSubmit,
-  eyebrow = "Add resource",
-  title = "Save something worth returning to",
-  description = "Required fields match the backend validation rules.",
-  submitLabel = "Save resource",
-  overlayTestId = "resource-create-overlay"
+  submitLabel = "Save task",
+  overlayTestId = "task-create-overlay"
 }) => {
   if (!isOpen) {
     return null;
@@ -26,23 +25,25 @@ export const ResourceFormModal = ({
     <div className="fixed inset-0 z-40 flex items-center justify-center p-4 sm:p-6" data-testid={overlayTestId}>
       <button
         type="button"
-        aria-label="Close resource modal"
+        aria-label="Close task modal"
         onClick={onClose}
         className="absolute inset-0 bg-background/75 backdrop-blur-sm"
       />
       <section
         role="dialog"
         aria-modal="true"
-        aria-labelledby="resource-form-title"
+        aria-labelledby="task-form-title"
         className="relative z-10 max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-[28px] border border-outline-variant/70 bg-surface/95 p-6 shadow-card backdrop-blur-sm sm:p-8"
       >
         <div className="flex items-start justify-between gap-4 border-b border-outline-variant/60 pb-5">
           <div>
-            <p className="text-label-sm uppercase tracking-[0.18em] text-primary">{eyebrow}</p>
-            <h2 id="resource-form-title" className="mt-2 text-2xl font-semibold text-on-surface">
-              {title}
+            <p className="text-label-sm uppercase tracking-[0.18em] text-primary">Add task</p>
+            <h2 id="task-form-title" className="mt-2 text-2xl font-semibold text-on-surface">
+              Capture the next task before it slips away
             </h2>
-            <p className="mt-3 text-body-sm text-on-surface-variant">{description}</p>
+            <p className="mt-3 text-body-sm text-on-surface-variant">
+              Required fields match the current backend validation rules.
+            </p>
           </div>
           <button
             type="button"
@@ -60,7 +61,7 @@ export const ResourceFormModal = ({
               label="Title"
               value={values.title}
               onChange={onChange}
-              placeholder="React Patterns"
+              placeholder="Prepare weekly review"
               error={fieldErrors.title}
             />
             <FormField
@@ -68,16 +69,16 @@ export const ResourceFormModal = ({
               label="Topic"
               value={values.topic}
               onChange={onChange}
-              placeholder="React"
+              placeholder="Planning"
               error={fieldErrors.topic}
             />
           </div>
 
-          <div className="grid gap-5 lg:grid-cols-2">
+          <div className="grid gap-5 lg:grid-cols-3">
             <label className="block space-y-2" htmlFor="type">
               <span className="text-label-md text-on-surface">Type</span>
               <select id="type" name="type" value={values.type} onChange={onChange} className={formControlClassName}>
-                {RESOURCE_TYPE_OPTIONS.map((option) => (
+                {TASK_TYPE_OPTIONS.map((option) => (
                   <option key={option} value={option}>
                     {formatLabel(option)}
                   </option>
@@ -85,49 +86,32 @@ export const ResourceFormModal = ({
               </select>
             </label>
 
-            <label className="block space-y-2" htmlFor="status">
-              <span className="text-label-md text-on-surface">Status</span>
-              <select id="status" name="status" value={values.status} onChange={onChange} className={formControlClassName}>
-                {RESOURCE_STATUS_OPTIONS.map((option) => (
+            <label className="block space-y-2" htmlFor="priority">
+              <span className="text-label-md text-on-surface">Priority</span>
+              <select
+                id="priority"
+                name="priority"
+                value={values.priority}
+                onChange={onChange}
+                className={formControlClassName}
+              >
+                {TASK_PRIORITY_OPTIONS.map((option) => (
                   <option key={option} value={option}>
                     {formatLabel(option)}
                   </option>
                 ))}
               </select>
             </label>
-          </div>
 
-          <FormField
-            id="url"
-            label="URL"
-            type="url"
-            value={values.url}
-            onChange={onChange}
-            placeholder="https://example.com/resource"
-            autoComplete="url"
-            error={fieldErrors.url}
-          />
-
-          <FormField
-            id="tags"
-            label="Tags"
-            value={values.tags}
-            onChange={onChange}
-            placeholder="hooks, components"
-          />
-
-          <label className="block space-y-2" htmlFor="notes">
-            <span className="text-label-md text-on-surface">Notes</span>
-            <textarea
-              id="notes"
-              name="notes"
-              value={values.notes}
+            <FormField
+              id="dueDate"
+              label="Due date"
+              type="date"
+              value={values.dueDate}
               onChange={onChange}
-              placeholder="Why this resource matters, what to revisit, or where it applies."
-              rows={4}
-              className={formTextAreaClassName}
+              error={fieldErrors.dueDate}
             />
-          </label>
+          </div>
 
           {submitError ? (
             <div className="rounded-2xl border border-error/20 bg-error-container px-4 py-3 text-body-sm text-on-error-container">
@@ -135,7 +119,7 @@ export const ResourceFormModal = ({
             </div>
           ) : (
             <div className="rounded-2xl border border-secondary-container/80 bg-secondary-container/35 px-4 py-3 text-body-sm text-on-secondary-container">
-              Tags are stored as a string array; use commas to separate them.
+              New tasks start open and appear in Today or Upcoming based on the due date.
             </div>
           )}
 

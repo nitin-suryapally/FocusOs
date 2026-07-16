@@ -1,35 +1,55 @@
-# FocusOS Resume Context
+﻿# FocusOS Resume Context
 
 ## What Changed
 
-- Added the Tasks page shell and connected it to the auth-protected `/api/tasks` endpoint.
-- Replaced the tasks placeholder route with a real page that handles loading, error, empty, and a simple loaded task feed state.
-- Added focused frontend tests for the task shell states.
+- Switched the client to a dark-first semantic theme by replacing the light-first Tailwind tokens and global background treatment while keeping existing semantic class names stable.
+- Updated shared shell and form primitives so auth, navigation, cards, overlays, and shared controls inherit dark-safe surfaces and focus states by default.
+- Refactored the Tasks feature into a thin orchestration page with feature-local components and task utilities while preserving the current create flow and optimistic completion behavior.
 
 ## Files Touched
 
-- `client/src/app/router.jsx`
-- `client/src/features/tasks/api/tasksApi.js`
+- `AGENT.md`
+- `client/src/components/AppNavigation.jsx`
+- `client/src/components/AppShellCard.jsx`
+- `client/src/components/FormField.jsx`
+- `client/src/features/auth/components/AuthCard.jsx`
+- `client/src/features/resources/components/ResourceCreateModal.jsx`
+- `client/src/features/resources/components/ResourceLibraryFilters.jsx`
+- `client/src/features/tasks/components/TaskCard.jsx`
+- `client/src/features/tasks/components/TaskCreateModal.jsx`
+- `client/src/features/tasks/components/TaskGroupSection.jsx`
+- `client/src/features/tasks/components/TaskSummaryCards.jsx`
+- `client/src/features/tasks/components/TasksEmptyState.jsx`
+- `client/src/features/tasks/components/TasksErrorState.jsx`
+- `client/src/features/tasks/components/TasksLoadingState.jsx`
+- `client/src/features/tasks/components/TasksPageHeader.jsx`
 - `client/src/features/tasks/pages/TasksPage.jsx`
-- `client/src/tests/tasks/TasksPage.test.jsx`
+- `client/src/features/tasks/taskUtils.js`
+- `client/src/layouts/AppLayout.jsx`
+- `client/src/layouts/AuthLayout.jsx`
+- `client/src/pages/AppOverviewPage.jsx`
+- `client/src/pages/AppSectionPlaceholderPage.jsx`
+- `client/src/styles/index.css`
+- `client/tailwind.config.js`
 
 ## Verification Status
 
-- `cd client; npm.cmd test -- --run src/tests/tasks/TasksPage.test.jsx` passed: `4/4`
+- `cd client; npm.cmd test -- --run src/tests/tasks/TasksPage.test.jsx` passed: `10/10`
 - `cd client; npm.cmd run build` passed
 
 ## Known Gaps
 
-- Tasks are shown as a flat feed; Today, Upcoming, and Completed grouping is still the next slice.
-- No create, edit, delete, or complete-toggle actions are wired yet.
-- The page currently surfaces only the existing backend fields: `title`, `type`, `priority`, `dueDate`, `completed`, and `topic`.
+- No edit or delete actions are wired yet.
+- Task form validation is still minimal and matches the current backend rules only.
+- Overdue open tasks still fall into `Upcoming` instead of a separate bucket.
+- Resources page sections still use older light-biased wrappers outside the shared modal/filter primitives and can be converted as that feature is next touched.
 
 ## Exact Next Restart Point
 
 1. Read `AGENT.md`, this file, and `prompts/bootstrap.md`.
-2. Check `git status --short` and keep ignoring the separate in-progress resource-library files unless scope changes.
-3. Build the grouped task list view for Today, Upcoming, and Completed on top of `TasksPage`.
-4. Keep the grouping logic local to the tasks feature before adding create or edit flows.
+2. Keep the next frontend slice aligned with the dark-first foundation by converting remaining light-biased Resources/Auth wrappers before adding more visual one-offs.
+3. If continuing Tasks next, add edit and delete actions to the extracted task cards without moving task state out of `client/src/features/tasks/*`.
+4. Extend the focused Tasks page test for edit and delete success and failure states before widening verification.
 
 ## last resume session
 019f5735-a4d5-7156-bdb9-42f3585c7c37
