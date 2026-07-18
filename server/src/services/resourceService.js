@@ -1,4 +1,5 @@
-import { Resource } from "../models/Resource.js";
+﻿import { Resource } from "../models/Resource.js";
+import { Task } from "../models/Task.js";
 import { ApiError } from "../utils/ApiError.js";
 
 const normalizeTags = (tags = []) =>
@@ -75,5 +76,6 @@ export const updateResource = async (userId, resourceId, payload) => {
 
 export const deleteResource = async (userId, resourceId) => {
   const resource = await findOwnedResource(resourceId, userId);
+  await Task.updateMany({ user: userId, resource: resourceId }, { resource: null });
   await resource.deleteOne();
 };

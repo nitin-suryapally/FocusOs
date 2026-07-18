@@ -178,4 +178,14 @@ describe("task routes", () => {
     });
     expect(mockDeleteTask).toHaveBeenCalledWith("user-1", "task-1");
   });
+  it("rejects malformed linked resource ids before service execution", async () => {
+    const response = await request(app)
+      .post("/api/tasks")
+      .set("Authorization", "Bearer valid-token")
+      .send({ title: "Read guide", resourceId: "not-an-id" });
+
+    expect(response.status).toBe(400);
+    expect(response.body.message).toBe("Linked resource is invalid.");
+    expect(mockCreateTask).not.toHaveBeenCalled();
+  });
 });

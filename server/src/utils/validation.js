@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { ApiError } from "./ApiError.js";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -5,6 +6,8 @@ const RESOURCE_TYPES = ["article", "video", "course", "book", "tool", "document"
 const RESOURCE_STATUSES = ["saved", "in_progress", "completed", "archived"];
 const TASK_TYPES = ["general", "learning"];
 const TASK_PRIORITIES = ["low", "medium", "high"];
+const PROJECT_IDEA_STATUSES = ["idea", "planned", "in_progress", "completed", "archived"];
+const JOB_APPLICATION_STATUSES = ["saved", "applied", "interviewing", "offer", "rejected", "withdrawn"];
 
 const isValidDateValue = (value) => !Number.isNaN(new Date(value).getTime());
 
@@ -97,7 +100,7 @@ export const validateResourceUpdateInput = (payload) => {
 };
 
 const assertTaskFields = (payload, { requireTitle }) => {
-  const { title, type, priority, dueDate, completed, topic } = payload;
+  const { title, type, priority, dueDate, completed, topic, resourceId } = payload;
 
   if (requireTitle && !title?.trim()) {
     throw new ApiError(400, "Title is required.");
@@ -130,6 +133,10 @@ const assertTaskFields = (payload, { requireTitle }) => {
   if (topic !== undefined && topic !== "" && !topic.trim()) {
     throw new ApiError(400, "Topic must be text.");
   }
+
+  if (resourceId !== undefined && resourceId !== null && resourceId !== "" && !mongoose.isValidObjectId(resourceId)) {
+    throw new ApiError(400, "Linked resource is invalid.");
+  }
 };
 
 export const validateTaskCreateInput = (payload) => {
@@ -143,3 +150,28 @@ export const validateTaskUpdateInput = (payload) => {
 
   assertTaskFields(payload, { requireTitle: false });
 };
+
+const assertProjectIdeaFields = (payload, { requireTitle }) => {
+  const { title, description, status, nextStep } = payload;
+  if (requireTitle && !title?.trim()) throw new ApiError(400, "Title is required.");
+  if (title !== undefined && !title?.trim()) throw new ApiError(400, "Title is required.");
+  if (description !== undefined && typeof description !== "string") throw new ApiError(400, "Description must be text.");
+  if (nextStep !== undefined && typeof nextStep !== "string") throw new ApiError(400, "Next step must be text.");
+  if (status !== undefined && !PROJECT_IDEA_STATUSES.includes(status)) throw new ApiError(400, "Project idea status is invalid.");
+};
+export const validateProjectIdeaCreateInput = (payload) => assertProjectIdeaFields(payload, { requireTitle: true });
+export const validateProjectIdeaUpdateInput = (payload) => { if (!payload || Object.keys(payload).length === 0) throw new ApiError(400, "At least one project idea field is required."); assertProjectIdeaFields(payload, { requireTitle: false }); };
+export const validateProjectIdeaProgressNoteInput = (payload) => { if (!payload?.text || typeof payload.text !== "string" || !payload.text.trim()) throw new ApiError(400, "Progress note text is required."); };
+const assertJobApplicationFields = (payload, { requireCoreFields }) => {
+  const { company, role, status, applicationUrl, followUpDate, notes } = payload;
+  if (requireCoreFields && !company?.trim()) throw new ApiError(400, "Company is required.");
+  if (requireCoreFields && !role?.trim()) throw new ApiError(400, "Role is required.");
+  if (company !== undefined && !company?.trim()) throw new ApiError(400, "Company is required.");
+  if (role !== undefined && !role?.trim()) throw new ApiError(400, "Role is required.");
+  if (status !== undefined && !JOB_APPLICATION_STATUSES.includes(status)) throw new ApiError(400, "Job application status is invalid.");
+  if (applicationUrl !== undefined && applicationUrl?.trim()) { try { new URL(applicationUrl); } catch { throw new ApiError(400, "Application URL is invalid."); } }
+  if (followUpDate !== undefined && followUpDate !== null && followUpDate !== "" && !isValidDateValue(followUpDate)) throw new ApiError(400, "Follow-up date is invalid.");
+  if (notes !== undefined && typeof notes !== "string") throw new ApiError(400, "Notes must be text.");
+};
+export const validateJobApplicationCreateInput = (payload) => assertJobApplicationFields(payload, { requireCoreFields: true });
+export const validateJobApplicationUpdateInput = (payload) => { if (!payload || Object.keys(payload).length === 0) throw new ApiError(400, "At least one job application field is required."); assertJobApplicationFields(payload, { requireCoreFields: false }); };

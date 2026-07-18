@@ -3,7 +3,8 @@
   topic: "",
   type: "general",
   priority: "medium",
-  dueDate: ""
+  dueDate: "",
+  resourceId: ""
 };
 
 const startOfDay = (date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -51,6 +52,7 @@ const buildTaskPayload = (values) => ({
   type: values.type,
   priority: values.priority,
   dueDate: values.dueDate || null,
+  resourceId: values.resourceId || null,
   completed: false
 });
 
@@ -59,7 +61,8 @@ const createTaskFormValues = (values = INITIAL_TASK_FORM_VALUES) => ({
   topic: values.topic || "",
   type: values.type || "general",
   priority: values.priority || "medium",
-  dueDate: values.dueDate ? values.dueDate.slice(0, 10) : ""
+  dueDate: values.dueDate ? values.dueDate.slice(0, 10) : "",
+  resourceId: values.resource?.id || values.resourceId || ""
 });
 
 const groupTasks = (tasks) => {

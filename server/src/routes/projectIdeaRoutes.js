@@ -1,0 +1,11 @@
+import { Router } from "express";
+import { addUserProjectIdeaProgressNote, createUserProjectIdea, deleteUserProjectIdea, getUserProjectIdea, listUserProjectIdeas, updateUserProjectIdea } from "../controllers/projectIdeaController.js";
+import { requireAuth } from "../middleware/authMiddleware.js";
+export const projectIdeaRouter = Router();
+projectIdeaRouter.use(requireAuth);
+projectIdeaRouter.get("/", listUserProjectIdeas);
+projectIdeaRouter.post("/", createUserProjectIdea);
+projectIdeaRouter.get("/:ideaId", getUserProjectIdea);
+projectIdeaRouter.patch("/:ideaId", updateUserProjectIdea);
+projectIdeaRouter.post("/:ideaId/progress-notes", addUserProjectIdeaProgressNote);
+projectIdeaRouter.delete("/:ideaId", deleteUserProjectIdea);

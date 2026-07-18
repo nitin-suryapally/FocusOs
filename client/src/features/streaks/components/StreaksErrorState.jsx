@@ -1,0 +1,5 @@
+export const StreaksErrorState = ({ error, onRetry }) => (
+  <section className="rounded-[28px] border border-error/20 bg-error-container/90 p-6 shadow-card backdrop-blur-sm sm:p-8">
+    <p className="text-label-sm uppercase tracking-[0.18em] text-error">Could not load streaks</p><h2 className="mt-3 text-2xl font-semibold text-on-surface">Your consistency summary is unavailable right now.</h2><p className="mt-3 text-body-md text-on-surface-variant">{error}</p><button type="button" onClick={onRetry} className="mt-5 rounded-xl bg-primary px-4 py-3 text-label-md text-on-primary">Retry</button>
+  </section>
+);

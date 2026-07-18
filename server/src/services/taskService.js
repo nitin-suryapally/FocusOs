@@ -1,64 +1,69 @@
+﻿import { Resource } from "../models/Resource.js";
 import { Task } from "../models/Task.js";
 import { ApiError } from "../utils/ApiError.js";
 
 const normalizeTaskPayload = (payload) => {
   const normalized = { ...payload };
 
-  if (normalized.title !== undefined) {
-    normalized.title = normalized.title.trim();
-  }
-
-  if (normalized.topic !== undefined) {
-    normalized.topic = normalized.topic.trim();
-  }
-
-  if (normalized.dueDate === "") {
-    normalized.dueDate = null;
+  if (normalized.title !== undefined) normalized.title = normalized.title.trim();
+  if (normalized.topic !== undefined) normalized.topic = normalized.topic.trim();
+  if (normalized.dueDate === "") normalized.dueDate = null;
+  delete normalized.completedAt;
+  if (normalized.completed === true) normalized.completedAt = new Date();
+  if (normalized.completed === false) normalized.completedAt = null;
+  if (normalized.resourceId !== undefined) {
+    normalized.resource = normalized.resourceId || null;
+    delete normalized.resourceId;
   }
 
   return normalized;
 };
 
+const assertOwnedResource = async (resourceId, userId) => {
+  if (!resourceId) return;
+
+  const resource = await Resource.findOne({ _id: resourceId, user: userId });
+  if (!resource) throw new ApiError(404, "Linked resource not found.");
+};
+
+const populateResource = (task) => task.populate ? task.populate("resource", "title topic") : task;
+
 const findOwnedTask = async (taskId, userId) => {
   const task = await Task.findOne({ _id: taskId, user: userId });
-
-  if (!task) {
-    throw new ApiError(404, "Task not found.");
-  }
-
+  if (!task) throw new ApiError(404, "Task not found.");
   return task;
 };
 
 export const listTasks = async (userId) => {
-  const tasks = await Task.find({ user: userId }).sort({ completed: 1, dueDate: 1, updatedAt: -1 });
+  const query = Task.find({ user: userId }).sort({ completed: 1, dueDate: 1, updatedAt: -1 });
+  const tasks = await (query.populate ? query.populate("resource", "title topic") : query);
   return tasks.map((task) => task.toSafeObject());
 };
 
 export const createTask = async (userId, payload) => {
-  const task = await Task.create({
-    ...normalizeTaskPayload(payload),
-    user: userId
-  });
-
+  const normalized = normalizeTaskPayload(payload);
+  await assertOwnedResource(normalized.resource, userId);
+  const task = await Task.create({ ...normalized, user: userId });
+  await populateResource(task);
   return task.toSafeObject();
 };
 
 export const getTask = async (userId, taskId) => {
   const task = await findOwnedTask(taskId, userId);
+  await populateResource(task);
   return task.toSafeObject();
 };
 
 export const updateTask = async (userId, taskId, payload) => {
+  const normalized = normalizeTaskPayload(payload);
+  await assertOwnedResource(normalized.resource, userId);
   const task = await Task.findOneAndUpdate(
     { _id: taskId, user: userId },
-    normalizeTaskPayload(payload),
+    normalized,
     { new: true, runValidators: true }
   );
-
-  if (!task) {
-    throw new ApiError(404, "Task not found.");
-  }
-
+  if (!task) throw new ApiError(404, "Task not found.");
+  await populateResource(task);
   return task.toSafeObject();
 };
 

@@ -1,55 +1,35 @@
-﻿# FocusOS Resume Context
+# FocusOS Resume Context
 
 ## What Changed
 
-- Switched the client to a dark-first semantic theme by replacing the light-first Tailwind tokens and global background treatment while keeping existing semantic class names stable.
-- Updated shared shell and form primitives so auth, navigation, cards, overlays, and shared controls inherit dark-safe surfaces and focus states by default.
-- Refactored the Tasks feature into a thin orchestration page with feature-local components and task utilities while preserving the current create flow and optimistic completion behavior.
+- Completed the Job Applications slice with a detail view backed by the existing protected `GET /api/job-applications/:applicationId` endpoint.
+- Detail view shows application fields, saved URL, notes, and created/last-updated lifecycle history.
+- Added list links to the detail route; no Job Applications model or backend contract changes were needed.
 
 ## Files Touched
 
-- `AGENT.md`
-- `client/src/components/AppNavigation.jsx`
-- `client/src/components/AppShellCard.jsx`
-- `client/src/components/FormField.jsx`
-- `client/src/features/auth/components/AuthCard.jsx`
-- `client/src/features/resources/components/ResourceCreateModal.jsx`
-- `client/src/features/resources/components/ResourceLibraryFilters.jsx`
-- `client/src/features/tasks/components/TaskCard.jsx`
-- `client/src/features/tasks/components/TaskCreateModal.jsx`
-- `client/src/features/tasks/components/TaskGroupSection.jsx`
-- `client/src/features/tasks/components/TaskSummaryCards.jsx`
-- `client/src/features/tasks/components/TasksEmptyState.jsx`
-- `client/src/features/tasks/components/TasksErrorState.jsx`
-- `client/src/features/tasks/components/TasksLoadingState.jsx`
-- `client/src/features/tasks/components/TasksPageHeader.jsx`
-- `client/src/features/tasks/pages/TasksPage.jsx`
-- `client/src/features/tasks/taskUtils.js`
-- `client/src/layouts/AppLayout.jsx`
-- `client/src/layouts/AuthLayout.jsx`
-- `client/src/pages/AppOverviewPage.jsx`
-- `client/src/pages/AppSectionPlaceholderPage.jsx`
-- `client/src/styles/index.css`
-- `client/tailwind.config.js`
+- `client/src/app/router.jsx`
+- `client/src/features/jobApplications/api/jobApplicationsApi.js`
+- `client/src/features/jobApplications/components/JobApplicationDetailSummary.jsx`
+- `client/src/features/jobApplications/components/JobApplicationsList.jsx`
+- `client/src/features/jobApplications/pages/JobApplicationDetailPage.jsx`
+- `client/src/tests/jobApplications/JobApplicationDetailPage.test.jsx`
+- `RESUME_CONTEXT.md`
 
 ## Verification Status
 
-- `cd client; npm.cmd test -- --run src/tests/tasks/TasksPage.test.jsx` passed: `10/10`
-- `cd client; npm.cmd run build` passed
+- Focused Job Applications client tests passed: 10/10.
+- Focused Job Applications backend route/service tests passed: 8/8.
+- `cd client; npm.cmd run build` passed.
+- Scoped diff whitespace check passed.
 
 ## Known Gaps
 
-- No edit or delete actions are wired yet.
-- Task form validation is still minimal and matches the current backend rules only.
-- Overdue open tasks still fall into `Upcoming` instead of a separate bucket.
-- Resources page sections still use older light-biased wrappers outside the shared modal/filter primitives and can be converted as that feature is next touched.
+- No known Job Applications gaps within the documented scope.
+- Unrelated uncommitted Resources, Tasks, and Streaks changes remain intentionally preserved.
 
 ## Exact Next Restart Point
 
 1. Read `AGENT.md`, this file, and `prompts/bootstrap.md`.
-2. Keep the next frontend slice aligned with the dark-first foundation by converting remaining light-biased Resources/Auth wrappers before adding more visual one-offs.
-3. If continuing Tasks next, add edit and delete actions to the extracted task cards without moving task state out of `client/src/features/tasks/*`.
-4. Extend the focused Tasks page test for edit and delete success and failure states before widening verification.
-
-## last resume session
-019f5735-a4d5-7156-bdb9-42f3585c7c37
+2. Start the next prioritized module, likely the Dashboard data contract, in a separate scoped slice.
+3. Keep the work scoped and add focused tests plus a client build for client behavior changes.

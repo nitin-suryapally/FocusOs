@@ -1,18 +1,26 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+﻿import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { TasksPage } from "../../features/tasks/pages/TasksPage";
+import { fetchResourcesRequest } from "../../features/resources/api/resourcesApi";
 
 const fetchTasksRequestMock = vi.fn();
 const createTaskRequestMock = vi.fn();
 const updateTaskRequestMock = vi.fn();
+const deleteTaskRequestMock = vi.fn();
 const useAuthTokenMock = vi.fn();
+const fetchResourcesRequestMock = vi.fn();
 
 vi.mock("../../features/tasks/api/tasksApi", () => ({
   fetchTasksRequest: (...args) => fetchTasksRequestMock(...args),
   createTaskRequest: (...args) => createTaskRequestMock(...args),
-  updateTaskRequest: (...args) => updateTaskRequestMock(...args)
+  updateTaskRequest: (...args) => updateTaskRequestMock(...args),
+  deleteTaskRequest: (...args) => deleteTaskRequestMock(...args)
+}));
+
+vi.mock("../../features/resources/api/resourcesApi", () => ({
+  fetchResourcesRequest: (...args) => fetchResourcesRequestMock(...args)
 }));
 
 vi.mock("../../store/useAuthStore", () => ({
@@ -31,6 +39,7 @@ describe("TasksPage", () => {
     vi.clearAllMocks();
     useAuthTokenMock.mockReturnValue("token-123");
     fetchTasksRequestMock.mockResolvedValue({ tasks: [] });
+    fetchResourcesRequestMock.mockResolvedValue({ resources: [] });
   });
 
   it("shows the loading state before rendering an empty state", async () => {
@@ -152,7 +161,8 @@ describe("TasksPage", () => {
         type: "general",
         priority: "high",
         dueDate: today.toISOString().slice(0, 10),
-        completed: false
+        completed: false,
+        resourceId: null
       });
     });
 
@@ -353,6 +363,92 @@ describe("TasksPage", () => {
     expect(screen.getAllByText(/^1$/)).toHaveLength(2);
     expect(screen.getByText(/^0$/)).toBeInTheDocument();
   });
+  it("updates task details from the edit modal", async () => {
+    const user = userEvent.setup();
+
+    fetchTasksRequestMock.mockResolvedValue({
+      tasks: [{ id: "task-1", title: "Draft plan", type: "general", priority: "medium", dueDate: null, completed: false, topic: "Planning" }]
+    });
+    updateTaskRequestMock.mockResolvedValue({
+      message: "Task updated.",
+      task: { id: "task-1", title: "Finalize plan", type: "general", priority: "high", dueDate: null, completed: false, topic: "Planning" }
+    });
+
+    renderTasksPage();
+
+    const taskHeading = await screen.findByRole("heading", { name: /draft plan/i });
+    const taskCard = taskHeading.closest("article");
+    await user.click(within(taskCard).getByRole("button", { name: /edit task/i }));
+
+    const dialog = screen.getByRole("dialog", { name: /keep this task current/i });
+    await user.clear(within(dialog).getByLabelText(/^title$/i));
+    await user.type(within(dialog).getByLabelText(/^title$/i), "Finalize plan");
+    await user.selectOptions(within(dialog).getByLabelText(/^priority$/i), "high");
+    await user.click(within(dialog).getByRole("button", { name: /update task/i }));
+
+    await waitFor(() => {
+      expect(updateTaskRequestMock).toHaveBeenCalledWith("token-123", "task-1", {
+        title: "Finalize plan", topic: "Planning", type: "general", priority: "high", dueDate: null, completed: false,
+        resourceId: null
+      });
+    });
+    expect(await screen.findByText(/task updated/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /finalize plan/i })).toBeInTheDocument();
+  });
+
+  it("deletes a task after confirmation", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(window, "confirm").mockReturnValue(true);
+    fetchTasksRequestMock.mockResolvedValue({
+      tasks: [{ id: "task-1", title: "Remove me", type: "general", priority: "medium", dueDate: null, completed: false, topic: "Planning" }]
+    });
+    deleteTaskRequestMock.mockResolvedValue({ message: "Task deleted." });
+
+    renderTasksPage();
+
+    const taskHeading = await screen.findByRole("heading", { name: /remove me/i });
+    await user.click(within(taskHeading.closest("article")).getByRole("button", { name: /delete task/i }));
+    await user.click(within(screen.getByTestId("task-delete-confirmation")).getByRole("button", { name: /^delete task$/i }));
+
+    await waitFor(() => expect(deleteTaskRequestMock).toHaveBeenCalledWith("token-123", "task-1"));
+    expect(await screen.findByText(/task deleted/i)).toBeInTheDocument();
+    expect(screen.queryByRole("heading", { name: /remove me/i })).not.toBeInTheDocument();
+  });
+
+  it("keeps a task visible and reports a delete failure", async () => {
+    const user = userEvent.setup();
+    vi.spyOn(window, "confirm").mockReturnValue(true);
+    fetchTasksRequestMock.mockResolvedValue({
+      tasks: [{ id: "task-1", title: "Keep me", type: "general", priority: "medium", dueDate: null, completed: false, topic: "Planning" }]
+    });
+    deleteTaskRequestMock.mockRejectedValue(new Error("Unable to delete task."));
+
+    renderTasksPage();
+
+    const taskHeading = await screen.findByRole("heading", { name: /keep me/i });
+    await user.click(within(taskHeading.closest("article")).getByRole("button", { name: /delete task/i }));
+    await user.click(within(screen.getByTestId("task-delete-confirmation")).getByRole("button", { name: /^delete task$/i }));
+
+    expect(await screen.findByText(/unable to delete task/i)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /keep me/i })).toBeInTheDocument();
+  });
+  it("links a saved resource when creating a task", async () => {
+    const user = userEvent.setup();
+    fetchResourcesRequestMock.mockResolvedValue({ resources: [{ id: "resource-1", title: "React guide", topic: "Frontend" }] });
+    createTaskRequestMock.mockResolvedValue({
+      message: "Task created.",
+      task: { id: "task-1", title: "Read React guide", type: "learning", priority: "medium", dueDate: null, completed: false, topic: "Frontend", resource: { id: "resource-1", title: "React guide", topic: "Frontend" } }
+    });
+
+    renderTasksPage();
+    expect(await screen.findByText(/no tasks added yet/i)).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: /add task/i }));
+    const dialog = screen.getByRole("dialog", { name: /capture the next task/i });
+    await user.type(within(dialog).getByLabelText(/^title$/i), "Read React guide");
+    await user.selectOptions(within(dialog).getByLabelText(/linked resource/i), "resource-1");
+    await user.click(within(dialog).getByRole("button", { name: /save task/i }));
+
+    await waitFor(() => expect(createTaskRequestMock).toHaveBeenCalledWith("token-123", expect.objectContaining({ resourceId: "resource-1" })));
+    expect(await screen.findByText("React guide")).toBeInTheDocument();
+  });
 });
-
-

@@ -1,19 +1,23 @@
-﻿import { FormField, formControlClassName } from "../../../components/FormField";
+﻿import { FormField } from "../../../components/FormField";
+import { TaskResourceSelect } from "./TaskResourceSelect";
+import { TaskSelectField } from "./TaskSelectField";
 
 const TASK_TYPE_OPTIONS = ["general", "learning"];
 const TASK_PRIORITY_OPTIONS = ["low", "medium", "high"];
 
-const formatLabel = (value) => value.charAt(0).toUpperCase() + value.slice(1);
-
 export const TaskCreateModal = ({
   isOpen,
   values,
+  resources = [],
   fieldErrors,
   submitError,
   isSubmitting,
   onChange,
   onClose,
   onSubmit,
+  eyebrow = "Add task",
+  title = "Capture the next task before it slips away",
+  description = "Required fields match the current backend validation rules.",
   submitLabel = "Save task",
   overlayTestId = "task-create-overlay"
 }) => {
@@ -37,12 +41,12 @@ export const TaskCreateModal = ({
       >
         <div className="flex items-start justify-between gap-4 border-b border-outline-variant/60 pb-5">
           <div>
-            <p className="text-label-sm uppercase tracking-[0.18em] text-primary">Add task</p>
+            <p className="text-label-sm uppercase tracking-[0.18em] text-primary">{eyebrow}</p>
             <h2 id="task-form-title" className="mt-2 text-2xl font-semibold text-on-surface">
-              Capture the next task before it slips away
+              {title}
             </h2>
             <p className="mt-3 text-body-sm text-on-surface-variant">
-              Required fields match the current backend validation rules.
+              {description}
             </p>
           </div>
           <button
@@ -75,33 +79,8 @@ export const TaskCreateModal = ({
           </div>
 
           <div className="grid gap-5 lg:grid-cols-3">
-            <label className="block space-y-2" htmlFor="type">
-              <span className="text-label-md text-on-surface">Type</span>
-              <select id="type" name="type" value={values.type} onChange={onChange} className={formControlClassName}>
-                {TASK_TYPE_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {formatLabel(option)}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="block space-y-2" htmlFor="priority">
-              <span className="text-label-md text-on-surface">Priority</span>
-              <select
-                id="priority"
-                name="priority"
-                value={values.priority}
-                onChange={onChange}
-                className={formControlClassName}
-              >
-                {TASK_PRIORITY_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {formatLabel(option)}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <TaskSelectField id="type" label="Type" value={values.type} options={TASK_TYPE_OPTIONS} onChange={onChange} />
+            <TaskSelectField id="priority" label="Priority" value={values.priority} options={TASK_PRIORITY_OPTIONS} onChange={onChange} />
 
             <FormField
               id="dueDate"
@@ -111,6 +90,7 @@ export const TaskCreateModal = ({
               onChange={onChange}
               error={fieldErrors.dueDate}
             />
+            <TaskResourceSelect resources={resources} value={values.resourceId} onChange={onChange} />
           </div>
 
           {submitError ? (

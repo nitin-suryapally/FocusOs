@@ -94,8 +94,7 @@ When planning work, prefer these small slices instead of broad module prompts.
 
 ### Project Ideas
 
-1. Project idea model, validation, and auth-protected CRUD backend with tests
-2. Project ideas page shell with loading, error, and empty states
+ 2. Project ideas page shell with loading, error, and empty states
 3. Ideas list wired to backend
 4. Create and edit project idea flow
 5. Detail view for progress notes, improvements, and next steps
@@ -120,7 +119,7 @@ When planning work, prefer these small slices instead of broad module prompts.
 
 ### Final Polish
 
-1. Responsive cleanup across auth and app shell
+1. Responsive cleanup across auth and app shell for mobile as well
 2. Accessibility pass on forms, navigation, and states
 3. Cross-module loading, error, and empty-state consistency
 4. Test hardening for regressions and shared workflows
@@ -167,3 +166,9 @@ server/
   src/utils
   tests
 ```
+
+## Current Frontend Refactor Flow
+
+- Keep page files orchestration-only and keep reusable UI beside its feature.
+- For Tasks, extract only meaningful boundaries: card status, task details, completion action, and form select fields.
+- Tasks edit/delete and optional linked-resource handling are complete. Next Tasks slice: decide whether deleting a Resource should clear, block, or retain its Task links before changing lifecycle behavior.

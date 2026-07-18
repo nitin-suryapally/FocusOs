@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+﻿import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -380,6 +380,7 @@ describe("ResourcesPage", () => {
     const resourceCard = screen.getByRole("heading", { name: /advanced hooks/i }).closest("article");
 
     await user.click(within(resourceCard).getByRole("button", { name: /delete resource/i }));
+    await user.click(within(screen.getByTestId("resource-delete-confirmation")).getByRole("button", { name: /^delete resource$/i }));
 
     await waitFor(() => {
       expect(deleteResourceRequestMock).toHaveBeenCalledWith("token-123", "resource-2");

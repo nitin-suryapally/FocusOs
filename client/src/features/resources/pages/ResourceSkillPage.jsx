@@ -1,9 +1,13 @@
-import { useEffect, useState } from "react";
+﻿import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { ConfirmActionModal } from "../../../components/ConfirmActionModal";
 import { useAuthToken } from "../../../store/useAuthStore";
 import { deleteResourceRequest, fetchResourcesRequest, updateResourceRequest } from "../api/resourcesApi";
 import { ResourceFormModal } from "../components/ResourceCreateModal";
-import { ResourceSkillResourceCard } from "../components/ResourceSkillResourceCard";
+import { ResourceSkillLoadingState } from "../components/ResourceSkillLoadingState";
+import { ResourceSkillNotFoundState } from "../components/ResourceSkillNotFoundState";
+import { ResourceSkillResourceList } from "../components/ResourceSkillResourceList";
+import { ResourceSkillUnavailableState } from "../components/ResourceSkillUnavailableState";
 import { buildResourcePayload, createResourceFormValues, validateResourceForm } from "../resourceForm";
 import {
   buildSkillPagePathFromTopic,
@@ -26,6 +30,7 @@ export const ResourceSkillPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [pendingDeleteId, setPendingDeleteId] = useState(null);
   const [actionMessage, setActionMessage] = useState(null);
+  const [resourceToDelete, setResourceToDelete] = useState(null);
 
   const loadResources = async () => {
     if (!token) {
@@ -131,15 +136,15 @@ export const ResourceSkillPage = () => {
     }
   };
 
-  const handleDeleteResource = async (resource) => {
+  const requestDeleteResource = (resource) => setResourceToDelete(resource);
+
+  const handleDeleteResource = async () => {
+    const resource = resourceToDelete;
     if (!token) {
       setError("Authentication required.");
       return;
     }
 
-    if (!window.confirm(`Delete ${resource.title}?`)) {
-      return;
-    }
 
     setPendingDeleteId(resource.id);
     setActionMessage(null);
@@ -159,68 +164,20 @@ export const ResourceSkillPage = () => {
       setError(requestError.message || "Unable to delete resource.");
     } finally {
       setPendingDeleteId(null);
+      setResourceToDelete(null);
     }
   };
 
   if (isLoading) {
-    return (
-      <section aria-label="Skill resources loading state" className="grid gap-4 lg:grid-cols-2">
-        {Array.from({ length: 2 }).map((_, index) => (
-          <div
-            key={index}
-            className="animate-pulse rounded-[24px] border border-outline-variant/60 bg-surface-container-lowest p-6 shadow-card"
-          >
-            <div className="h-3 w-24 rounded-full bg-surface-container-high" />
-            <div className="mt-4 h-8 w-40 rounded-full bg-surface-container-high" />
-            <div className="mt-4 h-4 w-full rounded-full bg-surface-container-high" />
-            <div className="mt-2 h-4 w-4/5 rounded-full bg-surface-container-high" />
-          </div>
-        ))}
-      </section>
-    );
+    return <ResourceSkillLoadingState />;
   }
 
   if (error && !skillPage) {
-    return (
-      <section className="rounded-[28px] border border-rose-200 bg-white/85 p-6 shadow-card backdrop-blur-sm sm:p-8">
-        <p className="text-label-sm uppercase tracking-[0.18em] text-rose-600">Could not load skill resources</p>
-        <h1 className="mt-3 text-2xl font-semibold text-on-surface">This skill page is unavailable right now.</h1>
-        <p className="mt-3 max-w-2xl text-body-md text-on-surface-variant">{error}</p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <button
-            type="button"
-            onClick={loadResources}
-            className="inline-flex items-center justify-center rounded-xl bg-primary px-4 py-3 text-label-md text-on-primary transition hover:opacity-90"
-          >
-            Retry
-          </button>
-          <Link
-            to="/app/resources"
-            className="inline-flex items-center justify-center rounded-xl border border-outline-variant px-4 py-3 text-label-md text-on-surface transition hover:bg-surface-container-low"
-          >
-            Back to library
-          </Link>
-        </div>
-      </section>
-    );
+    return <ResourceSkillUnavailableState error={error} onRetry={loadResources} />;
   }
 
   if (!skillPage) {
-    return (
-      <section className="rounded-[28px] border border-dashed border-outline-variant bg-white/75 p-6 shadow-card backdrop-blur-sm sm:p-8">
-        <p className="text-label-sm uppercase tracking-[0.18em] text-primary">Skill page not found</p>
-        <h1 className="mt-3 text-2xl font-semibold text-on-surface">This resource page does not exist yet.</h1>
-        <p className="mt-3 max-w-2xl text-body-md text-on-surface-variant">
-          Return to the library and open one of the available skill pages.
-        </p>
-        <Link
-          to="/app/resources"
-          className="mt-5 inline-flex items-center justify-center rounded-xl bg-primary px-4 py-3 text-label-md text-on-primary transition hover:opacity-90"
-        >
-          Back to library
-        </Link>
-      </section>
-    );
+    return <ResourceSkillNotFoundState />;
   }
 
   return (
@@ -247,33 +204,16 @@ export const ResourceSkillPage = () => {
         ) : null}
       </section>
 
-      <section className="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-card backdrop-blur-sm sm:p-8">
-        <div className="flex flex-col gap-3 border-b border-outline-variant/60 pb-5 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-label-sm uppercase tracking-[0.18em] text-primary">Resources</p>
-            <h2 className="mt-2 text-2xl font-semibold text-on-surface">Saved materials for this skill</h2>
-          </div>
-          <p className="text-body-sm text-on-surface-variant">{skillPages.length} total skill pages currently exist in the library.</p>
-        </div>
+      <ResourceSkillResourceList
+        skillPage={skillPage}
+        skillPageCount={skillPages.length}
+        error={error}
+        pendingDeleteId={pendingDeleteId}
+        onEdit={openEditModal}
+        onDelete={requestDeleteResource}
+      />
 
-        {error ? (
-          <div className="mt-6 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-body-sm text-rose-700">
-            {error}
-          </div>
-        ) : null}
-
-        <div className="mt-6 space-y-4">
-          {skillPage.resources.map((resource) => (
-            <ResourceSkillResourceCard
-              key={resource.id}
-              resource={resource}
-              onEdit={openEditModal}
-              onDelete={handleDeleteResource}
-              isDeleting={pendingDeleteId === resource.id}
-            />
-          ))}
-        </div>
-      </section>
+      <ConfirmActionModal isOpen={Boolean(resourceToDelete)} title="Delete resource?" description={`Delete ${resourceToDelete?.title || "this resource"}? Linked tasks will remain but no longer reference it.`} confirmLabel="Delete resource" isConfirming={Boolean(pendingDeleteId)} onCancel={() => setResourceToDelete(null)} onConfirm={handleDeleteResource} testId="resource-delete-confirmation" />
 
       <ResourceFormModal
         isOpen={Boolean(editingResource)}

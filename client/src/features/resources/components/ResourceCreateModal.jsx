@@ -1,7 +1,6 @@
-﻿import { FormField, formControlClassName, formTextAreaClassName } from "../../../components/FormField";
+﻿import { FormField, formTextAreaClassName } from "../../../components/FormField";
 import { RESOURCE_STATUS_OPTIONS, RESOURCE_TYPE_OPTIONS } from "../resourceOptions";
-
-const formatLabel = (value) => value.replace(/_/g, " ");
+import { ResourceSelectField } from "./ResourceSelectField";
 
 export const ResourceFormModal = ({
   isOpen,
@@ -74,27 +73,8 @@ export const ResourceFormModal = ({
           </div>
 
           <div className="grid gap-5 lg:grid-cols-2">
-            <label className="block space-y-2" htmlFor="type">
-              <span className="text-label-md text-on-surface">Type</span>
-              <select id="type" name="type" value={values.type} onChange={onChange} className={formControlClassName}>
-                {RESOURCE_TYPE_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {formatLabel(option)}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            <label className="block space-y-2" htmlFor="status">
-              <span className="text-label-md text-on-surface">Status</span>
-              <select id="status" name="status" value={values.status} onChange={onChange} className={formControlClassName}>
-                {RESOURCE_STATUS_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {formatLabel(option)}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <ResourceSelectField id="type" label="Type" value={values.type} options={RESOURCE_TYPE_OPTIONS} onChange={onChange} />
+            <ResourceSelectField id="status" label="Status" value={values.status} options={RESOURCE_STATUS_OPTIONS} onChange={onChange} />
           </div>
 
           <FormField

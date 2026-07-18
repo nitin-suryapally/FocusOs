@@ -4,6 +4,9 @@ const mockFind = vi.fn();
 const mockCreate = vi.fn();
 const mockFindOne = vi.fn();
 const mockFindOneAndUpdate = vi.fn();
+const mockUpdateMany = vi.fn();
+
+vi.mock("../src/models/Task.js", () => ({ Task: { updateMany: mockUpdateMany } }));
 
 vi.mock("../src/models/Resource.js", () => ({
   Resource: {
@@ -125,6 +128,7 @@ describe("resource service", () => {
     await deleteResource("user-1", "resource-1");
 
     expect(mockFindOne).toHaveBeenCalledWith({ _id: "resource-1", user: "user-1" });
+    expect(mockUpdateMany).toHaveBeenCalledWith({ user: "user-1", resource: "resource-1" }, { resource: null });
     expect(deleteOne).toHaveBeenCalled();
   });
 });

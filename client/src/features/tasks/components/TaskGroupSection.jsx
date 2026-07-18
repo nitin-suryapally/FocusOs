@@ -1,6 +1,16 @@
 ﻿import { TaskCard } from "./TaskCard";
 
-export const TaskGroupSection = ({ title, description, tasks, emptyMessage, togglingTaskIds, onToggleComplete }) => (
+export const TaskGroupSection = ({
+  title,
+  description,
+  tasks,
+  emptyMessage,
+  togglingTaskIds,
+  pendingDeleteId,
+  onToggleComplete,
+  onEdit,
+  onDelete
+}) => (
   <section className="rounded-[28px] border border-outline-variant/70 bg-surface/82 p-6 shadow-card backdrop-blur-sm sm:p-8">
     <div className="flex flex-col gap-3 border-b border-outline-variant/60 pb-5 sm:flex-row sm:items-end sm:justify-between">
       <div>
@@ -17,7 +27,10 @@ export const TaskGroupSection = ({ title, description, tasks, emptyMessage, togg
             key={task.id}
             task={task}
             isTogglePending={togglingTaskIds.has(task.id)}
+            isDeleting={pendingDeleteId === task.id}
             onToggleComplete={onToggleComplete}
+            onEdit={onEdit}
+            onDelete={onDelete}
           />
         ))}
       </div>

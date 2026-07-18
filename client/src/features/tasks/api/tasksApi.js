@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") || "";
+﻿const API_BASE_URL = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") || "";
 
 const buildUrl = (path) => `${API_BASE_URL}${path}`;
 
@@ -43,6 +43,18 @@ export const updateTaskRequest = async (token, taskId, payload) => {
       Authorization: `Bearer ${token}`
     },
     body: JSON.stringify(payload)
+  });
+
+  return parseJson(response);
+};
+
+
+export const deleteTaskRequest = async (token, taskId) => {
+  const response = await fetch(buildUrl(`/api/tasks/${taskId}`), {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
   });
 
   return parseJson(response);

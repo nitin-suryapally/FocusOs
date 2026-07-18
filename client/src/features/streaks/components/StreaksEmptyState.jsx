@@ -1,0 +1,3 @@
+export const StreaksEmptyState = () => (
+  <section className="rounded-[28px] border border-dashed border-outline-variant bg-surface/78 p-6 shadow-card backdrop-blur-sm sm:p-8"><p className="text-label-sm uppercase tracking-[0.18em] text-primary">Ready to begin</p><h2 className="mt-3 text-2xl font-semibold text-on-surface">No qualifying days yet.</h2><p className="mt-3 text-body-md text-on-surface-variant">Complete a task today to start your first streak.</p></section>
+);

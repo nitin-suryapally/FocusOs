@@ -62,6 +62,7 @@ describe("task service", () => {
       priority: "high",
       dueDate: "2026-07-20T00:00:00.000Z",
       completed: false,
+      completedAt: null,
       topic: "Backend"
     });
     expect(result).toEqual({
@@ -94,20 +95,19 @@ describe("task service", () => {
 
   it("updates only tasks owned by the user", async () => {
     mockFindOneAndUpdate.mockResolvedValue({
-      toSafeObject: () => ({ id: "task-1", completed: true, dueDate: null })
+      toSafeObject: () => ({ id: "task-1", dueDate: null })
     });
 
     const result = await updateTask("user-1", "task-1", {
-      completed: true,
       dueDate: ""
     });
 
     expect(mockFindOneAndUpdate).toHaveBeenCalledWith(
       { _id: "task-1", user: "user-1" },
-      { completed: true, dueDate: null },
+      { dueDate: null },
       { new: true, runValidators: true }
     );
-    expect(result).toEqual({ id: "task-1", completed: true, dueDate: null });
+    expect(result).toEqual({ id: "task-1", dueDate: null });
   });
 
   it("deletes only tasks owned by the user", async () => {
@@ -118,5 +118,28 @@ describe("task service", () => {
 
     expect(mockFindOne).toHaveBeenCalledWith({ _id: "task-1", user: "user-1" });
     expect(deleteOne).toHaveBeenCalled();
+  });
+  it("records completion time when completing a task and clears it when reopening", async () => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-07-18T12:00:00.000Z"));
+    mockFindOneAndUpdate.mockResolvedValue({ toSafeObject: () => ({ id: "task-1", completed: true, completedAt: new Date("2026-07-18T12:00:00.000Z") }) });
+
+    await updateTask("user-1", "task-1", { completed: true });
+
+    expect(mockFindOneAndUpdate).toHaveBeenCalledWith(
+      { _id: "task-1", user: "user-1" },
+      { completed: true, completedAt: new Date("2026-07-18T12:00:00.000Z") },
+      { new: true, runValidators: true }
+    );
+
+    mockFindOneAndUpdate.mockResolvedValue({ toSafeObject: () => ({ id: "task-1", completed: false, completedAt: null }) });
+    await updateTask("user-1", "task-1", { completed: false });
+
+    expect(mockFindOneAndUpdate).toHaveBeenLastCalledWith(
+      { _id: "task-1", user: "user-1" },
+      { completed: false, completedAt: null },
+      { new: true, runValidators: true }
+    );
+    vi.useRealTimers();
   });
 });
