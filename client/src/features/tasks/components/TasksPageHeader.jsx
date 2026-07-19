@@ -1,14 +1,13 @@
-﻿export const TasksPageHeader = ({ submitSuccess, taskActionError, onCreateTask }) => (
+export const TasksPageHeader = ({ submitSuccess, taskActionError, onCreateTask }) => (
   <section className="rounded-[28px] border border-outline-variant/70 bg-surface/82 p-6 shadow-card backdrop-blur-sm sm:p-8">
     <p className="text-label-sm uppercase tracking-[0.2em] text-primary">Tasks</p>
     <div className="mt-3 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
       <div className="max-w-3xl">
         <h1 className="text-3xl font-semibold tracking-[-0.03em] text-on-surface sm:text-4xl">
-          Keep work visible with clear groups for today, next, and done.
+          Plan what needs attention today, what comes next, and what is already done.
         </h1>
         <p className="mt-4 text-body-lg text-on-surface-variant">
-          The connected task feed is now split into Today, Upcoming, and Completed so the next slice can focus on
-          task actions instead of page structure.
+          Use the groups below to focus on today's work, plan ahead, and review completed tasks.
         </p>
       </div>
       <div className="flex w-full flex-col gap-3 lg:max-w-xs lg:items-end">
@@ -20,7 +19,7 @@
           Add task
         </button>
         <p className="text-body-sm text-on-surface-variant lg:text-right">
-          Capture a new item without leaving the grouped task workspace.
+          Add a task without leaving this page.
         </p>
       </div>
     </div>

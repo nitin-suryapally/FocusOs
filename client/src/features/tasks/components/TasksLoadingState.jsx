@@ -1,5 +1,5 @@
-﻿export const TasksLoadingState = () => (
-  <section aria-label="Tasks loading state" className="grid gap-4 lg:grid-cols-3">
+export const TasksLoadingState = () => (
+  <section role="status" aria-live="polite" aria-label="Tasks loading state" className="grid gap-4 lg:grid-cols-3">
     {Array.from({ length: 3 }).map((_, index) => (
       <div
         key={index}

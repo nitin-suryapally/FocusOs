@@ -1,6 +1,7 @@
-﻿import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { FormField } from "../../../components/FormField";
+import { markRegistrationOnboardingPending } from "../../onboarding/onboardingStorage";
 import {
   useAuthRegister,
   useAuthLogin,
@@ -66,7 +67,8 @@ export const AuthCard = ({ mode }) => {
 
     try {
       if (isRegisterMode) {
-        await register(values);
+        const result = await register(values);
+        markRegistrationOnboardingPending(result.user?.id);
       } else {
         await login({ email: values.email, password: values.password });
       }
@@ -88,8 +90,8 @@ export const AuthCard = ({ mode }) => {
         </h2>
         <p className="text-body-md text-on-surface-variant">
           {isRegisterMode
-            ? "Start with a secure account and sync your productivity system across modules."
-            : "Pick up where you left off with your tasks, streaks, resources, and project pipeline."}
+            ? "Create an account to keep your tasks, learning, projects, and applications together."
+            : "Return to your tasks, streaks, learning resources, projects, and applications."}
         </p>
       </div>
 
@@ -129,27 +131,27 @@ export const AuthCard = ({ mode }) => {
         />
 
         {error ? (
-          <div className="rounded-2xl border border-error/20 bg-error-container px-4 py-3 text-body-sm text-on-error-container">
+          <div role="alert" className="rounded-2xl border border-error/20 bg-error-container px-4 py-3 text-body-sm text-on-error-container">
             {error}
           </div>
         ) : (
           <div className="rounded-2xl border border-secondary-container/80 bg-secondary-container/35 px-4 py-3 text-body-sm text-on-secondary-container">
-            Secure JWT authentication with protected server routes.
+            Your workspace is private to your account.
           </div>
         )}
 
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-3 text-label-md text-on-primary shadow-card transition hover:shadow-elevated disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-3 text-label-md text-on-primary shadow-card transition hover:shadow-elevated focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isLoading ? "Working..." : isRegisterMode ? "Create account" : "Sign in"}
         </button>
       </form>
 
-      <div className="mt-6 flex items-center justify-between gap-3 border-t border-outline-variant/50 pt-5 text-body-sm text-on-surface-variant">
+      <div className="mt-6 flex flex-col items-start gap-3 border-t border-outline-variant/50 pt-5 text-body-sm text-on-surface-variant sm:flex-row sm:items-center sm:justify-between">
         <span>{isRegisterMode ? "Already have an account?" : "Need an account?"}</span>
-        <Link className="font-semibold text-primary" to={isRegisterMode ? "/login" : "/register"}>
+        <Link className="font-semibold text-primary focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary/20" to={isRegisterMode ? "/login" : "/register"}>
           {isRegisterMode ? "Sign in" : "Create one"}
         </Link>
       </div>

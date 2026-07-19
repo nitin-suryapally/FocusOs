@@ -33,8 +33,15 @@ describe("AppLayout", () => {
       </MemoryRouter>
     );
 
+    expect(screen.getAllByText("Focus AI")).toHaveLength(2);
+
     const menu = screen.getByLabelText("Workspace navigation");
     const openButton = screen.getByRole("button", { name: /open navigation menu/i });
+
+    expect(menu).toHaveClass("overflow-hidden");
+    const navigation = screen.getByRole("navigation", { name: "Primary workspace navigation" });
+    expect(navigation.parentElement).toHaveClass("flex-1", "overflow-y-auto");
+    expect(screen.getByRole("button", { name: "Sign out" })).toHaveClass("shrink-0");
 
     expect(menu).toHaveAttribute("data-state", "closed");
 

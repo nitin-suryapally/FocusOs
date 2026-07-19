@@ -1,4 +1,4 @@
-﻿import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 export const AuthLayout = () => {
   return (
@@ -12,26 +12,25 @@ export const AuthLayout = () => {
             </span>
             <div className="space-y-4">
               <h1 className="max-w-xl text-5xl font-bold leading-tight tracking-[-0.03em] text-on-surface">
-                Quiet structure for work that actually compounds.
+                One place to plan, learn, and follow through.
               </h1>
               <p className="max-w-lg text-body-lg text-on-surface-variant">
-                Track learning, execution, streaks, projects, and applications in one calm system built for
-                sustained deep work.
+                Keep tasks, learning resources, projects, and job applications organized so you can focus on what comes next.
               </p>
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-3">
             <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-low p-5 shadow-card">
-              <p className="text-3xl font-bold text-primary">5</p>
-              <p className="mt-2 text-body-sm text-on-surface-variant">Tasks lined up for today.</p>
+              <p className="text-3xl font-bold text-primary">Plan</p>
+              <p className="mt-2 text-body-sm text-on-surface-variant">See what needs attention today.</p>
             </div>
             <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-low p-5 shadow-card">
-              <p className="text-3xl font-bold text-tertiary">12</p>
-              <p className="mt-2 text-body-sm text-on-surface-variant">Current completion streak.</p>
+              <p className="text-3xl font-bold text-tertiary">Build</p>
+              <p className="mt-2 text-body-sm text-on-surface-variant">Turn completed tasks into daily momentum.</p>
             </div>
             <div className="rounded-2xl border border-outline-variant/60 bg-surface-container-low p-5 shadow-card">
-              <p className="text-3xl font-bold text-secondary">3</p>
-              <p className="mt-2 text-body-sm text-on-surface-variant">Projects with active next steps.</p>
+              <p className="text-3xl font-bold text-secondary">Move</p>
+              <p className="mt-2 text-body-sm text-on-surface-variant">Keep projects and applications moving forward.</p>
             </div>
           </div>
         </section>

@@ -1,9 +1,9 @@
 export const ResourcesLoadingState = () => (
-  <section aria-label="Resources loading state" className="grid gap-4 lg:grid-cols-3">
+  <section role="status" aria-live="polite" aria-label="Resources loading state" className="grid gap-4 lg:grid-cols-3">
     {Array.from({ length: 3 }).map((_, index) => (
       <div
         key={index}
-        className="animate-pulse rounded-[24px] border border-outline-variant/60 bg-surface-container-lowest p-6 shadow-card"
+        className="animate-pulse rounded-[24px] border border-outline-variant/60 bg-surface-container-low p-6 shadow-card"
       >
         <div className="h-3 w-24 rounded-full bg-surface-container-high" />
         <div className="mt-4 h-8 w-28 rounded-full bg-surface-container-high" />

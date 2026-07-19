@@ -1,8 +1,8 @@
-﻿const summaryCards = [
+const summaryCards = [
   {
     key: "total",
     label: "Total tasks",
-    description: "Everything currently pulled from the protected task feed."
+    description: "All tasks in your current workspace."
   },
   {
     key: "open",

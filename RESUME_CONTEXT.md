@@ -2,34 +2,31 @@
 
 ## What Changed
 
-- Completed the Job Applications slice with a detail view backed by the existing protected `GET /api/job-applications/:applicationId` endpoint.
-- Detail view shows application fields, saved URL, notes, and created/last-updated lifecycle history.
-- Added list links to the detail route; no Job Applications model or backend contract changes were needed.
+- Hid the sidebar navigation scrollbar across supported browsers while keeping the link list scrollable.
+- Added the existing Focus AI brand treatment to the mobile top bar beside the navigation-menu control.
+- Extended the app-shell regression test to confirm both Focus AI brand instances render.
 
 ## Files Touched
 
-- `client/src/app/router.jsx`
-- `client/src/features/jobApplications/api/jobApplicationsApi.js`
-- `client/src/features/jobApplications/components/JobApplicationDetailSummary.jsx`
-- `client/src/features/jobApplications/components/JobApplicationsList.jsx`
-- `client/src/features/jobApplications/pages/JobApplicationDetailPage.jsx`
-- `client/src/tests/jobApplications/JobApplicationDetailPage.test.jsx`
+- `client/src/layouts/AppLayout.jsx`
+- `client/src/styles/index.css`
+- `client/src/tests/app/AppLayout.test.jsx`
 - `RESUME_CONTEXT.md`
 
 ## Verification Status
 
-- Focused Job Applications client tests passed: 10/10.
-- Focused Job Applications backend route/service tests passed: 8/8.
+- Focused app-shell tests passed: 4/4.
 - `cd client; npm.cmd run build` passed.
-- Scoped diff whitespace check passed.
+- Scoped whitespace check passed.
 
 ## Known Gaps
 
-- No known Job Applications gaps within the documented scope.
-- Unrelated uncommitted Resources, Tasks, and Streaks changes remain intentionally preserved.
+- A manual browser check on a short mobile viewport remains useful to confirm the hidden-scrollbar navigation remains discoverable.
+- `ResourcesPage.test.jsx` has a timing-sensitive create test under the concurrent full suite; it passed in isolation during an earlier slice.
+- Unrelated uncommitted Resources, Tasks, Streaks, Dashboard, and onboarding changes remain intentionally preserved.
 
 ## Exact Next Restart Point
 
 1. Read `AGENT.md`, this file, and `prompts/bootstrap.md`.
-2. Start the next prioritized module, likely the Dashboard data contract, in a separate scoped slice.
-3. Keep the work scoped and add focused tests plus a client build for client behavior changes.
+2. Manually check the mobile top bar and sidebar at short viewport heights, including keyboard scrolling through all links.
+3. If confirmed, address the Resources concurrent-test timeout in a separate reliability slice; do not widen this shell polish.

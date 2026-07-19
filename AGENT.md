@@ -1,4 +1,4 @@
-﻿# Focus AI Agent Guide
+# Focus AI Agent Guide
 
 ## Mission
 
@@ -116,6 +116,18 @@ When planning work, prefer these small slices instead of broad module prompts.
 3. Dashboard overview cards and summary layout
 4. Recent activity and upcoming items sections
 5. Empty-state and partial-data handling
+
+### Registration-Only Feature Walkthrough Deck
+
+Add a client-only, session-scoped walkthrough that opens immediately after successful registration—not normal login—and introduces Dashboard, Resources, Tasks, Streaks, Project Ideas, and Job Applications.
+
+1. Add feature-local session-storage helpers keyed by `user.id`; set a pending walkthrough signal after registration only, with focused auth/state tests.
+2. Build an accessible, responsive onboarding dialog with a welcome step, progress indicator, Back, Next, Skip, Escape dismissal, and Finish controls.
+3. Add concise steps for Dashboard, Resources, Tasks, Streaks, Project Ideas, and Job Applications; each feature action dismisses the deck and navigates to its protected route.
+4. Mount the deck from `AppLayout` only for a pending registration signal; keep storage, content, and interactions feature-local.
+5. Test registration triggering, session persistence, controls, feature navigation, and normal-login non-display; run focused client tests and the client build.
+
+Assumptions: "new user" means immediately after registration; dismissal is scoped to the current browser session and user ID; no backend fields, routes, persistent onboarding state, or reopen-tour navigation are added.
 
 ### Final Polish
 

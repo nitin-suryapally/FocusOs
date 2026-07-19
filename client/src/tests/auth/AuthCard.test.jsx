@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -6,6 +6,9 @@ import { AuthCard } from "../../features/auth/components/AuthCard";
 
 const useAuthStoreMock = vi.fn();
 const navigateMock = vi.fn();
+const markRegistrationOnboardingPendingMock = vi.fn();
+
+vi.mock("../../features/onboarding/onboardingStorage", () => ({ markRegistrationOnboardingPending: (...args) => markRegistrationOnboardingPendingMock(...args) }));
 
 vi.mock("../../features/auth/store/useAuthStore", () => ({
   useAuthStore: (selector) => useAuthStoreMock(selector),
@@ -84,6 +87,18 @@ describe("AuthCard", () => {
     expect(navigateMock).toHaveBeenCalledWith("/app");
   });
 
+  it("marks onboarding pending only after registration succeeds", async () => {
+    const user = userEvent.setup();
+    const registerMock = vi.fn().mockResolvedValue({ token: "token", user: { id: "user-1" } });
+    useAuthStoreMock.mockImplementation((selector) => selector({ register: registerMock, login: vi.fn(), isLoading: false, error: null, clearError: vi.fn() }));
+    render(<MemoryRouter><AuthCard mode="register" /></MemoryRouter>);
+    await user.type(screen.getByLabelText(/full name/i), "Alex");
+    await user.type(screen.getByLabelText(/email/i), "alex@example.com");
+    await user.type(screen.getByLabelText(/password/i), "password123");
+    await user.click(screen.getByRole("button", { name: /create account/i }));
+    await waitFor(() => expect(markRegistrationOnboardingPendingMock).toHaveBeenCalledWith("user-1"));
+    expect(navigateMock).toHaveBeenCalledWith("/app");
+  });
   it("shows client-side validation errors before submitting", async () => {
     const user = userEvent.setup();
     const loginMock = vi.fn();

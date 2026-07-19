@@ -11,7 +11,7 @@ import { ProjectIdeasPage } from "../features/projectIdeas/pages/ProjectIdeasPag
 import { ProjectIdeaDetailPage } from "../features/projectIdeas/pages/ProjectIdeaDetailPage";
 import { JobApplicationsPage } from "../features/jobApplications/pages/JobApplicationsPage";
 import { JobApplicationDetailPage } from "../features/jobApplications/pages/JobApplicationDetailPage";
-import { AppOverviewPage } from "../pages/AppOverviewPage";
+import { DashboardPage } from "../features/dashboard/pages/DashboardPage";
 import { AppSectionPlaceholderPage } from "../pages/AppSectionPlaceholderPage";
 import { ProtectedRoute, PublicOnlyRoute } from "./routeGuards";
 
@@ -19,7 +19,7 @@ export const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/login" replace /> },
   { path: "/", element: <PublicOnlyRoute />, children: [{ element: <AuthLayout />, children: [{ path: "login", element: <LoginPage /> }, { path: "register", element: <RegisterPage /> }] }] },
   { path: "/app", element: <ProtectedRoute />, children: [{ element: <AppLayout />, children: [
-    { index: true, element: <AppOverviewPage /> },
+    { index: true, element: <DashboardPage /> },
     { path: "resources", element: <ResourcesPage /> },
     { path: "resources/:skillPageId", element: <ResourceSkillPage /> },
     { path: "tasks", element: <TasksPage /> },

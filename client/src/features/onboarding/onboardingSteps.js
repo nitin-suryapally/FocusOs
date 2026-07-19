@@ -1,0 +1,9 @@
+export const ONBOARDING_STEPS = [
+  { id: "welcome", eyebrow: "Welcome to Focus AI", title: "Your workspace is ready.", description: "Take a quick tour of the tools that keep daily work, learning, and opportunities in one focused system." },
+  { id: "dashboard", eyebrow: "Dashboard", title: "Start with the work that matters now.", description: "See task urgency, streak momentum, upcoming follow-ups, and recent workspace activity in one overview.", to: "/app", actionLabel: "Open Dashboard" },
+  { id: "resources", eyebrow: "Resources", title: "Keep useful learning material close.", description: "Save articles, courses, books, tools, and notes by topic so they are ready when you need them.", to: "/app/resources", actionLabel: "Open Resources" },
+  { id: "tasks", eyebrow: "Tasks", title: "Turn intention into a clear queue.", description: "Plan general and learning tasks with due dates, priorities, completion state, topics, and linked resources.", to: "/app/tasks", actionLabel: "Open Tasks" },
+  { id: "streaks", eyebrow: "Streaks", title: "Make consistency visible.", description: "Track your current and best qualifying-day streaks from completed tasks.", to: "/app/streaks", actionLabel: "Open Streaks" },
+  { id: "projects", eyebrow: "Project ideas", title: "Move promising ideas forward.", description: "Capture project ideas, record progress notes, and keep the next practical step visible.", to: "/app/projects", actionLabel: "Open Projects" },
+  { id: "applications", eyebrow: "Job applications", title: "Keep your opportunity pipeline current.", description: "Track application status, follow-up dates, notes, and the next move for each opportunity.", to: "/app/applications", actionLabel: "Open Applications" }
+];

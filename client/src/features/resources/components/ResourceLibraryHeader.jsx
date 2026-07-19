@@ -4,11 +4,10 @@ export const ResourceLibraryHeader = ({ submitSuccess, onCreateResource }) => (
     <div className="mt-3 flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
       <div className="max-w-3xl">
         <h1 className="text-3xl font-semibold tracking-[-0.03em] text-on-surface sm:text-4xl">
-          Organize skill pages and the resources each one needs.
+          Keep learning materials organized by skill.
         </h1>
         <p className="mt-4 text-body-lg text-on-surface-variant">
-          The Resource Library is the entry point for every skill page. Each page groups links, articles, notes,
-          and references for a specific skill so the library stays structured instead of becoming one long list.
+          Create a skill page, then save the links, courses, notes, and references you want to revisit.
         </p>
       </div>
       <div className="flex w-full flex-col gap-3 lg:max-w-xs lg:items-end">
@@ -20,7 +19,7 @@ export const ResourceLibraryHeader = ({ submitSuccess, onCreateResource }) => (
           Add resource
         </button>
         <p className="text-body-sm text-on-surface-variant lg:text-right">
-          Add a new item to the right skill page without leaving the library.
+          Save a useful resource to the right skill page.
         </p>
       </div>
     </div>

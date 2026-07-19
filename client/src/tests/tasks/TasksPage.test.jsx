@@ -1,4 +1,4 @@
-﻿import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -103,7 +103,7 @@ describe("TasksPage", () => {
     renderTasksPage();
 
     expect(await screen.findByText(/no tasks added yet/i)).toBeInTheDocument();
-    expect(screen.getByText(/general and learning tasks will show up here/i)).toBeInTheDocument();
+    expect(screen.getByText(/add a task to start planning your work here/i)).toBeInTheDocument();
   });
 
   it("shows client-side validation errors before creating a task", async () => {

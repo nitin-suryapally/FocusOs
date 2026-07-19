@@ -8,6 +8,7 @@ import { taskRouter } from "./routes/taskRoutes.js";
 import { streakRouter } from "./routes/streakRoutes.js";
 import { projectIdeaRouter } from "./routes/projectIdeaRoutes.js";
 import { jobApplicationRouter } from "./routes/jobApplicationRoutes.js";
+import { dashboardRouter } from "./routes/dashboardRoutes.js";
 import { errorHandler, notFoundHandler } from "./middleware/errorHandler.js";
 
 export const createApp = () => {
@@ -28,6 +29,7 @@ export const createApp = () => {
   app.use("/api/streaks", streakRouter);
   app.use("/api/project-ideas", projectIdeaRouter);
   app.use("/api/job-applications", jobApplicationRouter);
+  app.use("/api/dashboard", dashboardRouter);
   app.use(notFoundHandler);
   app.use(errorHandler);
 
