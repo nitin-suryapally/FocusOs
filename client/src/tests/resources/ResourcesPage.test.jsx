@@ -169,6 +169,8 @@ describe("ResourcesPage", () => {
     expect(screen.getByRole("heading", { name: /saved materials for this skill/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /react patterns/i })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: /advanced hooks/i })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: /^react$/i }).closest("section")).toHaveClass("bg-surface-container-low/90");
+    expect(within(screen.getByRole("heading", { name: /react patterns/i }).closest("article")).getByText(/^updated$/i).closest("div").parentElement.parentElement).toHaveClass("bg-surface-container");
     expect(screen.getByText(/watch this before state refactors/i)).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /open resource/i })[0]).toHaveAttribute(
       "href",

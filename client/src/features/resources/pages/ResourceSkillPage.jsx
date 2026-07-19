@@ -182,7 +182,7 @@ export const ResourceSkillPage = () => {
 
   return (
     <div className="space-y-6">
-      <section className="rounded-[28px] border border-white/70 bg-white/80 p-6 shadow-card backdrop-blur-sm sm:p-8">
+      <section className="rounded-[28px] border border-outline-variant/70 bg-surface-container-low/90 p-6 shadow-card backdrop-blur-sm sm:p-8">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-3xl">
             <p className="text-label-sm uppercase tracking-[0.2em] text-primary">Skill resources</p>

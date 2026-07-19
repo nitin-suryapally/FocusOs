@@ -17,16 +17,40 @@ import { ProtectedRoute, PublicOnlyRoute } from "./routeGuards";
 
 export const router = createBrowserRouter([
   { path: "/", element: <Navigate to="/login" replace /> },
-  { path: "/", element: <PublicOnlyRoute />, children: [{ element: <AuthLayout />, children: [{ path: "login", element: <LoginPage /> }, { path: "register", element: <RegisterPage /> }] }] },
-  { path: "/app", element: <ProtectedRoute />, children: [{ element: <AppLayout />, children: [
-    { index: true, element: <DashboardPage /> },
-    { path: "resources", element: <ResourcesPage /> },
-    { path: "resources/:skillPageId", element: <ResourceSkillPage /> },
-    { path: "tasks", element: <TasksPage /> },
-    { path: "streaks", element: <StreaksPage /> },
-    { path: "projects", element: <ProjectIdeasPage /> },
-    { path: "projects/:ideaId", element: <ProjectIdeaDetailPage /> },
-    { path: "applications", element: <JobApplicationsPage /> },
-    { path: "applications/:applicationId", element: <JobApplicationDetailPage /> }
-  ] }] }
+  {
+    path: "/",
+    element: <PublicOnlyRoute />,
+    children: [
+      {
+        element: <AuthLayout />,
+        children: [
+          { path: "login", element: <LoginPage /> },
+          { path: "register", element: <RegisterPage /> },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/app",
+    element: <ProtectedRoute />,
+    children: [
+      {
+        element: <AppLayout />,
+        children: [
+          { index: true, element: <DashboardPage /> },
+          { path: "resources", element: <ResourcesPage /> },
+          { path: "resources/:skillPageId", element: <ResourceSkillPage /> },
+          { path: "tasks", element: <TasksPage /> },
+          { path: "streaks", element: <StreaksPage /> },
+          { path: "projects", element: <ProjectIdeasPage /> },
+          { path: "projects/:ideaId", element: <ProjectIdeaDetailPage /> },
+          { path: "applications", element: <JobApplicationsPage /> },
+          {
+            path: "applications/:applicationId",
+            element: <JobApplicationDetailPage />,
+          },
+        ],
+      },
+    ],
+  },
 ]);

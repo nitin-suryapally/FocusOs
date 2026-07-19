@@ -20,7 +20,7 @@ export const ResourceSkillResourceCard = ({ resource, onEdit, onDelete, isDeleti
           {resource.notes ? <p className="mt-3 text-body-md text-on-surface-variant">{resource.notes}</p> : null}
         </div>
 
-        <div className="w-full max-w-sm rounded-[20px] border border-outline-variant/50 bg-white/70 p-4">
+        <div className="w-full max-w-sm rounded-[20px] border border-outline-variant/50 bg-surface-container p-4">
           <dl className="grid gap-3 text-body-sm text-on-surface-variant">
             <div className="flex items-center justify-between gap-4">
               <dt>Updated</dt>

@@ -16,11 +16,43 @@ export const DashboardPage = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const loadDashboard = async () => {
-    if (!token) { setDashboard(null); setError("Authentication required."); setIsLoading(false); return; }
-    setIsLoading(true); setError(null);
-    try { setDashboard(normalizeDashboard(await fetchDashboardRequest(token))); } catch (requestError) { setError(requestError.message || "Unable to load dashboard."); } finally { setIsLoading(false); }
+    if (!token) {
+      setDashboard(null);
+      setError("Authentication required.");
+      setIsLoading(false);
+      return;
+    }
+    setIsLoading(true);
+    setError(null);
+    try {
+      setDashboard(normalizeDashboard(await fetchDashboardRequest(token)));
+    } catch (requestError) {
+      setError(requestError.message || "Unable to load dashboard.");
+    } finally {
+      setIsLoading(false);
+    }
   };
-  useEffect(() => { loadDashboard(); }, [token]);
+  useEffect(() => {
+    loadDashboard();
+  }, [token]);
   const isEmpty = dashboard && isDashboardEmpty(dashboard);
-  return <div className="space-y-6"><DashboardHeader />{isLoading ? <DashboardLoadingState /> : null}{!isLoading && error ? <DashboardErrorState error={error} onRetry={loadDashboard} /> : null}{!isLoading && !error && isEmpty ? <DashboardEmptyState /> : null}{!isLoading && !error && dashboard && !isEmpty ? <><DashboardSummaryCards summary={dashboard.summary} /><div className="grid gap-6 xl:grid-cols-2"><DashboardUpcomingSection items={dashboard.upcoming} /><DashboardRecentActivitySection items={dashboard.recentActivity} /></div></> : null}</div>;
+  return (
+    <div className="space-y-6">
+      <DashboardHeader />
+      {isLoading ? <DashboardLoadingState /> : null}
+      {!isLoading && error ? (
+        <DashboardErrorState error={error} onRetry={loadDashboard} />
+      ) : null}
+      {!isLoading && !error && isEmpty ? <DashboardEmptyState /> : null}
+      {!isLoading && !error && dashboard && !isEmpty ? (
+        <>
+          <DashboardSummaryCards summary={dashboard.summary} />
+          <div className="grid gap-6 xl:grid-cols-2">
+            <DashboardUpcomingSection items={dashboard.upcoming} />
+            <DashboardRecentActivitySection items={dashboard.recentActivity} />
+          </div>
+        </>
+      ) : null}
+    </div>
+  );
 };
